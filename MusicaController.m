@@ -52,7 +52,7 @@
 			//TrayMenu *menu = [[TrayMenu alloc] init];
             menu = [[TrayMenu alloc] init];
 			
-			[theItem setImage:[NSImage imageNamed:@"trayIcon.png"]];
+			[theItem setImage:[NSImage imageNamed:@"trayIcon"]];
 			[theItem setHighlightMode:YES];
 			[theItem setMenu:[menu createMenu]];
 		}
