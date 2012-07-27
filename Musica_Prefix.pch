@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Musica' target in the 'Musica' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
