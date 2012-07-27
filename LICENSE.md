@@ -1,3 +1,3 @@
 License
 =======
-You can use any part of this code in provided you don't use it all in it's entirety. If you do use code please make sure to give credit where credit is due. You cannot use the images in this project for any use without the author's express consent. You are free to contribute code and other resources to the project.
+You can use any part of this code in provided you don't use it in it's entirety. Forking is the only exception to the being able to use the code in it's entirety. You may not however, distribute this project in binary form, I reserve that right. If you do use code please make sure to give credit where credit is due. You cannot use the images in this project for any use without the author's express consent. You are free to contribute code and other resources to the project.
