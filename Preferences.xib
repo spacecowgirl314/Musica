@@ -126,7 +126,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSMutableArray" key="NSToolbarIBAllowedItems">
+					<object class="NSArray" key="NSToolbarIBAllowedItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="55701259"/>
 						<reference ref="751192339"/>
@@ -800,19 +800,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.musicaEnableGrowl</string>
+						<string key="label">value: values.musicaEnableNotifications</string>
 						<reference key="source" ref="697871551"/>
 						<reference key="destination" ref="931602698"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="697871551"/>
 							<reference key="NSDestination" ref="931602698"/>
-							<string key="NSLabel">value: values.musicaEnableGrowl</string>
+							<string key="NSLabel">value: values.musicaEnableNotifications</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.musicaEnableGrowl</string>
+							<string key="NSKeyPath">values.musicaEnableNotifications</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">408</int>
+					<int key="connectionID">438</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1346,7 +1346,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">436</int>
+			<int key="maxID">438</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1360,6 +1360,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>gotoPluginWebpage:</string>
 							<string>relaunch:</string>
+							<string>segmentAction:</string>
 							<string>selectedWindowMode:</string>
 							<string>switchViews:</string>
 							<string>toggleDockArt:</string>
@@ -1368,6 +1369,7 @@
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1383,6 +1385,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>gotoPluginWebpage:</string>
 							<string>relaunch:</string>
+							<string>segmentAction:</string>
 							<string>selectedWindowMode:</string>
 							<string>switchViews:</string>
 							<string>toggleDockArt:</string>
@@ -1397,6 +1400,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">relaunch:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">segmentAction:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

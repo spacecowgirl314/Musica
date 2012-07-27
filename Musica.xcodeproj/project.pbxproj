@@ -13,7 +13,6 @@
 		3724084C12D9582600E11843 /* trayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3724084B12D9582600E11843 /* trayIcon.png */; };
 		372A63821233431B003723AE /* MusicaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 372A63811233431B003723AE /* MusicaController.m */; };
 		372A644A1233528D003723AE /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 372A64491233528D003723AE /* TransparentWindow.m */; };
-		372A663512336D8A003723AE /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 372A65C312336A61003723AE /* Growl Registration Ticket.growlRegDict */; };
 		372A67201233FE22003723AE /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 372A671F1233FE22003723AE /* Icon.icns */; };
 		372A68E21235B47B003723AE /* MissingArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 372A68E11235B47B003723AE /* MissingArtwork.png */; };
 		372A69D41235D714003723AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 372A69D31235D714003723AE /* QuartzCore.framework */; };
@@ -22,8 +21,6 @@
 		372B7D67123CBFF70064EBBE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 372B7D66123CBFF70064EBBE /* Credits.rtf */; };
 		373FF8D714764CE700180F67 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373FF8D614764CE700180F67 /* IOKit.framework */; };
 		3746B47F131CD433000B1890 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3746B47E131CD433000B1890 /* NSString+URLEncoding.m */; };
-		374D26851464D4E300ADDF00 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374D26841464D4E300ADDF00 /* Growl.framework */; };
-		374D26861464D51600ADDF00 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 374D26841464D4E300ADDF00 /* Growl.framework */; };
 		374EB1EF145B981A002BF193 /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374EB1EE145B981A002BF193 /* EyeTunes.framework */; };
 		374EB1F0145B9823002BF193 /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 374EB1EE145B981A002BF193 /* EyeTunes.framework */; };
 		37679FCB123B101B00D02483 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37679FCA123B101B00D02483 /* PreferencesController.m */; };
@@ -57,7 +54,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				374EB1F0145B9823002BF193 /* EyeTunes.framework in CopyFiles */,
-				374D26861464D51600ADDF00 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +77,6 @@
 		372A63811233431B003723AE /* MusicaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicaController.m; sourceTree = "<group>"; };
 		372A64481233528D003723AE /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
 		372A64491233528D003723AE /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
-		372A65C312336A61003723AE /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		372A671F1233FE22003723AE /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		372A68E11235B47B003723AE /* MissingArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MissingArtwork.png; sourceTree = "<group>"; };
 		372A69D31235D714003723AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -92,7 +87,6 @@
 		373FF8D614764CE700180F67 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		3746B47D131CD433000B1890 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		3746B47E131CD433000B1890 /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
-		374D26841464D4E300ADDF00 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = "../Growl-1.3-SDK/Framework/Growl.framework"; sourceTree = "<group>"; };
 		374EB1EE145B981A002BF193 /* EyeTunes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EyeTunes.framework; sourceTree = "<group>"; };
 		37646FBA1488553600EEFF51 /* EnumDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumDefinitions.h; sourceTree = "<group>"; };
 		37679FC9123B101B00D02483 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
@@ -133,7 +127,6 @@
 				373FF8D714764CE700180F67 /* IOKit.framework in Frameworks */,
 				37FAF6B5146CCFE300306F48 /* ServiceManagement.framework in Frameworks */,
 				374EB1EF145B981A002BF193 /* EyeTunes.framework in Frameworks */,
-				374D26851464D4E300ADDF00 /* Growl.framework in Frameworks */,
 				376BE89D1318BB3300E894F6 /* ScriptingBridge.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				372A69D41235D714003723AE /* QuartzCore.framework in Frameworks */,
@@ -206,7 +199,6 @@
 		29B97317FDCFA39411CA2CEA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				372A65C312336A61003723AE /* Growl Registration Ticket.growlRegDict */,
 				372B7D66123CBFF70064EBBE /* Credits.rtf */,
 				373878EC15C1FC37004D410D /* Images */,
 				372A671F1233FE22003723AE /* Icon.icns */,
@@ -225,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				374EB1EE145B981A002BF193 /* EyeTunes.framework */,
-				374D26841464D4E300ADDF00 /* Growl.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -375,7 +366,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				372A663512336D8A003723AE /* Growl Registration Ticket.growlRegDict in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				372A67201233FE22003723AE /* Icon.icns in Resources */,

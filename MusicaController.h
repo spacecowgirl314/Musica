@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <ScriptingBridge/ScriptingBridge.h>
 #import <EyeTunes/EyeTunes.h>
-#import <Growl/Growl.h>
 #import <Carbon/Carbon.h>
 #import "PreferencesController.h"
 #import "TrayMenu.h"
@@ -30,7 +29,7 @@
  musicaMenuBar put musica in menu bar
  musicaWindowMode an integer from NSPopUpButton selection
  musicaAlwaysShow don't show musica if no music is playing
- musicaEnableGrowl Enables Growl notifications
+ musicaEnableNotifications Enables Growl notifications
  musicaFirstRun Used to set up the default settings
  */
 
@@ -41,7 +40,7 @@
     audioPlayerRadium = 'Radium'
 } audioPlayer;*/
 
-@interface MusicaController : NSObject <GrowlApplicationBridgeDelegate, NSNetServiceDelegate, NSNetServiceBrowserDelegate, NSConnectionDelegate, NSApplicationDelegate> {
+@interface MusicaController : NSObject <NSNetServiceDelegate, NSNetServiceBrowserDelegate, NSConnectionDelegate, NSApplicationDelegate> {
 	IBOutlet NSImageView *imageView;
     IBOutlet NSImageView *buttonBar;
 	IBOutlet NSButton *pauseButton;

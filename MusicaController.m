@@ -36,13 +36,12 @@
 		NSLog(@"MusicaController Compiled as RELEASE");
 		// First run code. Set default settings here
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicaFirstRun"]) {
-			[[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicaEnableGrowl"];
+			[[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicaEnableNotifications"];
 			[[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicaFirstRun"];
 		}
 		#else
 		NSLog(@"MusicaController Not compiled as RELEASE");
 		#endif
-		[GrowlApplicationBridge setGrowlDelegate:self];
 		// Load in menu bar mode if that's what we chose
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaMenuBar"]) {
 			NSLog(@"MusicaController Menu bar should be loading.");
@@ -220,19 +219,6 @@
 }
 
 #pragma mark -
-#pragma mark Growl Registration
-
-- (NSDictionary*) registrationDictionaryForGrowl {
-	NSString* path = [[NSBundle mainBundle] pathForResource: @"Growl Registration Ticket" ofType: @"growlRegDict"];
-	NSDictionary* dictionary = [NSDictionary dictionaryWithContentsOfFile: path];
-	return dictionary;
-}
-
-- (BOOL) hasNetworkClientEntitlement {
-    return TRUE;
-}
-
-#pragma mark -
 #pragma mark The Juicy Bits
 
 -(void)monitorTunes {
@@ -391,21 +377,14 @@
         if (![[track name] isEqualToString:previousTrack] && [track name] != NULL) {
             NSLog(@"MusicaController Track changed to: %@", [track name]);
             previousTrack = [track name];
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableGrowl"]) {
-                [GrowlApplicationBridge notifyWithTitle: [track name]
-                                            description: [[NSString alloc] initWithFormat:@"%@ on \"%@\"", [track artist], [track album]]
-                                       notificationName: @"Musica"
-                                               iconData: albumData
-                                               priority: 0
-                                               isSticky: NO
-                                           clickContext: nil];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableNotifications"]) {
+                NSUserNotification *notification = [[NSUserNotification alloc] init];
+                [notification setTitle:[track name]];
+                [notification setInformativeText:[[NSString alloc] initWithFormat:@"\"%@\" by %@", [track album], [track artist]]];
+                //[notification setDeliveryDate:[NSDate date]];
+                NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
+                [center scheduleNotification:notification];
             }
-            NSUserNotification *notification = [[NSUserNotification alloc] init];
-            [notification setTitle:[track name]];
-            [notification setInformativeText:[[NSString alloc] initWithFormat:@"\"%@\" by %@", [track album], [track artist]]];
-            //[notification setDeliveryDate:[NSDate date]];
-            NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
-            [center scheduleNotification:notification];
         }
     }
     if (rdioUsable) {
