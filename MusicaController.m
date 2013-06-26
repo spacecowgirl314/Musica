@@ -350,7 +350,7 @@
     }
     
     //temp fix for waiting for app to load artwork
-    [self updateArtwork];
+    NSImage *artwork = [self updateArtwork];
     if (iTunesUsable) {
         ETTrack *track = [[ETTrack alloc] init];
         EyeTunes *e = [EyeTunes sharedInstance];
@@ -380,8 +380,9 @@
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableNotifications"]) {
                 NSUserNotification *notification = [[NSUserNotification alloc] init];
                 [notification setTitle:[track name]];
-                [notification setInformativeText:[[NSString alloc] initWithFormat:@"\"%@\" by %@", [track album], [track artist]]];
-                //[notification setDeliveryDate:[NSDate date]];
+				[notification setSubtitle:[track artist]];
+				[notification setContentImage:artwork];
+				[notification setInformativeText:[track album]];
                 NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
                 [center scheduleNotification:notification];
             }
@@ -464,7 +465,7 @@
     }
 }
 
--(void)updateArtwork {
+-(NSImage*)updateArtwork {
     if (([EyeTunes isRunning] && chosenPlayer==audioPlayeriTunes) || ([EyeTunes isRunning] && resolvingConflict==NO)) {
         NSArray *artworks = [[NSArray alloc] init];
 		EyeTunes *e = [EyeTunes sharedInstance];
@@ -490,6 +491,7 @@
                  [NSApp setApplicationIconImage: resultImage];*/
 				[NSApp setApplicationIconImage: albumImage];
 			}
+			return albumImage;
 		}
 		else {
 			NSLog(@"MusicaController No artwork found");
@@ -500,6 +502,7 @@
 				//[NSApp setApplicationIconImage: albumImage];
 				[NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
 			}
+			return albumImage;
 		}
 	}
     if (([Rdio isRunning] && chosenPlayer==audioPlayerRdio) || ([Rdio isRunning] && resolvingConflict==NO)) {
@@ -523,6 +526,7 @@
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
+		return albumImage;
     }
     if (([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO)) {
         //NSLog(@"SPOTIFY IMAGE DATA!!!");
@@ -542,6 +546,7 @@
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
+		return albumImage;
     }
     if (([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO)) {
         //NSLog(@"Radium awesomeness");
@@ -561,6 +566,7 @@
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
+		return albumImage;
     }
 }
 

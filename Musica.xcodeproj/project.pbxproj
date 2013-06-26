@@ -21,8 +21,6 @@
 		372B7D67123CBFF70064EBBE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 372B7D66123CBFF70064EBBE /* Credits.rtf */; };
 		373FF8D714764CE700180F67 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373FF8D614764CE700180F67 /* IOKit.framework */; };
 		3746B47F131CD433000B1890 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3746B47E131CD433000B1890 /* NSString+URLEncoding.m */; };
-		374EB1EF145B981A002BF193 /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374EB1EE145B981A002BF193 /* EyeTunes.framework */; };
-		374EB1F0145B9823002BF193 /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 374EB1EE145B981A002BF193 /* EyeTunes.framework */; };
 		37679FCB123B101B00D02483 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37679FCA123B101B00D02483 /* PreferencesController.m */; };
 		376BD453145BBE9D00A678C7 /* Cover-Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD452145BBE9D00A678C7 /* Cover-Overlay@2x.png */; };
 		376BD455145BC3C400A678C7 /* Bottom-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD454145BC3C400A678C7 /* Bottom-bar@2x.png */; };
@@ -33,6 +31,8 @@
 		376BD460145BC49600A678C7 /* Next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD45E145BC49600A678C7 /* Next@2x.png */; };
 		376BD461145BC49600A678C7 /* Previous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD45F145BC49600A678C7 /* Previous@2x.png */; };
 		376BE89D1318BB3300E894F6 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376BE89C1318BB3300E894F6 /* ScriptingBridge.framework */; };
+		376E119F177A903100C9D2ED /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376E119A177A900E00C9D2ED /* EyeTunes.framework */; };
+		376E11A0177A904C00C9D2ED /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 376E119A177A900E00C9D2ED /* EyeTunes.framework */; };
 		377AA0D6148809590063F928 /* QuickClickImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 377AA0D5148809590063F928 /* QuickClickImage.m */; };
 		37893F74124D8AAE0032BA6E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37893F73124D8AAE0032BA6E /* Security.framework */; };
 		378DF48D15C22C5A00AFD110 /* trayIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378DF48C15C22C5A00AFD110 /* trayIcon@2x.png */; };
@@ -45,6 +45,30 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		376E1199177A900E00C9D2ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 376E1193177A900E00C9D2ED /* EyeTunes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = EyeTunes;
+		};
+		376E119B177A900E00C9D2ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 376E1193177A900E00C9D2ED /* EyeTunes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 032C0D9C0C0DEA3100E2FE97;
+			remoteInfo = TestEyeTunes;
+		};
+		376E119D177A900E00C9D2ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 376E1193177A900E00C9D2ED /* EyeTunes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 03748E7A099D8AD4002F09C3;
+			remoteInfo = EyeTunesDebug;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		372A6374123342B8003723AE /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -52,7 +76,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				374EB1F0145B9823002BF193 /* EyeTunes.framework in CopyFiles */,
+				376E11A0177A904C00C9D2ED /* EyeTunes.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +110,6 @@
 		373FF8D614764CE700180F67 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		3746B47D131CD433000B1890 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		3746B47E131CD433000B1890 /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
-		374EB1EE145B981A002BF193 /* EyeTunes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EyeTunes.framework; sourceTree = "<group>"; };
 		37646FBA1488553600EEFF51 /* EnumDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumDefinitions.h; sourceTree = "<group>"; };
 		37679FC9123B101B00D02483 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		37679FCA123B101B00D02483 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
@@ -103,6 +126,7 @@
 		376BD467145BD6E100A678C7 /* Spotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
 		376BD468145BD96F00A678C7 /* Musica.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Musica.entitlements; sourceTree = "<group>"; };
 		376BE89C1318BB3300E894F6 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		376E1193177A900E00C9D2ED /* EyeTunes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EyeTunes.xcodeproj; path = Externals/EyeTunes/EyeTunes.xcodeproj; sourceTree = "<group>"; };
 		37756ABD1262AC0300B2AE02 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		377AA0D4148809590063F928 /* QuickClickImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickClickImage.h; sourceTree = "<group>"; };
 		377AA0D5148809590063F928 /* QuickClickImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickClickImage.m; sourceTree = "<group>"; };
@@ -122,10 +146,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				376E119F177A903100C9D2ED /* EyeTunes.framework in Frameworks */,
 				37893F74124D8AAE0032BA6E /* Security.framework in Frameworks */,
 				373FF8D714764CE700180F67 /* IOKit.framework in Frameworks */,
 				37FAF6B5146CCFE300306F48 /* ServiceManagement.framework in Frameworks */,
-				374EB1EF145B981A002BF193 /* EyeTunes.framework in Frameworks */,
 				376BE89D1318BB3300E894F6 /* ScriptingBridge.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				372A69D41235D714003723AE /* QuartzCore.framework in Frameworks */,
@@ -214,7 +238,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				374EB1EE145B981A002BF193 /* EyeTunes.framework */,
+				376E1193177A900E00C9D2ED /* EyeTunes.xcodeproj */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -303,6 +327,16 @@
 			name = Subclasses;
 			sourceTree = "<group>";
 		};
+		376E1194177A900E00C9D2ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				376E119A177A900E00C9D2ED /* EyeTunes.framework */,
+				376E119C177A900E00C9D2ED /* TestEyeTunes */,
+				376E119E177A900E00C9D2ED /* EyeTunesDebug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -333,6 +367,11 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = Ozipto;
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						DevelopmentTeam = 6NCU93DHDW;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Musica" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -353,12 +392,42 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Musica */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 376E1194177A900E00C9D2ED /* Products */;
+					ProjectRef = 376E1193177A900E00C9D2ED /* EyeTunes.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Musica */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		376E119A177A900E00C9D2ED /* EyeTunes.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = EyeTunes.framework;
+			remoteRef = 376E1199177A900E00C9D2ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		376E119C177A900E00C9D2ED /* TestEyeTunes */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = TestEyeTunes;
+			remoteRef = 376E119B177A900E00C9D2ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		376E119E177A900E00C9D2ED /* EyeTunesDebug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = EyeTunesDebug.app;
+			remoteRef = 376E119D177A900E00C9D2ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -434,7 +503,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Musica.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Chloe Stars";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -457,7 +526,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Musica;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3F110743-570D-4740-AD6A-B2F42F01B30B";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -469,7 +538,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Musica.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Chloe Stars";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -490,7 +559,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Musica;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3F110743-570D-4740-AD6A-B2F42F01B30B";
 				SDKROOT = macosx;
 			};
 			name = Release;

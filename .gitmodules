@@ -1,0 +1,3 @@
+[submodule "Externals/EyeTunes"]
+	path = Externals/EyeTunes
+	url = https://github.com/kgn/EyeTunes.git

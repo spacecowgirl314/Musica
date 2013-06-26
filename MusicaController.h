@@ -82,7 +82,7 @@
 - (NSDictionary *) registrationDictionaryForGrowl;
 
 -(void)monitorTunes;
--(void)updateArtwork;
+-(NSImage*)updateArtwork;
 -(void)loadBundles;
 -(void)restoreWindowPosition;
 -(void)updateTrackingArea;
