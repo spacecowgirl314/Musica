@@ -49,6 +49,7 @@
 		}
         // Turn off opacity so that the parts of the window that are not drawn into are transparent.
         [self setOpaque:NO];
+		//[self setBackgroundColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.0]];  //Tells the window to use a transparent colour.
         // allow preferences to tap into instant update
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(updateWindowMode) 

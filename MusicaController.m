@@ -7,6 +7,7 @@
 //
 
 #import "MusicaController.h"
+#import "Track.h"
 
 @implementation MusicaController
 
@@ -114,6 +115,16 @@
     Radium = [SBApplication applicationWithBundleIdentifier:@"com.catpigstudios.Radium3"];
 	
 	[webView setDrawsBackground:NO];
+	float width = [themeDictionary[@"BTWindowWidth"] doubleValue];
+	float height = [themeDictionary[@"BTWindowHeight"] doubleValue];
+	//NSRect frame = NSMakeRect(webView.frame.origin.x, webView.frame.origin.y, width, height);
+	NSRect windowFrame = NSMakeRect(self.window.frame.origin.x, self.window.frame.origin.y, width, height);
+	//[window setFrame:windowFrame display:NO];
+	[window setOpaque:NO];
+	[window setBackgroundColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.0]];  //Tells the window to use a transparent colour.
+	//[webView setFrame:frame];
+	[window center];
+	player = [[Player alloc] init];
 	
 	NSOpenPanel *panel = [NSOpenPanel openPanel];
 	[panel setCanChooseFiles:YES];
@@ -124,7 +135,8 @@
 	
 	if (clicked == NSFileHandlingPanelOKButton) {
 		// TODO: read the plist's location for the main html file
-		NSURL *indexFile = [[panel URL] URLByAppendingPathComponent:@"index.html"];
+		themeDictionary = [NSDictionary dictionaryWithContentsOfURL:[[panel URL] URLByAppendingPathComponent:@"Info.plist"]];
+		NSURL *indexFile = [[panel URL] URLByAppendingPathComponent:themeDictionary[@"BTMainFile"]];
 		[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];
 	}
 	
@@ -247,6 +259,9 @@
         //ETTrack *track = [[ETTrack alloc] init];
         EyeTunes *e = [EyeTunes sharedInstance];
         playerState = [e playerState];
+		// update Player info here
+		player.playerPosition = [e playerPosition];
+		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@()",themeDictionary[@"BTStatusFunction"]]];
         //track = [e currentTrack];
         //playerState = [iTunes playerState];
     }
@@ -389,10 +404,12 @@
             
             NSLog(@"MusicaController Did we get called after animation has started");
             previousAlbum = [track album];
+			[self trackChanged:track];
         }
         if (![[track name] isEqualToString:previousTrack] && [track name] != NULL) {
             NSLog(@"MusicaController Track changed to: %@", [track name]);
             previousTrack = [track name];
+			[self trackChanged:track];
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableNotifications"]) {
                 NSUserNotification *notification = [[NSUserNotification alloc] init];
                 [notification setTitle:[track name]];
@@ -493,8 +510,7 @@
 			NSLog(@"MusicaController Artwork found");
 			NSImage *albumImage = [artworks objectAtIndex:0];
 			albumData = [albumImage TIFFRepresentation];
-			//NSString *artworkURL = @"http://images.apple.com/autopush/us/itunes/charts/albums/images/2013/6/52aa5008-4934-0c27-a08d-8ebd7d13c030886443919266.jpg";
-			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"artworkUpdate('data:image/tiff;base64,%@')", [albumData base64Encoding]]];
+			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 			[imageView setImage:albumImage];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
 				// Overlay icon over album art
@@ -592,14 +608,25 @@
 #pragma mark -
 #pragma mark Theming
 
+- (void)trackChanged:(ETTrack*)track
+{
+	WebScriptObject *scriptObject = [webView windowScriptObject];
+	Track *theTrack = [[Track alloc] init];
+	[theTrack setTitle:track.name];
+	[theTrack setAlbum:track.album];
+	[theTrack setArtist:track.albumArtist];
+	[theTrack setGenre:track.genre];
+	[theTrack setLength:[NSNumber numberWithInt:track.duration]];
+	player.currentTrack = theTrack;
+	[scriptObject setValue:theTrack forKey:@"theTrack"];
+	NSString *trackScript = [[NSString alloc] initWithFormat:@"%@(window.theTrack);",themeDictionary[@"BTTrackFunction"]];
+	[webView stringByEvaluatingJavaScriptFromString:trackScript];
+	[scriptObject removeWebScriptKey:@"theTrack"];
+}
+
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
-	// begin webkit stuff
-	//NSString *artworkURL = @"http://images.apple.com/autopush/us/itunes/charts/albums/images/2013/6/52aa5008-4934-0c27-a08d-8ebd7d13c030886443919266.jpg";
-	//NSImage *artwork = [self updateArtwork];
-	//[[webView windowScriptObject] evaluateWebScript:[[NSString alloc] initWithFormat:@"artworkUpdate('%@')", artworkURL]];
-	//[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"artworkUpdate('data:image/png;base64,%@')", artworkData]];
-	//[webView stringByEvaluatingJavaScriptFromString:@"alert('test');"];
-	// end webkit stuff
+	[[webView windowScriptObject] setValue:player forKey:@"Player"];
+	[[webView windowScriptObject] setValue:player forKey:@"iTunes"];
 }
 
 #pragma mark -

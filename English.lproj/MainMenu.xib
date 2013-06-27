@@ -218,48 +218,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="356" height="376"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView id="566">
-                        <rect key="frame" x="0.0" y="206" width="170" height="170"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="MissingArtwork" id="567"/>
-                    </imageView>
-                    <imageView id="602" customClass="QuickClickImage">
-                        <rect key="frame" x="0.0" y="206" width="170" height="170"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="axesIndependently" image="Cover-Overlay@2x" id="603"/>
-                    </imageView>
-                    <imageView id="604">
-                        <rect key="frame" x="-73" y="158" width="320" height="48"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="Bottom-bar@2x" id="605"/>
-                    </imageView>
-                    <button id="557">
-                        <rect key="frame" x="51" y="150" width="69" height="69"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Play@2x" imagePosition="only" alignment="center" alternateImage="Play-Pressed@2x" imageScaling="proportionallyDown" id="558">
-                            <behavior key="behavior" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                    </button>
-                    <button id="559">
-                        <rect key="frame" x="17" y="163" width="26" height="32"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Previous@2x" imagePosition="only" alignment="center" imageScaling="proportionallyDown" id="560">
-                            <behavior key="behavior" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                    </button>
-                    <button id="561">
-                        <rect key="frame" x="128" y="169" width="26" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="Next@2x" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="562">
-                            <behavior key="behavior" lightByContents="YES"/>
-                            <font key="font" metaFont="system" size="10"/>
-                        </buttonCell>
-                    </button>
                     <webView id="AJq-8B-ltK">
-                        <rect key="frame" x="0.0" y="0.0" width="356" height="161"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="356" height="376"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                             <nil key="identifier"/>
                         </webPreferences>
@@ -275,74 +236,10 @@
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="537" customClass="MusicaController">
             <connections>
-                <action selector="next:" destination="561" id="564"/>
                 <action selector="openPreferences:" destination="129" id="577"/>
-                <action selector="playPause:" destination="557" id="563"/>
-                <action selector="prev:" destination="559" id="565"/>
-                <outlet property="buttonBar" destination="604" id="612"/>
-                <outlet property="glossOverlay" destination="602" id="613"/>
-                <outlet property="imageView" destination="566" id="568"/>
-                <outlet property="nextButton" destination="561" id="576"/>
-                <outlet property="pauseButton" destination="557" id="574"/>
-                <outlet property="previousButton" destination="559" id="575"/>
                 <outlet property="webView" destination="AJq-8B-ltK" id="KZT-pa-bfo"/>
                 <outlet property="window" destination="371" id="578"/>
             </connections>
         </customObject>
     </objects>
-    <resources>
-        <image name="Bottom-bar@2x" width="320" height="48"/>
-        <image name="Cover-Overlay@2x" width="256" height="256"/>
-        <image name="MissingArtwork" width="600" height="600"/>
-        <image name="Next@2x" width="26" height="26"/>
-        <image name="Play-Pressed@2x" width="69" height="58"/>
-        <image name="Play@2x" width="69" height="58"/>
-        <image name="Previous@2x" width="26" height="26"/>
-    </resources>
-    <classes>
-        <class className="MusicaAppDelegate" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MusicaAppDelegate.h"/>
-            <relationships>
-                <relationship kind="outlet" name="window" candidateClass="NSWindow"/>
-            </relationships>
-        </class>
-        <class className="MusicaController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MusicaController.h"/>
-            <relationships>
-                <relationship kind="action" name="next:"/>
-                <relationship kind="action" name="openArtistInfo:"/>
-                <relationship kind="action" name="openPreferences:"/>
-                <relationship kind="action" name="playPause:"/>
-                <relationship kind="action" name="prev:"/>
-                <relationship kind="action" name="resizeWindow:"/>
-                <relationship kind="outlet" name="buttonBar" candidateClass="NSImageView"/>
-                <relationship kind="outlet" name="glossOverlay" candidateClass="QuickClickImage"/>
-                <relationship kind="outlet" name="imageView" candidateClass="NSImageView"/>
-                <relationship kind="outlet" name="infoButton" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="pauseButton" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="previousButton" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="resizeButton" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="testView" candidateClass="NSImageView"/>
-                <relationship kind="outlet" name="webView" candidateClass="WebView"/>
-                <relationship kind="outlet" name="window" candidateClass="NSWindow"/>
-            </relationships>
-        </class>
-        <class className="NSTextView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSTextView.h"/>
-            <relationships>
-                <relationship kind="action" name="orderFrontSharingServicePicker:"/>
-                <relationship kind="action" name="toggleQuickLookPreviewPanel:"/>
-            </relationships>
-        </class>
-        <class className="QuickClickImage" superclassName="NSImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuickClickImage.h"/>
-        </class>
-        <class className="WebView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WebView.h"/>
-            <relationships>
-                <relationship kind="action" name="reloadFromOrigin:"/>
-            </relationships>
-        </class>
-    </classes>
 </document>

@@ -20,6 +20,7 @@
 #import "Radium.h"
 #import "AWRippler.h"
 #import "QuickClickImage.h"
+#import "Player.h"
 #import "EnumDefinitions.h"
 
 /**
@@ -49,7 +50,7 @@
 	IBOutlet NSButton *nextButton;
 	IBOutlet NSButton *resizeButton;
     IBOutlet NSButton *infoButton;
-	IBOutlet NSWindow *__unsafe_unretained window;
+	IBOutlet NSWindow *window;
     IBOutlet QuickClickImage *glossOverlay;
 	IBOutlet WebView *webView;
 	NSString *previousTrack;
@@ -62,12 +63,14 @@
 	NSManagedObjectContext *remoteMusicaContext;
 	NSMutableArray *musicaServices;
 	NSTrackingArea *myTrackingArea;
+	NSDictionary *themeDictionary;
 	//iTunesApplication *iTunes;
     RdioApplication *Rdio;
     SpotifyApplication *Spotify;
     RadiumApplication *Radium;
 	BOOL mouseInWindow;
     TrayMenu *menu;
+	Player *player;
 	
 	// controllers
 	PreferencesController *preferencesController;
@@ -92,7 +95,7 @@
 
 -(NSString*)currentTrack;
 
-@property (unsafe_unretained) IBOutlet NSWindow *window; //unsafe_unretained
+@property IBOutlet NSWindow *window; //unsafe_unretained
 @property (strong, nonatomic) PreferencesController *preferencesController;
 
 - (IBAction) prev:(id)sender;
