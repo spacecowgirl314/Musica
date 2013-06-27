@@ -33,6 +33,8 @@
 		376BE89D1318BB3300E894F6 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376BE89C1318BB3300E894F6 /* ScriptingBridge.framework */; };
 		376E119F177A903100C9D2ED /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376E119A177A900E00C9D2ED /* EyeTunes.framework */; };
 		376E11A0177A904C00C9D2ED /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 376E119A177A900E00C9D2ED /* EyeTunes.framework */; };
+		376E11A2177A9D5F00C9D2ED /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376E11A1177A9D5F00C9D2ED /* JavaScriptCore.framework */; };
+		376E11A3177AA18800C9D2ED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F47A54126975F1007237DA /* WebKit.framework */; };
 		377AA0D6148809590063F928 /* QuickClickImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 377AA0D5148809590063F928 /* QuickClickImage.m */; };
 		37893F74124D8AAE0032BA6E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37893F73124D8AAE0032BA6E /* Security.framework */; };
 		378DF48D15C22C5A00AFD110 /* trayIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378DF48C15C22C5A00AFD110 /* trayIcon@2x.png */; };
@@ -127,6 +129,7 @@
 		376BD468145BD96F00A678C7 /* Musica.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Musica.entitlements; sourceTree = "<group>"; };
 		376BE89C1318BB3300E894F6 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		376E1193177A900E00C9D2ED /* EyeTunes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EyeTunes.xcodeproj; path = Externals/EyeTunes/EyeTunes.xcodeproj; sourceTree = "<group>"; };
+		376E11A1177A9D5F00C9D2ED /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		37756ABD1262AC0300B2AE02 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		377AA0D4148809590063F928 /* QuickClickImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickClickImage.h; sourceTree = "<group>"; };
 		377AA0D5148809590063F928 /* QuickClickImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickClickImage.m; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				376E11A3177AA18800C9D2ED /* WebKit.framework in Frameworks */,
+				376E11A2177A9D5F00C9D2ED /* JavaScriptCore.framework in Frameworks */,
 				376E119F177A903100C9D2ED /* EyeTunes.framework in Frameworks */,
 				37893F74124D8AAE0032BA6E /* Security.framework in Frameworks */,
 				373FF8D714764CE700180F67 /* IOKit.framework in Frameworks */,
@@ -177,6 +182,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				376E11A1177A9D5F00C9D2ED /* JavaScriptCore.framework */,
 				373FF8D614764CE700180F67 /* IOKit.framework */,
 				37FAF6B4146CCFE300306F48 /* ServiceManagement.framework */,
 				376BE89C1318BB3300E894F6 /* ScriptingBridge.framework */,
@@ -370,6 +376,11 @@
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
 						DevelopmentTeam = 6NCU93DHDW;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

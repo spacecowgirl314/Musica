@@ -111,7 +111,23 @@
 	//iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
     Rdio = [SBApplication applicationWithBundleIdentifier:@"com.rdio.desktop"];
     Spotify = [SBApplication applicationWithBundleIdentifier:@"com.spotify.client"];
-    Radium = [SBApplication applicationWithBundleIdentifier:@"com.catpigstudios.Radium"];
+    Radium = [SBApplication applicationWithBundleIdentifier:@"com.catpigstudios.Radium3"];
+	
+	[webView setDrawsBackground:NO];
+	
+	NSOpenPanel *panel = [NSOpenPanel openPanel];
+	[panel setCanChooseFiles:YES];
+	[panel setCanChooseDirectories:YES];
+	[panel setAllowsMultipleSelection:NO]; // yes if more than one dir is allowed
+	
+	NSInteger clicked = [panel runModal];
+	
+	if (clicked == NSFileHandlingPanelOKButton) {
+		// TODO: read the plist's location for the main html file
+		NSURL *indexFile = [[panel URL] URLByAppendingPathComponent:@"index.html"];
+		[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];
+	}
+	
 	NSLog(@"MusicaController Awoken from Nib");
 	// Begin the fadeIn
 	//[window setAlphaValue:0.0];
@@ -477,6 +493,8 @@
 			NSLog(@"MusicaController Artwork found");
 			NSImage *albumImage = [artworks objectAtIndex:0];
 			albumData = [albumImage TIFFRepresentation];
+			//NSString *artworkURL = @"http://images.apple.com/autopush/us/itunes/charts/albums/images/2013/6/52aa5008-4934-0c27-a08d-8ebd7d13c030886443919266.jpg";
+			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"artworkUpdate('data:image/tiff;base64,%@')", [albumData base64Encoding]]];
 			[imageView setImage:albumImage];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
 				// Overlay icon over album art
@@ -568,6 +586,20 @@
         }
 		return albumImage;
     }
+	return nil;
+}
+
+#pragma mark -
+#pragma mark Theming
+
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+	// begin webkit stuff
+	//NSString *artworkURL = @"http://images.apple.com/autopush/us/itunes/charts/albums/images/2013/6/52aa5008-4934-0c27-a08d-8ebd7d13c030886443919266.jpg";
+	//NSImage *artwork = [self updateArtwork];
+	//[[webView windowScriptObject] evaluateWebScript:[[NSString alloc] initWithFormat:@"artworkUpdate('%@')", artworkURL]];
+	//[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"artworkUpdate('data:image/png;base64,%@')", artworkData]];
+	//[webView stringByEvaluatingJavaScriptFromString:@"alert('test');"];
+	// end webkit stuff
 }
 
 #pragma mark -

@@ -11,6 +11,7 @@
 #import <ScriptingBridge/ScriptingBridge.h>
 #import <EyeTunes/EyeTunes.h>
 #import <Carbon/Carbon.h>
+#import <WebKit/WebKit.h>
 #import "PreferencesController.h"
 #import "TrayMenu.h"
 #import "iTunes.h"
@@ -50,6 +51,7 @@
     IBOutlet NSButton *infoButton;
 	IBOutlet NSWindow *__unsafe_unretained window;
     IBOutlet QuickClickImage *glossOverlay;
+	IBOutlet WebView *webView;
 	NSString *previousTrack;
 	NSString *previousAlbum;
 	NSData *albumData;
