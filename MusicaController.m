@@ -115,6 +115,10 @@
     Radium = [SBApplication applicationWithBundleIdentifier:@"com.catpigstudios.Radium3"];
 	
 	[webView setDrawsBackground:NO];
+	[webView setFrameLoadDelegate:self];
+	[webView setUIDelegate:self];
+	[webView setEditingDelegate:self];
+	
 	float width = [themeDictionary[@"BTWindowWidth"] doubleValue];
 	float height = [themeDictionary[@"BTWindowHeight"] doubleValue];
 	//NSRect frame = NSMakeRect(webView.frame.origin.x, webView.frame.origin.y, width, height);
@@ -123,22 +127,8 @@
 	[window setOpaque:NO];
 	[window setBackgroundColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.0]];  //Tells the window to use a transparent colour.
 	//[webView setFrame:frame];
-	[window center];
+	//[window center];
 	player = [[Player alloc] init];
-	
-	NSOpenPanel *panel = [NSOpenPanel openPanel];
-	[panel setCanChooseFiles:YES];
-	[panel setCanChooseDirectories:YES];
-	[panel setAllowsMultipleSelection:NO]; // yes if more than one dir is allowed
-	
-	NSInteger clicked = [panel runModal];
-	
-	if (clicked == NSFileHandlingPanelOKButton) {
-		// TODO: read the plist's location for the main html file
-		themeDictionary = [NSDictionary dictionaryWithContentsOfURL:[[panel URL] URLByAppendingPathComponent:@"Info.plist"]];
-		NSURL *indexFile = [[panel URL] URLByAppendingPathComponent:themeDictionary[@"BTMainFile"]];
-		[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];
-	}
 	
 	NSLog(@"MusicaController Awoken from Nib");
 	// Begin the fadeIn
@@ -259,9 +249,6 @@
         //ETTrack *track = [[ETTrack alloc] init];
         EyeTunes *e = [EyeTunes sharedInstance];
         playerState = [e playerState];
-		// update Player info here
-		player.playerPosition = [e playerPosition];
-		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@()",themeDictionary[@"BTStatusFunction"]]];
         //track = [e currentTrack];
         //playerState = [iTunes playerState];
     }
@@ -273,7 +260,7 @@
         spotifyPlayerState = [Spotify playerState];
     }
     if ([Radium isRunning]) {
-        radiumPlayerState = [[Radium player] playing];
+        radiumPlayerState = [Radium playing];
     }
     
     // Analyzing the current running programs
@@ -367,16 +354,20 @@
     if ((iTunesUsable==TRUE && playerState == kETPlayerStatePaused) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPaused) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPaused) || (radiumUsable==TRUE && radiumPlayerState==FALSE)) {
         [pauseButton setImage:[NSImage imageNamed:@"Play@2x.png"]];
         [pauseButton setAlternateImage:[NSImage imageNamed:@"Play-Pressed@2x.png"]];
+		// update theme playState variable
+		player.playState=@2;
         //NSLog(@"MusicaController iTunes is paused");
     }
     if ((iTunesUsable==TRUE && playerState == kETPlayerStatePlaying) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPlaying) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPlaying) || (radiumUsable==TRUE && radiumPlayerState==TRUE)) {
         [pauseButton setImage:[NSImage imageNamed:@"Pause@2x.png"]];
         [pauseButton setAlternateImage:[NSImage imageNamed:@"Pause-Pressed@2x.png"]];
+		player.playState=@1;
         //NSLog(@"MusicaController iTunes is playing");
     }
     if ((iTunesUsable==TRUE && playerState == kETPlayerStateStopped) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSStopped) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSStopped)) {
         [pauseButton setImage:[NSImage imageNamed:@"Play@2x.png"]];
         [pauseButton setAlternateImage:[NSImage imageNamed:@"Play-Pressed@2x.png"]];
+		player.playState=@0;
         //NSLog(@"MusicaController iTunes is stopped");
     }
     
@@ -386,6 +377,17 @@
         ETTrack *track = [[ETTrack alloc] init];
         EyeTunes *e = [EyeTunes sharedInstance];
         track = [e currentTrack];
+		// register variables and callbacks with the theme
+		player.playerPosition = [NSNumber numberWithInt:[e playerPosition]];
+		[player setPlayCallback:^(){
+			[e play];
+		}];
+		[player setPlayPauseCallback:^(){
+			[e playPause];
+		}];
+		[player setPauseCallback:^(){
+			[e play];
+		}];
         if ([track name]==NULL) {
             NSLog(@"MusicaController No music is playing");
             //[self updateArtwork];
@@ -449,6 +451,18 @@
     }
     if (spotifyUsable) {
         SpotifyTrack *track = [Spotify currentTrack];
+		// register variables and callbacks with the theme
+		player.playerPosition = [NSNumber numberWithDouble:[Spotify playerPosition]];
+		__weak typeof(Spotify) weakSpotify = Spotify;
+		[player setPlayCallback:^(){
+			[weakSpotify play];
+		}];
+		[player setPlayPauseCallback:^(){
+			[weakSpotify playpause];
+		}];
+		[player setPauseCallback:^(){
+			[weakSpotify playpause];
+		}];
         if ([track name]==NULL) {
             NSLog(@"MusicaController No music is playing");
             //[self updateArtwork];
@@ -471,11 +485,12 @@
         if (![[track name] isEqualToString:previousTrack] && [track name] != NULL) {
             NSLog(@"MusicaController Track changed to: %@", [track name]);
             previousTrack = [track name];
+			[self trackChanged:track];
         }
     }
     if (radiumUsable) {
-        RadiumRplayer *track = [Radium player];
-        if ([track songTitle]==NULL) {
+        //RadiumRplayer *track = [Radium player];
+        if ([Radium trackName]==NULL) {
             NSLog(@"MusicaController No music is playing");
             //[self updateArtwork];
             // Reset these values because nothing is playing
@@ -483,8 +498,8 @@
             previousTrack = nil;
             NSLog(@"MusicaController Did we get called after animation has started");
         }
-        if (![[track songTitle] isEqualToString:previousTrack] && [track songTitle] != NULL) {
-            if ([track songArtwork]!=nil) {
+        if (![[Radium trackName] isEqualToString:previousTrack] && [Radium trackName] != NULL) {
+            if ([Radium trackArtwork]!=nil) {
                 // Bounce the window when the album changes.
                 // http://www.allocinit.net/blog/2005/12/06/ripplin/
                 [self updateArtwork];
@@ -492,10 +507,12 @@
                 rippler = [[AWRippler alloc] init];
                 [rippler rippleWindow:window];
             }
-            NSLog(@"MusicaController Track changed to: %@", [track songTitle]);
-            previousTrack = [track songTitle];
+            NSLog(@"MusicaController Track changed to: %@", [Radium trackName]);
+            previousTrack = [Radium trackName];
         }
     }
+	// update theme status
+	[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@()",themeDictionary[@"BTStatusFunction"]]];
 }
 
 -(NSImage*)updateArtwork {
@@ -545,6 +562,7 @@
         //NSLog(@"data: %@", data);
         NSImage *albumImage = [[Rdio currentTrack] artwork]; //[[NSImage alloc] initWithData:data];
         albumData = [albumImage TIFFRepresentation];
+		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
         [imageView setImage:albumImage];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
@@ -566,6 +584,7 @@
         //NSLog(@"SPOTIFY IMAGE DATA!!!");
         NSImage *albumImage = [[Spotify currentTrack] artwork];
         albumData = [albumImage TIFFRepresentation];
+		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
         [imageView setImage:albumImage];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
@@ -584,13 +603,14 @@
     }
     if (([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO)) {
         //NSLog(@"Radium awesomeness");
-        NSImage *albumImage = [[Radium player] songArtwork];
+        NSImage *albumImage = [Radium trackArtwork];
         albumData = [albumImage TIFFRepresentation];
+		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
         [imageView setImage:albumImage];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
         }
-        if ([[Radium player] songArtwork]==nil) {
+        if ([Radium trackArtwork]==nil) {
             NSLog(@"MusicaController No artwork found");
             NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
             albumData = [albumImage TIFFRepresentation];
@@ -608,25 +628,72 @@
 #pragma mark -
 #pragma mark Theming
 
-- (void)trackChanged:(ETTrack*)track
+- (IBAction)loadThemeFromFile:(id)sender
+{
+	NSOpenPanel *panel = [NSOpenPanel openPanel];
+	[panel setCanChooseFiles:YES];
+	[panel setCanChooseDirectories:YES];
+	[panel setAllowsMultipleSelection:NO]; // yes if more than one dir is allowed
+	
+	NSInteger clicked = [panel runModal];
+	
+	if (clicked == NSFileHandlingPanelOKButton) {
+		// TODO: read the plist's location for the main html file
+		themeDictionary = [NSDictionary dictionaryWithContentsOfURL:[[panel URL] URLByAppendingPathComponent:@"Info.plist"]];
+		NSURL *indexFile = [[panel URL] URLByAppendingPathComponent:themeDictionary[@"BTMainFile"]];
+		[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];
+	}
+}
+
+- (void)trackChanged:(id)track
 {
 	WebScriptObject *scriptObject = [webView windowScriptObject];
 	Track *theTrack = [[Track alloc] init];
-	[theTrack setTitle:track.name];
-	[theTrack setAlbum:track.album];
-	[theTrack setArtist:track.albumArtist];
-	[theTrack setGenre:track.genre];
-	[theTrack setLength:[NSNumber numberWithInt:track.duration]];
+	if ([track isMemberOfClass:[ETTrack class]]) {
+		[theTrack setTitle:((ETTrack*)track).name];
+		[theTrack setAlbum:((ETTrack*)track).album];
+		[theTrack setArtist:((ETTrack*)track).albumArtist];
+		[theTrack setGenre:((ETTrack*)track).genre];
+		[theTrack setLength:[NSNumber numberWithInt:((ETTrack*)track).duration]];
+	}
+	if ([[track className] isEqualToString:@"SpotifyTrack"])
+	{
+		[theTrack setTitle:((SpotifyTrack*)track).name];
+		[theTrack setAlbum:((SpotifyTrack*)track).album];
+		[theTrack setArtist:((SpotifyTrack*)track).artist];
+		[theTrack setLength:[NSNumber numberWithInt:((SpotifyTrack*)track).duration]];
+	}
 	player.currentTrack = theTrack;
 	[scriptObject setValue:theTrack forKey:@"theTrack"];
 	NSString *trackScript = [[NSString alloc] initWithFormat:@"%@(window.theTrack);",themeDictionary[@"BTTrackFunction"]];
 	[webView stringByEvaluatingJavaScriptFromString:trackScript];
 	[scriptObject removeWebScriptKey:@"theTrack"];
+	// redraw the screen.. keep artifcats from gathering
+	[webView display];
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
 	[[webView windowScriptObject] setValue:player forKey:@"Player"];
-	[[webView windowScriptObject] setValue:player forKey:@"iTunes"];
+	[webView stringByEvaluatingJavaScriptFromString:@"var Player = window.Player; var iTunes = window.Player;"];
+	// reset the previous track so that it force a reload of the info into the theme
+	previousTrack = nil;
+	[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@();",themeDictionary[@"BTReadyFunction"]]];
+}
+
+- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element
+    defaultMenuItems:(NSArray *)defaultMenuItems
+{
+    // disable right-click context menu
+    return nil;
+}
+
+- (BOOL)webView:(WebView *)webView shouldChangeSelectedDOMRange:(DOMRange *)currentRange
+	 toDOMRange:(DOMRange *)proposedRange
+	   affinity:(NSSelectionAffinity)selectionAffinity
+ stillSelecting:(BOOL)flag
+{
+    // disable text selection
+    return NO;
 }
 
 #pragma mark -
@@ -670,7 +737,7 @@
         [Spotify playpause];
     }
     if (([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO)) {
-        [[Radium player] playPause];
+        [Radium playpause];
     }
 }
 

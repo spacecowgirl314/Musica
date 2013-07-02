@@ -91,6 +91,14 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="File" id="OvS-xf-9H5">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="File" id="oAF-0V-AKE">
+                        <items>
+                            <menuItem title="Open" keyEquivalent="o" id="sQk-4h-3Rf"/>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Edit" id="217">
                     <menu key="submenu" title="Edit" id="205">
                         <items>
@@ -214,11 +222,11 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="573" width="356" height="376"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
-            <view key="contentView" id="372">
+            <view key="contentView" canDrawConcurrently="YES" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="356" height="376"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <webView id="AJq-8B-ltK">
+                    <webView canDrawConcurrently="YES" id="AJq-8B-ltK">
                         <rect key="frame" x="0.0" y="0.0" width="356" height="376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
@@ -236,10 +244,57 @@
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="537" customClass="MusicaController">
             <connections>
+                <action selector="loadThemeFromFile:" destination="sQk-4h-3Rf" id="BTf-iV-BBL"/>
                 <action selector="openPreferences:" destination="129" id="577"/>
                 <outlet property="webView" destination="AJq-8B-ltK" id="KZT-pa-bfo"/>
                 <outlet property="window" destination="371" id="578"/>
             </connections>
         </customObject>
     </objects>
+    <classes>
+        <class className="MusicaAppDelegate" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MusicaAppDelegate.h"/>
+            <relationships>
+                <relationship kind="outlet" name="window" candidateClass="NSWindow"/>
+            </relationships>
+        </class>
+        <class className="MusicaController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MusicaController.h"/>
+            <relationships>
+                <relationship kind="action" name="loadThemeFromFile:"/>
+                <relationship kind="action" name="next:"/>
+                <relationship kind="action" name="openArtistInfo:"/>
+                <relationship kind="action" name="openPreferences:"/>
+                <relationship kind="action" name="playPause:"/>
+                <relationship kind="action" name="prev:"/>
+                <relationship kind="action" name="resizeWindow:"/>
+                <relationship kind="outlet" name="buttonBar" candidateClass="NSImageView"/>
+                <relationship kind="outlet" name="glossOverlay" candidateClass="QuickClickImage"/>
+                <relationship kind="outlet" name="imageView" candidateClass="NSImageView"/>
+                <relationship kind="outlet" name="infoButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="pauseButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="previousButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="resizeButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="webView" candidateClass="WebView"/>
+                <relationship kind="outlet" name="window" candidateClass="NSWindow"/>
+            </relationships>
+        </class>
+        <class className="NSTextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSTextView.h"/>
+            <relationships>
+                <relationship kind="action" name="orderFrontSharingServicePicker:"/>
+                <relationship kind="action" name="toggleQuickLookPreviewPanel:"/>
+            </relationships>
+        </class>
+        <class className="QuickClickImage" superclassName="NSImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuickClickImage.h"/>
+        </class>
+        <class className="WebView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WebView.h"/>
+            <relationships>
+                <relationship kind="action" name="reloadFromOrigin:"/>
+            </relationships>
+        </class>
+    </classes>
 </document>

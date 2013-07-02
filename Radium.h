@@ -6,7 +6,7 @@
 #import <ScriptingBridge/ScriptingBridge.h>
 
 
-@class RadiumApplication, RadiumApplication, RadiumRplayer;
+@class RadiumApplication, RadiumApplication;
 
 
 
@@ -22,6 +22,10 @@
 @property (copy, readonly) NSString *version;  // The version of the application.
 
 - (void) quit;  // Quit an application.
+- (void) play;  // play/resume the currently-selected station
+- (void) pause;  // pause playback
+- (void) playpause;  // toggle Radium's playing/paused state
+- (void) stop;  // stop playback and disconnect from station
 
 @end
 
@@ -31,24 +35,13 @@
  * Radium Suite
  */
 
-// Radium's top level scripting object
+// Radium's toplevel scripting object
 @interface RadiumApplication (RadiumSuite)
 
-@property (copy, readonly) RadiumRplayer *player;  // Player
-
-@end
-
-// Radium's playback component
-@interface RadiumRplayer : SBObject
-
-@property (copy, readonly) NSString *songTitle;  // Currently playing song
-@property (copy, readonly) NSImage *songArtwork;  // Currently playing song artwork (if available)
-@property (copy, readonly) NSString *channelName;  // Currently playing channel
-@property (copy, readonly) NSString *networkName;  // Radio network the currently playing channel belongs to
-@property (readonly) BOOL playing;  // Is Radium playing anything?
-
-- (void) playPause;  // Play/pause.
-- (void) tuneInTo:(NSString *)to;  // Tune in to a media URL or magnet link.
+@property (copy, readonly) NSString *trackName;  // currently playing track (or missing value)
+@property (copy, readonly) NSImage *trackArtwork;  // current track artwork (or missing value)
+@property (copy, readonly) NSString *stationName;  // currently playing station name (or missing value)
+@property (readonly) BOOL playing;  // is Radium currently playing?
 
 @end
 

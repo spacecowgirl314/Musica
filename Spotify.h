@@ -28,12 +28,17 @@ typedef enum SpotifyEPlS SpotifyEPlS;
 @property NSInteger soundVolume;  // The sound output volume (0 = minimum, 100 = maximum)
 @property (readonly) SpotifyEPlS playerState;  // Is Spotify stopped, paused, or playing?
 @property double playerPosition;  // The player’s position within the currently playing track in seconds.
+@property (readonly) BOOL repeatingEnabled;  // Is repeating enabled in the current playback context?
+@property BOOL repeating;  // Is repeating on or off?
+@property (readonly) BOOL shufflingEnabled;  // Is shuffling enabled in the current playback context?
+@property BOOL shuffling;  // Is shuffling on or off?
 
 - (void) nextTrack;  // Skip to the next track.
 - (void) previousTrack;  // Skip to the previous track.
 - (void) playpause;  // Toggle play/pause.
 - (void) pause;  // Pause playback.
 - (void) play;  // Resume playback.
+- (void) playTrack:(NSString *)x inContext:(NSString *)inContext;  // Start playback of a track in the given context.
 
 @end
 

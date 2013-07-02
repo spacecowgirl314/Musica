@@ -84,14 +84,10 @@
 
 -(id)init;
 
-- (NSDictionary *) registrationDictionaryForGrowl;
-
 -(void)monitorTunes;
 -(NSImage*)updateArtwork;
--(void)loadBundles;
 -(void)restoreWindowPosition;
 -(void)updateTrackingArea;
--(int)updateArtistInfoWindow;
 
 -(NSString*)currentTrack;
 
@@ -104,5 +100,6 @@
 - (IBAction) openPreferences:(id)sender;
 - (IBAction) openArtistInfo:(id)sender;
 - (IBAction) resizeWindow:(id)sender;
+- (IBAction)loadThemeFromFile:(id)sender;
 
 @end

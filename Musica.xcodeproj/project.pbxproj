@@ -537,16 +537,6 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../repos/eyetunes/build/Release\"",
-					"\"$(SRCROOT)/..\"",
-					"\"$(SRCROOT)/../Sparkle 1\"",
-					"\"$(SRCROOT)/../BWToolkit\"",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../Sparkle 1/With Garbage Collection\"",
-					"\"$(SRCROOT)/../Growl-1.3-SDK/Framework\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -572,16 +562,6 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../repos/eyetunes/build/Release\"",
-					"\"$(SRCROOT)/..\"",
-					"\"$(SRCROOT)/../Sparkle 1\"",
-					"\"$(SRCROOT)/../BWToolkit\"",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../Sparkle 1/With Garbage Collection\"",
-					"\"$(SRCROOT)/../Growl-1.3-SDK/Framework\"",
-				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Musica_Prefix.pch;
