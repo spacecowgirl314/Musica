@@ -55,6 +55,7 @@
 	IBOutlet WebView *webView;
 	NSString *previousTrack;
 	NSString *previousAlbum;
+	NSImage *previousTrackArtwork;
 	NSData *albumData;
 	NSStatusItem *theItem;
 	NSTimer *fadeInTimer;
