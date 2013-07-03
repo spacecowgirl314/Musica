@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4457.9" systemVersion="13A497d" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4457.9" systemVersion="13A497d" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4457.9"/>
@@ -217,8 +217,8 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="Musica" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
+        <window title="Musica" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
+            <windowStyleMask key="styleMask" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="573" width="356" height="376"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
@@ -226,7 +226,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="356" height="376"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <webView canDrawConcurrently="YES" id="AJq-8B-ltK">
+                    <webView canDrawConcurrently="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AJq-8B-ltK" customClass="MovableWebView">
                         <rect key="frame" x="0.0" y="0.0" width="356" height="376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
@@ -234,6 +234,12 @@
                         </webPreferences>
                     </webView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="AJq-8B-ltK" firstAttribute="top" secondItem="372" secondAttribute="top" id="J3T-jS-qub"/>
+                    <constraint firstItem="AJq-8B-ltK" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="aE1-8Q-4ci"/>
+                    <constraint firstItem="AJq-8B-ltK" firstAttribute="bottom" secondItem="372" secondAttribute="bottom" id="dJB-ob-NYi"/>
+                    <constraint firstItem="AJq-8B-ltK" firstAttribute="trailing" secondItem="372" secondAttribute="trailing" id="hjA-ll-E18"/>
+                </constraints>
             </view>
         </window>
         <customObject id="494" customClass="MusicaAppDelegate">
@@ -252,6 +258,9 @@
         </customObject>
     </objects>
     <classes>
+        <class className="MovableWebView" superclassName="WebView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MovableWebView.h"/>
+        </class>
         <class className="MusicaAppDelegate" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MusicaAppDelegate.h"/>
             <relationships>
@@ -278,13 +287,6 @@
                 <relationship kind="outlet" name="resizeButton" candidateClass="NSButton"/>
                 <relationship kind="outlet" name="webView" candidateClass="WebView"/>
                 <relationship kind="outlet" name="window" candidateClass="NSWindow"/>
-            </relationships>
-        </class>
-        <class className="NSTextView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSTextView.h"/>
-            <relationships>
-                <relationship kind="action" name="orderFrontSharingServicePicker:"/>
-                <relationship kind="action" name="toggleQuickLookPreviewPanel:"/>
             </relationships>
         </class>
         <class className="QuickClickImage" superclassName="NSImageView">

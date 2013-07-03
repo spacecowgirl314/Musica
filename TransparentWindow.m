@@ -88,7 +88,7 @@
     return YES;
 }
 
-- (void)mouseDragged:(NSEvent *)theEvent
+/*- (void)mouseDragged:(NSEvent *)theEvent
 {	
 	if (shouldRedoInitials)
 	{
@@ -149,7 +149,7 @@
 - (void)mouseUp:(NSEvent *)theEvent
 {
 	shouldRedoInitials = YES;
-}
+}*/
 
 //Dock the passed window frame if it's close enough to the screen edges
 - (NSRect)dockWindowFrame:(NSRect)inWindowFrame toScreenFrame:(NSRect)inScreenFrame

@@ -40,6 +40,7 @@
 		378DF48D15C22C5A00AFD110 /* trayIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378DF48C15C22C5A00AFD110 /* trayIcon@2x.png */; };
 		379ACCF5177CBAB400C06BAC /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 379ACCF4177CBAB400C06BAC /* Track.m */; };
 		379ACCF8177CC3B300C06BAC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 379ACCF7177CC3B200C06BAC /* Player.m */; };
+		37B0C5FB1782BCDC00C29368 /* MovableWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B0C5FA1782BCDC00C29368 /* MovableWebView.m */; };
 		37C1A8F7123B24480041085F /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37C1A8F6123B24480041085F /* Preferences.xib */; };
 		37C7593E1468D71000033145 /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C7593D1468D71000033145 /* Settings.png */; };
 		37C759401468D74500033145 /* Bag.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C7593F1468D74500033145 /* Bag.png */; };
@@ -141,6 +142,8 @@
 		379ACCF4177CBAB400C06BAC /* Track.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Track.m; sourceTree = "<group>"; };
 		379ACCF6177CC3B200C06BAC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		379ACCF7177CC3B200C06BAC /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		37B0C5F91782BCDC00C29368 /* MovableWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovableWebView.h; sourceTree = "<group>"; };
+		37B0C5FA1782BCDC00C29368 /* MovableWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovableWebView.m; sourceTree = "<group>"; };
 		37C1A8F6123B24480041085F /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		37C7593D1468D71000033145 /* Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings.png; sourceTree = "<group>"; };
 		37C7593F1468D74500033145 /* Bag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bag.png; sourceTree = "<group>"; };
@@ -334,6 +337,8 @@
 				372A64491233528D003723AE /* TransparentWindow.m */,
 				372B7B89123C91040064EBBE /* TrayMenu.h */,
 				372B7B8A123C91040064EBBE /* TrayMenu.m */,
+				37B0C5F91782BCDC00C29368 /* MovableWebView.h */,
+				37B0C5FA1782BCDC00C29368 /* MovableWebView.m */,
 				377AA0D4148809590063F928 /* QuickClickImage.h */,
 				377AA0D5148809590063F928 /* QuickClickImage.m */,
 			);
@@ -497,6 +502,7 @@
 				379ACCF5177CBAB400C06BAC /* Track.m in Sources */,
 				372A644A1233528D003723AE /* TransparentWindow.m in Sources */,
 				37679FCB123B101B00D02483 /* PreferencesController.m in Sources */,
+				37B0C5FB1782BCDC00C29368 /* MovableWebView.m in Sources */,
 				379ACCF8177CC3B300C06BAC /* Player.m in Sources */,
 				372B7B8B123C91040064EBBE /* TrayMenu.m in Sources */,
 				3714A89913163A4E007E1145 /* AWRippler.m in Sources */,

@@ -28,12 +28,13 @@ typedef enum RdioEPSS RdioEPSS;
 @property NSInteger soundVolume;  // The sound output volume (0 = min, 100 = max)
 @property (readonly) RdioEPSS playerState;  // Is Rdio stopped, paused, or playing?
 @property double playerPosition;  // The player’s position within the currently playing track in seconds.
+@property BOOL shuffle;  // The player's shuffle state
 
 - (void) nextTrack;  // Skip to the next track.
 - (void) previousTrack;  // Skip to the previous track.
 - (void) playpause;  // Toggle play/pause.
 - (void) pause;  // Pause playback.
-- (void) play;  // Resume playback.
+- (void) playSource:(NSString *)source;  // Resume playback.
 
 @end
 
@@ -44,7 +45,7 @@ typedef enum RdioEPSS RdioEPSS;
 @property (copy, readonly) NSString *album;  // The album of the track.
 @property (readonly) NSInteger duration;  // The length of the track in seconds.
 @property (copy, readonly) NSString *name;  // The name of the track.
-@property (copy, readonly) NSImage *artwork;  // Artwork for the currently playing track.
+@property (copy, readonly) NSData *artwork;  // Artwork for the currently playing track.
 @property (copy, readonly) NSString *rdioUrl;  // The URL of the track.
 
 

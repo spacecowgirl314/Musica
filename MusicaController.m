@@ -114,16 +114,12 @@
     Spotify = [SBApplication applicationWithBundleIdentifier:@"com.spotify.client"];
     Radium = [SBApplication applicationWithBundleIdentifier:@"com.catpigstudios.Radium3"];
 	
+	[[[webView mainFrame] frameView] setAllowsScrolling:NO];
 	[webView setDrawsBackground:NO];
 	[webView setFrameLoadDelegate:self];
 	[webView setUIDelegate:self];
 	[webView setEditingDelegate:self];
 	
-	float width = [themeDictionary[@"BTWindowWidth"] doubleValue];
-	float height = [themeDictionary[@"BTWindowHeight"] doubleValue];
-	//NSRect frame = NSMakeRect(webView.frame.origin.x, webView.frame.origin.y, width, height);
-	NSRect windowFrame = NSMakeRect(self.window.frame.origin.x, self.window.frame.origin.y, width, height);
-	//[window setFrame:windowFrame display:NO];
 	[window setOpaque:NO];
 	[window setBackgroundColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.0]];  //Tells the window to use a transparent colour.
 	//[webView setFrame:frame];
@@ -426,6 +422,18 @@
     }
     if (rdioUsable) {
         RdioTrack *track = [Rdio currentTrack];
+		// register variables and callbacks with the theme
+		player.playerPosition = [NSNumber numberWithDouble:[Rdio playerPosition]];
+		__weak typeof(Rdio) weakRdio = Rdio;
+		[player setPlayCallback:^(){
+			[weakRdio playSource:@""];
+		}];
+		[player setPlayPauseCallback:^(){
+			[weakRdio playpause];
+		}];
+		[player setPauseCallback:^(){
+			[weakRdio pause];
+		}];
         if ([track name]==NULL) {
             NSLog(@"MusicaController No music is playing");
             //[self updateArtwork];
@@ -449,6 +457,7 @@
         if (![[track name] isEqualToString:previousTrack] && [track name] != NULL) {
             NSLog(@"MusicaController Track changed to: %@", [track name]);
             previousTrack = [track name];
+			[self trackChanged:track];
 			//[self updateArtwork];
         }
     }
@@ -747,6 +756,14 @@
 		[theTrack setGenre:@""];
 		[theTrack setLength:@0];
 	}
+	if ([[track className] isEqualToString:@"RdioTrack"])
+	{
+		[theTrack setTitle:((RdioTrack*)track).name];
+		[theTrack setAlbum:((RdioTrack*)track).album];
+		[theTrack setArtist:((RdioTrack*)track).artist];
+		[theTrack setGenre:@""];
+		[theTrack setLength:[NSNumber numberWithInt:((RdioTrack*)track).duration]];
+	}
 	player.currentTrack = theTrack;
 	[scriptObject setValue:theTrack forKey:@"theTrack"];
 	NSString *trackScript = [[NSString alloc] initWithFormat:@"%@(window.theTrack);",themeDictionary[@"BTTrackFunction"]];
@@ -757,6 +774,13 @@
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+	float width = [themeDictionary[@"BTWindowWidth"] doubleValue];
+	float height = [themeDictionary[@"BTWindowHeight"] doubleValue];
+	//NSRect frame = NSMakeRect(webView.frame.origin.x, webView.frame.origin.y, width, height);
+	NSRect windowFrame = NSMakeRect(self.window.frame.origin.x, self.window.frame.origin.y, width, height);
+	[window setFrame:windowFrame display:YES];
+	[window center];
+	
 	[[webView windowScriptObject] setValue:player forKey:@"Player"];
 	[webView stringByEvaluatingJavaScriptFromString:@"var Player = window.Player; var iTunes = window.Player;"];
 	// reset the previous track and artwork so that it force a reload of the info into the theme
@@ -780,6 +804,27 @@
 {
     // disable text selection
     return NO;
+}
+
+- (void)webView:(WebView *)sender mouseDidMoveOverElement:
+(NSDictionary *)elementInformation modifierFlags:(NSUInteger)modifierFlags
+{
+	if ([[NSApp currentEvent] type] == NSLeftMouseUp)
+		NSLog(@"mouse up");
+	if ([[NSApp currentEvent] type] == NSLeftMouseDown)
+		NSLog(@"mouse down");
+	if ([[NSApp currentEvent] type] == NSMouseMoved)
+		NSLog(@"mouse move");
+}
+
+- (NSUInteger)webView:(WebView *)sender dragDestinationActionMaskForDraggingInfo:(id <NSDraggingInfo>)draggingInfo
+{
+	return WebDragDestinationActionNone;
+}
+
+- (NSUInteger)webView:(WebView *)sender dragSourceActionMaskForPoint:(NSPoint)point
+{
+	return WebDragSourceActionNone;
 }
 
 #pragma mark -
