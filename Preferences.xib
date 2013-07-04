@@ -42,6 +42,7 @@
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="357"/>
+                    <toolbarItem reference="428"/>
                 </defaultToolbarItems>
             </toolbar>
         </window>
@@ -87,8 +88,8 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <outlet property="dataSource" destination="-2" id="291"/>
-                                    <outlet property="delegate" destination="-2" id="292"/>
+                                    <outlet property="dataSource" destination="wIq-Gt-Nea" id="QbH-0R-xyv"/>
+                                    <outlet property="delegate" destination="wIq-Gt-Nea" id="KFM-hq-rAv"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -111,18 +112,26 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
+                <button verticalHuggingPriority="750" id="Y6S-Li-RFn">
+                    <rect key="frame" x="354" y="172" width="48" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Apply" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MmE-Da-o2w">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="controlContent"/>
+                    </buttonCell>
+                </button>
             </subviews>
         </view>
         <view id="369">
-            <rect key="frame" x="0.0" y="0.0" width="417" height="223"/>
+            <rect key="frame" x="0.0" y="0.0" width="417" height="247"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <popUpButton verticalHuggingPriority="750" id="384">
-                    <rect key="frame" x="145" y="155" width="156" height="26"/>
+                    <rect key="frame" x="145" y="179" width="156" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="always on top" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="389" id="385">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="386">
                             <items>
                                 <menuItem title="always on top" state="on" id="389"/>
@@ -133,7 +142,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="383">
-                    <rect key="frame" x="48" y="161" width="95" height="17"/>
+                    <rect key="frame" x="48" y="185" width="95" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="The window is" id="390">
                         <font key="font" metaFont="system"/>
@@ -142,7 +151,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="382">
-                    <rect key="frame" x="36" y="186" width="120" height="17"/>
+                    <rect key="frame" x="36" y="210" width="120" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window Behavior" id="391">
                         <font key="font" metaFont="systemBold"/>
@@ -151,7 +160,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="381">
-                    <rect key="frame" x="36" y="114" width="143" height="17"/>
+                    <rect key="frame" x="36" y="138" width="143" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Application Behavior" id="392">
                         <font key="font" metaFont="systemBold"/>
@@ -160,7 +169,7 @@
                     </textFieldCell>
                 </textField>
                 <button id="379">
-                    <rect key="frame" x="49" y="89" width="136" height="18"/>
+                    <rect key="frame" x="49" y="113" width="136" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show in menu bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="394">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -171,7 +180,7 @@
                     </connections>
                 </button>
                 <button id="378">
-                    <rect key="frame" x="49" y="137" width="223" height="18"/>
+                    <rect key="frame" x="49" y="161" width="223" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Dock at the edges of the screen" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="395">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -182,7 +191,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="376">
-                    <rect key="frame" x="188" y="89" width="190" height="17"/>
+                    <rect key="frame" x="188" y="113" width="190" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(Will take place on next launch)" id="397">
                         <font key="font" metaFont="cellTitle"/>
@@ -191,7 +200,7 @@
                     </textFieldCell>
                 </textField>
                 <button id="373">
-                    <rect key="frame" x="49" y="18" width="148" height="18"/>
+                    <rect key="frame" x="49" y="42" width="148" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Enable Notifications" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="400">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -202,7 +211,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="374">
-                    <rect key="frame" x="36" y="42" width="250" height="17"/>
+                    <rect key="frame" x="36" y="66" width="250" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Track Changing Behavior" id="399">
                         <font key="font" metaFont="systemBold"/>
@@ -211,7 +220,7 @@
                     </textFieldCell>
                 </textField>
                 <button id="418">
-                    <rect key="frame" x="49" y="65" width="331" height="18"/>
+                    <rect key="frame" x="49" y="89" width="331" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show only if a supported music player is running" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="419">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -224,34 +233,37 @@
                         <binding destination="43" name="value" keyPath="values.musicaAlwaysShow" id="433"/>
                     </connections>
                 </button>
+                <button id="mIP-V3-ha2">
+                    <rect key="frame" x="49" y="18" width="203" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Force artwork @1x on HiDPI." bezelStyle="regularSquare" imagePosition="left" inset="2" id="kdL-es-unt">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="43" name="value" keyPath="values.musica1xArtwork" id="iAP-s9-Na2"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" id="4ho-Dk-G3c">
+                    <rect key="frame" x="255" y="19" width="141" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(Improves compatibilty)" id="ugB-cT-AJv">
+                        <font key="font" metaFont="cellTitle"/>
+                        <color key="textColor" red="0.59215688710000003" green="0.60392159219999997" blue="0.71764707569999997" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
         </view>
+        <customObject id="wIq-Gt-Nea" customClass="ThemeLoader">
+            <connections>
+                <action selector="applySelectedTheme:" destination="Y6S-Li-RFn" id="T1D-sc-I2F"/>
+                <outlet property="tableView" destination="277" id="or1-yV-Oqg"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="Bag" width="32" height="32"/>
         <image name="Settings" width="32" height="32"/>
     </resources>
-    <classes>
-        <class className="PreferencesController" superclassName="NSWindowController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PreferencesController.h"/>
-            <relationships>
-                <relationship kind="action" name="gotoPluginWebpage:"/>
-                <relationship kind="action" name="relaunch:"/>
-                <relationship kind="action" name="segmentAction:"/>
-                <relationship kind="action" name="selectedWindowMode:"/>
-                <relationship kind="action" name="switchViews:" candidateClass="NSToolbarItem"/>
-                <relationship kind="action" name="toggleDockArt:"/>
-                <relationship kind="action" name="toggleLoginItem:"/>
-                <relationship kind="action" name="toggleShowingMusica:"/>
-                <relationship kind="outlet" name="defaultItem" candidateClass="NSToolbarItem"/>
-                <relationship kind="outlet" name="generalView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="loginSwitch" candidateClass="NSSegmentedControl"/>
-                <relationship kind="outlet" name="musicaWindowButton" candidateClass="NSPopUpButton"/>
-                <relationship kind="outlet" name="oMyTableView" candidateClass="NSTableView"/>
-                <relationship kind="outlet" name="pluginsView" candidateClass="NSScrollView"/>
-                <relationship kind="outlet" name="themesView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="NSToolbar"/>
-            </relationships>
-        </class>
-    </classes>
 </document>

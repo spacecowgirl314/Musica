@@ -36,14 +36,18 @@
 		376E11A2177A9D5F00C9D2ED /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376E11A1177A9D5F00C9D2ED /* JavaScriptCore.framework */; };
 		376E11A3177AA18800C9D2ED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F47A54126975F1007237DA /* WebKit.framework */; };
 		377571B217850811009F0C7F /* Bowtie.m in Sources */ = {isa = PBXBuildFile; fileRef = 377571B117850811009F0C7F /* Bowtie.m */; };
+		377571B517853893009F0C7F /* NSImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 377571B417853893009F0C7F /* NSImage+Resize.m */; };
 		377AA0D6148809590063F928 /* QuickClickImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 377AA0D5148809590063F928 /* QuickClickImage.m */; };
 		37893F74124D8AAE0032BA6E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37893F73124D8AAE0032BA6E /* Security.framework */; };
 		378DF48D15C22C5A00AFD110 /* trayIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378DF48C15C22C5A00AFD110 /* trayIcon@2x.png */; };
+		379A8BC61785511F00137EA7 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A8BC51785511F00137EA7 /* Theme.m */; };
+		379A8BCC1785552600137EA7 /* ThemeLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A8BCB1785552600137EA7 /* ThemeLoader.m */; };
 		379ACCF5177CBAB400C06BAC /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 379ACCF4177CBAB400C06BAC /* Track.m */; };
 		379ACCF8177CC3B300C06BAC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 379ACCF7177CC3B200C06BAC /* Player.m */; };
 		37C1A8F7123B24480041085F /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37C1A8F6123B24480041085F /* Preferences.xib */; };
 		37C7593E1468D71000033145 /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C7593D1468D71000033145 /* Settings.png */; };
 		37C759401468D74500033145 /* Bag.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C7593F1468D74500033145 /* Bag.png */; };
+		37E6ABDD17854EE500F52805 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E6ABDC17854EE500F52805 /* NSFileManager+DirectoryLocations.m */; };
 		37FAF6B5146CCFE300306F48 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37FAF6B4146CCFE300306F48 /* ServiceManagement.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -136,10 +140,16 @@
 		37756ABD1262AC0300B2AE02 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		377571B017850811009F0C7F /* Bowtie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bowtie.h; sourceTree = "<group>"; };
 		377571B117850811009F0C7F /* Bowtie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bowtie.m; sourceTree = "<group>"; };
+		377571B317853893009F0C7F /* NSImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+Resize.h"; sourceTree = "<group>"; };
+		377571B417853893009F0C7F /* NSImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Resize.m"; sourceTree = "<group>"; };
 		377AA0D4148809590063F928 /* QuickClickImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickClickImage.h; sourceTree = "<group>"; };
 		377AA0D5148809590063F928 /* QuickClickImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickClickImage.m; sourceTree = "<group>"; };
 		37893F73124D8AAE0032BA6E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		378DF48C15C22C5A00AFD110 /* trayIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trayIcon@2x.png"; sourceTree = "<group>"; };
+		379A8BC41785511F00137EA7 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		379A8BC51785511F00137EA7 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
+		379A8BCA1785552600137EA7 /* ThemeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeLoader.h; sourceTree = "<group>"; };
+		379A8BCB1785552600137EA7 /* ThemeLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeLoader.m; sourceTree = "<group>"; };
 		379ACCF3177CBAB400C06BAC /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
 		379ACCF4177CBAB400C06BAC /* Track.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Track.m; sourceTree = "<group>"; };
 		379ACCF6177CC3B200C06BAC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
@@ -147,6 +157,8 @@
 		37C1A8F6123B24480041085F /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		37C7593D1468D71000033145 /* Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings.png; sourceTree = "<group>"; };
 		37C7593F1468D74500033145 /* Bag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bag.png; sourceTree = "<group>"; };
+		37E6ABDB17854EE500F52805 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
+		37E6ABDC17854EE500F52805 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		37F47A54126975F1007237DA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		37FAF6B4146CCFE300306F48 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = /System/Library/Frameworks/ServiceManagement.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Musica-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Musica-Info.plist"; sourceTree = "<group>"; };
@@ -268,6 +280,8 @@
 				372A63811233431B003723AE /* MusicaController.m */,
 				37679FC9123B101B00D02483 /* PreferencesController.h */,
 				37679FCA123B101B00D02483 /* PreferencesController.m */,
+				379A8BCA1785552600137EA7 /* ThemeLoader.h */,
+				379A8BCB1785552600137EA7 /* ThemeLoader.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -288,8 +302,12 @@
 			children = (
 				3714A89713163A4E007E1145 /* AWRippler.h */,
 				3714A89813163A4E007E1145 /* AWRippler.m */,
+				377571B317853893009F0C7F /* NSImage+Resize.h */,
+				377571B417853893009F0C7F /* NSImage+Resize.m */,
 				3746B47D131CD433000B1890 /* NSString+URLEncoding.h */,
 				3746B47E131CD433000B1890 /* NSString+URLEncoding.m */,
+				37E6ABDB17854EE500F52805 /* NSFileManager+DirectoryLocations.h */,
+				37E6ABDC17854EE500F52805 /* NSFileManager+DirectoryLocations.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -356,6 +374,8 @@
 		379ACCF2177CBA9500C06BAC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				379A8BC41785511F00137EA7 /* Theme.h */,
+				379A8BC51785511F00137EA7 /* Theme.m */,
 				377571B017850811009F0C7F /* Bowtie.h */,
 				377571B117850811009F0C7F /* Bowtie.m */,
 				379ACCF3177CBAB400C06BAC /* Track.h */,
@@ -498,7 +518,9 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* MusicaAppDelegate.m in Sources */,
+				379A8BCC1785552600137EA7 /* ThemeLoader.m in Sources */,
 				372A63821233431B003723AE /* MusicaController.m in Sources */,
+				379A8BC61785511F00137EA7 /* Theme.m in Sources */,
 				379ACCF5177CBAB400C06BAC /* Track.m in Sources */,
 				372A644A1233528D003723AE /* TransparentWindow.m in Sources */,
 				37679FCB123B101B00D02483 /* PreferencesController.m in Sources */,
@@ -507,7 +529,9 @@
 				3714A89913163A4E007E1145 /* AWRippler.m in Sources */,
 				377571B217850811009F0C7F /* Bowtie.m in Sources */,
 				3746B47F131CD433000B1890 /* NSString+URLEncoding.m in Sources */,
+				37E6ABDD17854EE500F52805 /* NSFileManager+DirectoryLocations.m in Sources */,
 				377AA0D6148809590063F928 /* QuickClickImage.m in Sources */,
+				377571B517853893009F0C7F /* NSImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

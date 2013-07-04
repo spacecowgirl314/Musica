@@ -18,6 +18,7 @@ typedef void (^voidBlock)();
 - (void)pause;
 - (void)previousTrack;
 - (void)nextTrack;
+- (NSNumber*)rating;
 
 @property (copy) voidBlock playPauseCallback;
 @property (copy) voidBlock playCallback;

@@ -49,6 +49,12 @@
 	nextTrackCallback();
 }
 
+// Returns a number 0-100. Every 20 units reprents a star.
+- (NSNumber*)rating
+{
+	return @0;
+}
+
 + (NSString *) webScriptNameForSelector:(SEL)sel
 {
     NSString *name = nil;
@@ -68,6 +74,8 @@
 		name = @"previousTrack";
 	if (sel == @selector(nextTrack))
 		name = @"nextTrack";
+	if (sel == @selector(rating))
+		name = @"rating";
 	
     return name;
 }
@@ -82,6 +90,7 @@
 	if (aSelector == @selector(pause)) return NO;
 	if (aSelector == @selector(previousTrack)) return NO;
 	if (aSelector == @selector(nextTrack)) return NO;
+	if (aSelector == @selector(rating)) return NO;
     return YES;
 }
 

@@ -8,6 +8,8 @@
 
 #import "MusicaController.h"
 #import "Track.h"
+#import "NSImage+Resize.h"
+#import "ThemeLoader.h"
 
 @implementation MusicaController
 
@@ -107,7 +109,8 @@
 #pragma mark Prepare Application
 
 -(void)awakeFromNib {
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadTheme) name:@"loadTheme" object:nil];
+	
 	// Give us features we need that EyeTunes doesn't
 	//iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
     Rdio = [SBApplication applicationWithBundleIdentifier:@"com.rdio.desktop"];
@@ -159,6 +162,7 @@
 					   owner: self
 					   userInfo: nil];
 	[imageView addTrackingArea: myTrackingArea1];*/
+	[self loadTheme];
 }
 
 -(void)restoreWindowPosition {
@@ -383,6 +387,7 @@
 		[player setNextTrackCallback:^(){
 			[e nextTrack];
 		}];
+		//[track rating];
         if ([track name]==NULL) {
             NSLog(@"MusicaController No music is playing");
             //[self updateArtwork];
@@ -395,9 +400,9 @@
             // Bounce the window when the album changes.
             // http://www.allocinit.net/blog/2005/12/06/ripplin/
             //[self updateArtwork];
-            AWRippler *rippler;
-            rippler = [[AWRippler alloc] init];
-            [rippler rippleWindow:window];
+            //AWRippler *rippler;
+            //rippler = [[AWRippler alloc] init];
+            //[rippler rippleWindow:window];
             
             NSLog(@"MusicaController Did we get called after animation has started");
             previousAlbum = [track album];
@@ -452,9 +457,9 @@
             // Bounce the window when the album changes.
             // http://www.allocinit.net/blog/2005/12/06/ripplin/
             //[self updateArtwork];
-            AWRippler *rippler;
-            rippler = [[AWRippler alloc] init];
-            [rippler rippleWindow:window];
+            //AWRippler *rippler;
+            //rippler = [[AWRippler alloc] init];
+            //[rippler rippleWindow:window];
             
             NSLog(@"MusicaController Did we get called after animation has started");
             previousAlbum = [track album];
@@ -499,9 +504,9 @@
             // Bounce the window when the album changes.
             // http://www.allocinit.net/blog/2005/12/06/ripplin/
             //[self updateArtwork];
-            AWRippler *rippler;
-            rippler = [[AWRippler alloc] init];
-            [rippler rippleWindow:window];
+            //AWRippler *rippler;
+            //rippler = [[AWRippler alloc] init];
+            //[rippler rippleWindow:window];
             
             NSLog(@"MusicaController Did we get called after animation has started");
             previousAlbum = [track album];
@@ -554,9 +559,9 @@
                 // Bounce the window when the album changes.
                 // http://www.allocinit.net/blog/2005/12/06/ripplin/
                 [self updateArtwork];
-                AWRippler *rippler;
-                rippler = [[AWRippler alloc] init];
-                [rippler rippleWindow:window];
+                //AWRippler *rippler;
+                //rippler = [[AWRippler alloc] init];
+                //[rippler rippleWindow:window];
             }
             NSLog(@"MusicaController Track changed to: %@", [Radium trackName]);
             previousTrack = [Radium trackName];
@@ -593,6 +598,10 @@
 			NSImage *albumImage = [artworks objectAtIndex:0];
 			previousTrackArtwork = albumImage;
 			albumData = [albumImage TIFFRepresentation];
+			// check for specified artwork dimensions
+			if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
+				albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
+			}
 			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
 				// Overlay icon over album art
@@ -618,6 +627,10 @@
 			NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
 			previousTrackArtwork = albumImage;
 			albumData = [albumImage TIFFRepresentation];
+			// check for specified artwork dimensions
+			if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
+				albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
+			}
 			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
 				//[NSApp setApplicationIconImage: albumImage];
@@ -655,6 +668,10 @@
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
+		// check for specified artwork dimensions
+		if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
+			albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
+		}
 		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 		return albumImage;
     }
@@ -684,6 +701,10 @@
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
+		// check for specified artwork dimensions
+		if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
+			albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
+		}
 		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 		return albumImage;
     }
@@ -713,6 +734,10 @@
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
+		// check for specified artwork dimensions
+		if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
+			albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
+		}
 		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 		return albumImage;
     }
@@ -721,6 +746,17 @@
 
 #pragma mark -
 #pragma mark Theming
+
+- (void)loadTheme
+{
+	NSURL *themeURL = [ThemeLoader appliedThemeURL];
+	// TODO:We shouldn't be checking for nil here because there should always be a default theme, even on app first run.
+	if (themeURL!=nil) {
+		themeDictionary = [NSDictionary dictionaryWithContentsOfURL:[themeURL URLByAppendingPathComponent:@"Info.plist"]];
+		NSURL *indexFile = [[ThemeLoader appliedThemeURL] URLByAppendingPathComponent:themeDictionary[@"BTMainFile"]];
+		[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];
+	}
+}
 
 - (IBAction)loadThemeFromFile:(id)sender
 {
@@ -732,10 +768,10 @@
 	NSInteger clicked = [panel runModal];
 	
 	if (clicked == NSFileHandlingPanelOKButton) {
-		// TODO: read the plist's location for the main html file
-		themeDictionary = [NSDictionary dictionaryWithContentsOfURL:[[panel URL] URLByAppendingPathComponent:@"Info.plist"]];
+		[ThemeLoader installTheme:[panel URL]];
+		/*themeDictionary = [NSDictionary dictionaryWithContentsOfURL:[[panel URL] URLByAppendingPathComponent:@"Info.plist"]];
 		NSURL *indexFile = [[panel URL] URLByAppendingPathComponent:themeDictionary[@"BTMainFile"]];
-		[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];
+		[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];*/
 	}
 }
 
@@ -912,6 +948,13 @@
 }
 
 #pragma mark -
+
+// Installing a theme
+- (BOOL) application:(NSApplication *)sender openFile:(NSString *)source {
+	[ThemeLoader installTheme:source];
+    
+	return YES;
+}
 
 // Play/pause on Dock Icon Click if we are in minimal mode
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender

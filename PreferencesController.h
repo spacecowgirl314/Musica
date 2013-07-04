@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <ServiceManagement/ServiceManagement.h>
+#import "ThemeLoader.h"
 
 @interface PreferencesController : NSWindowController {
 	IBOutlet NSPopUpButton *musicaWindowButton;
@@ -18,6 +19,7 @@
     IBOutlet NSView *themesView;
     IBOutlet NSToolbarItem *defaultItem;
     IBOutlet NSSegmentedControl *loginSwitch;
+	ThemeLoader *themeLoader;
 }
 
 @property (strong, nonatomic) IBOutlet NSPopUpButton *musicaWindowButton;

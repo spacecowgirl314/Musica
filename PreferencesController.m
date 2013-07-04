@@ -7,6 +7,8 @@
 //
 
 #import "PreferencesController.h"
+#import "Theme.h"
+#import "NSFileManager+DirectoryLocations.h"
 
 #define kFakePBoardType @"fakePBoardType"
 
@@ -153,6 +155,7 @@
         //assign the temp pointer to the generalView we set up in IB.
         prefsView = generalView;
     }else if([sender isEqualToString:@"Themes"]){
+		[themeLoader reload];
         //assign the temp pointer to the appearanceView we set up in IB.
         prefsView = themesView;
     }
@@ -175,6 +178,5 @@
     //set the main content view to the new view we have picked through the if structure above.
     [[self window] setContentView:prefsView];
 }
-
 
 @end
