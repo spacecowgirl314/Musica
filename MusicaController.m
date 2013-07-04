@@ -114,6 +114,20 @@
     Spotify = [SBApplication applicationWithBundleIdentifier:@"com.spotify.client"];
     Radium = [SBApplication applicationWithBundleIdentifier:@"com.catpigstudios.Radium3"];
 	
+	bowtie = [[Bowtie alloc] init];
+	[bowtie setWindow:window];
+	
+	// hijack the xib's webView and replace it with our own
+	/*MovableWebFrameView *webFrameView = [[MovableWebFrameView alloc] initWithFrame:webView.frame];
+	//WebFrame *webFrame = [webFrameView webFrame];
+	for (NSView *view in [webView subviews]) {
+		if ([[view className] isEqualToString:@"WebFrameView"]) {
+			[webView addSubview:webFrameView positioned:NSWindowAbove relativeTo:view];
+			[view removeFromSuperview];
+		}
+	}*/
+	
+	[webView setCanDrawConcurrently:YES];
 	[[[webView mainFrame] frameView] setAllowsScrolling:NO];
 	[webView setDrawsBackground:NO];
 	[webView setFrameLoadDelegate:self];
@@ -781,8 +795,17 @@
 	[window setFrame:windowFrame display:YES];
 	[window center];
 	
+	// register bridge values
 	[[webView windowScriptObject] setValue:player forKey:@"Player"];
+	[[webView windowScriptObject] setValue:bowtie forKey:@"Bowtie"];
 	[webView stringByEvaluatingJavaScriptFromString:@"var Player = window.Player; var iTunes = window.Player;"];
+	[webView stringByEvaluatingJavaScriptFromString:@"var Bowtie = window.Bowtie;"];
+	
+	// setup bridge for dragging the window
+	NSString *mouseBridgeScript = @"document.addEventListener('mousedown', function(e) { Bowtie.mouseDownWithPoint(e.screenX, e.screenY); }); document.addEventListener('mousemove', function(e) { Bowtie.mouseMovedWithPoint(e.screenX, e.screenY); }); document.addEventListener('mouseup', function(e) { Bowtie.mouseUp(); });";
+	
+	[webView stringByEvaluatingJavaScriptFromString:mouseBridgeScript];
+	
 	// reset the previous track and artwork so that it force a reload of the info into the theme
 	previousTrack = nil;
 	previousTrackArtwork = nil;

@@ -217,16 +217,16 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="Musica" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
+        <window title="Musica" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" id="371" customClass="TransparentWindow">
             <windowStyleMask key="styleMask" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="573" width="356" height="376"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="356" height="376"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" canDrawConcurrently="YES" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="356" height="376"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <webView canDrawConcurrently="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AJq-8B-ltK" customClass="MovableWebView">
+                    <webView canDrawConcurrently="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AJq-8B-ltK">
                         <rect key="frame" x="0.0" y="0.0" width="356" height="376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
@@ -258,9 +258,6 @@
         </customObject>
     </objects>
     <classes>
-        <class className="MovableWebView" superclassName="WebView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MovableWebView.h"/>
-        </class>
         <class className="MusicaAppDelegate" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MusicaAppDelegate.h"/>
             <relationships>
@@ -289,8 +286,21 @@
                 <relationship kind="outlet" name="window" candidateClass="NSWindow"/>
             </relationships>
         </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="NSTextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSTextView.h"/>
+            <relationships>
+                <relationship kind="action" name="orderFrontSharingServicePicker:"/>
+                <relationship kind="action" name="toggleQuickLookPreviewPanel:"/>
+            </relationships>
+        </class>
         <class className="QuickClickImage" superclassName="NSImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/QuickClickImage.h"/>
+        </class>
+        <class className="TransparentWindow" superclassName="NSWindow">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TransparentWindow.h"/>
         </class>
         <class className="WebView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WebView.h"/>

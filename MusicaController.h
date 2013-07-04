@@ -21,6 +21,7 @@
 #import "AWRippler.h"
 #import "QuickClickImage.h"
 #import "Player.h"
+#import "Bowtie.h"
 #import "EnumDefinitions.h"
 
 /**
@@ -72,6 +73,7 @@
 	BOOL mouseInWindow;
     TrayMenu *menu;
 	Player *player;
+	Bowtie *bowtie;
 	
 	// controllers
 	PreferencesController *preferencesController;
