@@ -42,6 +42,8 @@
 		378DF48D15C22C5A00AFD110 /* trayIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378DF48C15C22C5A00AFD110 /* trayIcon@2x.png */; };
 		379A8BC61785511F00137EA7 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A8BC51785511F00137EA7 /* Theme.m */; };
 		379A8BCC1785552600137EA7 /* ThemeLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A8BCB1785552600137EA7 /* ThemeLoader.m */; };
+		379A8BD91785675900137EA7 /* Scribbler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 379A8BD41785671F00137EA7 /* Scribbler.framework */; };
+		379A8BDA1785676D00137EA7 /* Scribbler.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 379A8BD41785671F00137EA7 /* Scribbler.framework */; };
 		379ACCF5177CBAB400C06BAC /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 379ACCF4177CBAB400C06BAC /* Track.m */; };
 		379ACCF8177CC3B300C06BAC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 379ACCF7177CC3B200C06BAC /* Player.m */; };
 		37C1A8F7123B24480041085F /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37C1A8F6123B24480041085F /* Preferences.xib */; };
@@ -76,6 +78,27 @@
 			remoteGlobalIDString = 03748E7A099D8AD4002F09C3;
 			remoteInfo = EyeTunesDebug;
 		};
+		379A8BD31785671F00137EA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 379A8BCD1785671F00137EA7 /* Scribbler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Scribbler;
+		};
+		379A8BD51785671F00137EA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 379A8BCD1785671F00137EA7 /* Scribbler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9D5C78910A28A2500AFCF8A;
+			remoteInfo = "Last.fm Demo";
+		};
+		379A8BD71785671F00137EA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 379A8BCD1785671F00137EA7 /* Scribbler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C97DBFF110AB9D0200B0F18D;
+			remoteInfo = Scrobbly;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,6 +108,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				379A8BDA1785676D00137EA7 /* Scribbler.framework in CopyFiles */,
 				376E11A0177A904C00C9D2ED /* EyeTunes.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,6 +174,7 @@
 		379A8BC51785511F00137EA7 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		379A8BCA1785552600137EA7 /* ThemeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeLoader.h; sourceTree = "<group>"; };
 		379A8BCB1785552600137EA7 /* ThemeLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeLoader.m; sourceTree = "<group>"; };
+		379A8BCD1785671F00137EA7 /* Scribbler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Scribbler.xcodeproj; path = Externals/Scribbler/Scribbler.xcodeproj; sourceTree = "<group>"; };
 		379ACCF3177CBAB400C06BAC /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
 		379ACCF4177CBAB400C06BAC /* Track.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Track.m; sourceTree = "<group>"; };
 		379ACCF6177CC3B200C06BAC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
@@ -170,6 +195,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				379A8BD91785675900137EA7 /* Scribbler.framework in Frameworks */,
 				376E11A3177AA18800C9D2ED /* WebKit.framework in Frameworks */,
 				376E11A2177A9D5F00C9D2ED /* JavaScriptCore.framework in Frameworks */,
 				376E119F177A903100C9D2ED /* EyeTunes.framework in Frameworks */,
@@ -267,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				376E1193177A900E00C9D2ED /* EyeTunes.xcodeproj */,
+				379A8BCD1785671F00137EA7 /* Scribbler.xcodeproj */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -371,6 +398,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		379A8BCE1785671F00137EA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				379A8BD41785671F00137EA7 /* Scribbler.framework */,
+				379A8BD61785671F00137EA7 /* Last.fm Demo.app */,
+				379A8BD81785671F00137EA7 /* Scrobbly.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		379ACCF2177CBA9500C06BAC /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +488,10 @@
 					ProductGroup = 376E1194177A900E00C9D2ED /* Products */;
 					ProjectRef = 376E1193177A900E00C9D2ED /* EyeTunes.xcodeproj */;
 				},
+				{
+					ProductGroup = 379A8BCE1785671F00137EA7 /* Products */;
+					ProjectRef = 379A8BCD1785671F00137EA7 /* Scribbler.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -479,6 +520,27 @@
 			fileType = wrapper.application;
 			path = EyeTunesDebug.app;
 			remoteRef = 376E119D177A900E00C9D2ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		379A8BD41785671F00137EA7 /* Scribbler.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Scribbler.framework;
+			remoteRef = 379A8BD31785671F00137EA7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		379A8BD61785671F00137EA7 /* Last.fm Demo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Last.fm Demo.app";
+			remoteRef = 379A8BD51785671F00137EA7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		379A8BD81785671F00137EA7 /* Scrobbly.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Scrobbly.app;
+			remoteRef = 379A8BD71785671F00137EA7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
