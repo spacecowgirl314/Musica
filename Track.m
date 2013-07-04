@@ -27,6 +27,21 @@
     return name;
 }
 
+/*+ (NSString *)webScriptNameForKey:(const char *)name
+{
+	
+}*/
+
++ (BOOL)isKeyExcludedFromWebScript:(const char *)name
+{
+	if (strcmp(name, "title")) return NO;
+	if (strcmp(name, "artist")) return NO;
+	if (strcmp(name, "album")) return NO;
+	if (strcmp(name, "genre")) return NO;
+	if (strcmp(name, "length")) return NO;
+	return YES;
+}
+
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector
 {
     if (aSelector == @selector(property:)) return NO;

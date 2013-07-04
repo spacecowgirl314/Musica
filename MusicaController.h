@@ -44,7 +44,6 @@
 } audioPlayer;*/
 
 @interface MusicaController : NSObject <NSNetServiceDelegate, NSNetServiceBrowserDelegate, NSConnectionDelegate, NSApplicationDelegate> {
-	IBOutlet NSImageView *imageView;
     IBOutlet NSImageView *buttonBar;
 	IBOutlet NSButton *pauseButton;
 	IBOutlet NSButton *previousButton;

@@ -16,10 +16,14 @@ typedef void (^voidBlock)();
 - (void)playPause;
 - (void)play;
 - (void)pause;
+- (void)previousTrack;
+- (void)nextTrack;
 
 @property (copy) voidBlock playPauseCallback;
 @property (copy) voidBlock playCallback;
 @property (copy) voidBlock pauseCallback;
+@property (copy) voidBlock previousTrackCallback;
+@property (copy) voidBlock nextTrackCallback;
 @property Track *currentTrack;
 @property NSNumber *playerPosition;
 @property NSNumber *playState;

@@ -127,7 +127,6 @@
 		}
 	}*/
 	
-	[webView setCanDrawConcurrently:YES];
 	[[[webView mainFrame] frameView] setAllowsScrolling:NO];
 	[webView setDrawsBackground:NO];
 	[webView setFrameLoadDelegate:self];
@@ -160,7 +159,6 @@
 					   owner: self
 					   userInfo: nil];
 	[imageView addTrackingArea: myTrackingArea1];*/
-	[self updateTrackingArea];
 }
 
 -(void)restoreWindowPosition {
@@ -172,33 +170,6 @@
 		NSLog(@"MusicaController No position to restore from.");
 	}
 	
-}
-
-// Necessary for when album artwork is resized
--(void)updateTrackingArea {
-	// Allow for controls to disappear when mouse isn't in window.
-	if (myTrackingArea!=nil) {
-		[imageView removeTrackingArea:myTrackingArea];
-	}
-	NSTrackingAreaOptions trackingOptions =
-	NSTrackingMouseEnteredAndExited|NSTrackingMouseMoved|NSTrackingActiveAlways;
-	/*NSTrackingArea *myTrackingArea = [[NSTrackingArea alloc]
-	 initWithRect: [imageView bounds] // in our case track the entire view
-	 options: trackingOptions
-	 owner: self
-	 userInfo: nil];*/
-	myTrackingArea = [[NSTrackingArea alloc]
-					  initWithRect: [imageView bounds] // in our case track the entire view
-					  options: trackingOptions
-					  owner: self
-					  userInfo: nil];
-   NSTrackingArea *buttonArea = [[NSTrackingArea alloc]
-                  initWithRect: [buttonBar bounds] // in our case track the entire view
-                  options: trackingOptions
-                  owner: self
-                  userInfo: nil];
-	[imageView addTrackingArea: myTrackingArea];
-    [buttonBar addTrackingArea: buttonArea];
 }
 
 - (void)fadeIn:(NSTimer *)theTimer
@@ -365,19 +336,28 @@
         [pauseButton setImage:[NSImage imageNamed:@"Play@2x.png"]];
         [pauseButton setAlternateImage:[NSImage imageNamed:@"Play-Pressed@2x.png"]];
 		// update theme playState variable
-		player.playState=@2;
+		if (![player.playState isEqual:@2]) {
+			player.playState=@2;
+			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
+		}
         //NSLog(@"MusicaController iTunes is paused");
     }
     if ((iTunesUsable==TRUE && playerState == kETPlayerStatePlaying) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPlaying) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPlaying) || (radiumUsable==TRUE && radiumPlayerState==TRUE)) {
         [pauseButton setImage:[NSImage imageNamed:@"Pause@2x.png"]];
         [pauseButton setAlternateImage:[NSImage imageNamed:@"Pause-Pressed@2x.png"]];
-		player.playState=@1;
+		if (![player.playState isEqual:@1]) {
+			player.playState=@1;
+			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
+		}
         //NSLog(@"MusicaController iTunes is playing");
     }
     if ((iTunesUsable==TRUE && playerState == kETPlayerStateStopped) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSStopped) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSStopped)) {
         [pauseButton setImage:[NSImage imageNamed:@"Play@2x.png"]];
         [pauseButton setAlternateImage:[NSImage imageNamed:@"Play-Pressed@2x.png"]];
-		player.playState=@0;
+		if (![player.playState isEqual:@0]) {
+			player.playState=@0;
+			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
+		}
         //NSLog(@"MusicaController iTunes is stopped");
     }
     
@@ -396,6 +376,12 @@
 		}];
 		[player setPauseCallback:^(){
 			[e play];
+		}];
+		[player setPreviousTrackCallback:^(){
+			[e previousTrack];
+		}];
+		[player setNextTrackCallback:^(){
+			[e nextTrack];
 		}];
         if ([track name]==NULL) {
             NSLog(@"MusicaController No music is playing");
@@ -448,6 +434,12 @@
 		[player setPauseCallback:^(){
 			[weakRdio pause];
 		}];
+		[player setPreviousTrackCallback:^(){
+			[weakRdio previousTrack];
+		}];
+		[player setNextTrackCallback:^(){
+			[weakRdio nextTrack];
+		}];
         if ([track name]==NULL) {
             NSLog(@"MusicaController No music is playing");
             //[self updateArtwork];
@@ -488,6 +480,12 @@
 		}];
 		[player setPauseCallback:^(){
 			[weakSpotify pause];
+		}];
+		[player setPreviousTrackCallback:^(){
+			[weakSpotify previousTrack];
+		}];
+		[player setNextTrackCallback:^(){
+			[weakSpotify nextTrack];
 		}];
         if ([track name]==NULL) {
             NSLog(@"MusicaController No music is playing");
@@ -537,6 +535,11 @@
 		}];
 		[player setPauseCallback:^(){
 			[weakRadium pause];
+		}];
+		// Not applicable. Stations are streams not tracks.
+		[player setPreviousTrackCallback:^(){
+		}];
+		[player setNextTrackCallback:^(){
 		}];
         if ([Radium trackName]==NULL) {
             NSLog(@"MusicaController No music is playing");
@@ -591,7 +594,6 @@
 			previousTrackArtwork = albumImage;
 			albumData = [albumImage TIFFRepresentation];
 			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
-			[imageView setImage:albumImage];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
 				// Overlay icon over album art
 				/*NSImage *resultImage = [albumImage copy];
@@ -616,7 +618,7 @@
 			NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
 			previousTrackArtwork = albumImage;
 			albumData = [albumImage TIFFRepresentation];
-			[imageView setImage:albumImage];
+			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
 				//[NSApp setApplicationIconImage: albumImage];
 				[NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
@@ -635,8 +637,6 @@
         NSImage *albumImage = [[Rdio currentTrack] artwork]; //[[NSImage alloc] initWithData:data];
 		previousTrackArtwork = albumImage;
         albumData = [albumImage TIFFRepresentation];
-		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
-        [imageView setImage:albumImage];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
         }
@@ -650,12 +650,12 @@
 			NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
 			previousTrackArtwork = albumImage;
             albumData = [albumImage TIFFRepresentation];
-            [imageView setImage:albumImage];
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
                 //[NSApp setApplicationIconImage: albumImage];
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
+		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 		return albumImage;
     }
     if (([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO)) {
@@ -667,8 +667,6 @@
         NSImage *albumImage = [[Spotify currentTrack] artwork];
 		previousTrackArtwork = albumImage;
         albumData = [albumImage TIFFRepresentation];
-		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
-        [imageView setImage:albumImage];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
         }
@@ -681,12 +679,12 @@
 			NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
 			previousTrackArtwork = albumImage;
             albumData = [albumImage TIFFRepresentation];
-            [imageView setImage:albumImage];
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
                 //[NSApp setApplicationIconImage: albumImage];
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
+		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 		return albumImage;
     }
     if (([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO)) {
@@ -698,8 +696,6 @@
         NSImage *albumImage = [Radium trackArtwork];
 		previousTrackArtwork = albumImage;
         albumData = [albumImage TIFFRepresentation];
-		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
-        [imageView setImage:albumImage];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
         }
@@ -712,12 +708,12 @@
 			NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
 			previousTrackArtwork = albumImage;
             albumData = [albumImage TIFFRepresentation];
-            [imageView setImage:albumImage];
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
                 //[NSApp setApplicationIconImage: albumImage];
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
+		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
 		return albumImage;
     }
 	return nil;
@@ -803,13 +799,13 @@
 	
 	// setup bridge for dragging the window
 	NSString *mouseBridgeScript = @"document.addEventListener('mousedown', function(e) { Bowtie.mouseDownWithPoint(e.screenX, e.screenY); }); document.addEventListener('mousemove', function(e) { Bowtie.mouseMovedWithPoint(e.screenX, e.screenY); }); document.addEventListener('mouseup', function(e) { Bowtie.mouseUp(); });";
-	
 	[webView stringByEvaluatingJavaScriptFromString:mouseBridgeScript];
 	
 	// reset the previous track and artwork so that it force a reload of the info into the theme
 	previousTrack = nil;
 	previousTrackArtwork = nil;
 	[self updateArtwork];
+	[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
 	[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@();",themeDictionary[@"BTReadyFunction"]]];
 }
 
@@ -827,17 +823,6 @@
 {
     // disable text selection
     return NO;
-}
-
-- (void)webView:(WebView *)sender mouseDidMoveOverElement:
-(NSDictionary *)elementInformation modifierFlags:(NSUInteger)modifierFlags
-{
-	if ([[NSApp currentEvent] type] == NSLeftMouseUp)
-		NSLog(@"mouse up");
-	if ([[NSApp currentEvent] type] == NSLeftMouseDown)
-		NSLog(@"mouse down");
-	if ([[NSApp currentEvent] type] == NSMouseMoved)
-		NSLog(@"mouse move");
 }
 
 - (NSUInteger)webView:(WebView *)sender dragDestinationActionMaskForDraggingInfo:(id <NSDraggingInfo>)draggingInfo

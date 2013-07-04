@@ -16,6 +16,8 @@
 @synthesize playPauseCallback;
 @synthesize playCallback;
 @synthesize pauseCallback;
+@synthesize previousTrackCallback;
+@synthesize nextTrackCallback;
 
 - (void)play
 {
@@ -35,6 +37,18 @@
 	pauseCallback();
 }
 
+- (void)previousTrack
+{
+	NSLog(@"previousTrack");
+	previousTrackCallback();
+}
+
+- (void)nextTrack
+{
+	NSLog(@"nextTrack");
+	nextTrackCallback();
+}
+
 + (NSString *) webScriptNameForSelector:(SEL)sel
 {
     NSString *name = nil;
@@ -49,7 +63,11 @@
 	if (sel == @selector(playPause))
 		name = @"playPause";
 	if (sel == @selector(pause))
-		name = @"playPause";
+		name = @"pause";
+	if (sel == @selector(previousTrack))
+		name = @"previousTrack";
+	if (sel == @selector(nextTrack))
+		name = @"nextTrack";
 	
     return name;
 }
@@ -62,6 +80,8 @@
 	if (aSelector == @selector(play)) return NO;
 	if (aSelector == @selector(playPause)) return NO;
 	if (aSelector == @selector(pause)) return NO;
+	if (aSelector == @selector(previousTrack)) return NO;
+	if (aSelector == @selector(nextTrack)) return NO;
     return YES;
 }
 
