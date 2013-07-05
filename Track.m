@@ -22,7 +22,7 @@
     if (sel == @selector(property:))
 		name = @"property";
 	if (sel == @selector(propertyHTML:))
-		name = @"property";
+		name = @"propertyHTML";
 	
     return name;
 }
