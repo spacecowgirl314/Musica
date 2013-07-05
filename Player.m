@@ -12,12 +12,21 @@
 
 @synthesize playerPosition;
 @synthesize playState;
+@synthesize ratingNumber;
 @synthesize currentTrack;
 @synthesize playPauseCallback;
 @synthesize playCallback;
 @synthesize pauseCallback;
 @synthesize previousTrackCallback;
 @synthesize nextTrackCallback;
+
+- (id)init
+{
+	if (self==[super init]) {
+		ratingNumber = @0;
+	}
+	return self;
+}
 
 - (void)play
 {
@@ -52,7 +61,7 @@
 // Returns a number 0-100. Every 20 units reprents a star.
 - (NSNumber*)rating
 {
-	return @0;
+	return ratingNumber;
 }
 
 + (NSString *) webScriptNameForSelector:(SEL)sel

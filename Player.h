@@ -28,5 +28,6 @@ typedef void (^voidBlock)();
 @property Track *currentTrack;
 @property NSNumber *playerPosition;
 @property NSNumber *playState;
+@property NSNumber *ratingNumber;
 
 @end

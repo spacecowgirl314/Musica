@@ -785,6 +785,7 @@
 		[theTrack setArtist:((ETTrack*)track).albumArtist];
 		[theTrack setGenre:((ETTrack*)track).genre];
 		[theTrack setLength:[NSNumber numberWithInt:((ETTrack*)track).duration]];
+		[player setRatingNumber:[NSNumber numberWithInt:((ETTrack*)track).rating]];
 	}
 	if ([[track className] isEqualToString:@"SpotifyTrack"])
 	{
@@ -793,6 +794,7 @@
 		[theTrack setArtist:((SpotifyTrack*)track).artist];
 		[theTrack setGenre:@""];
 		[theTrack setLength:[NSNumber numberWithInt:((SpotifyTrack*)track).duration]];
+		[player setRatingNumber:[NSNumber numberWithInteger:((SpotifyTrack*)track).popularity]];
 	}
 	if ([[track className] isEqualToString:@"Radium"])
 	{
@@ -801,6 +803,7 @@
 		[theTrack setArtist:[Radium stationName]];
 		[theTrack setGenre:@""];
 		[theTrack setLength:@0];
+		[player setRatingNumber:@0];
 	}
 	if ([[track className] isEqualToString:@"RdioTrack"])
 	{
@@ -809,6 +812,7 @@
 		[theTrack setArtist:((RdioTrack*)track).artist];
 		[theTrack setGenre:@""];
 		[theTrack setLength:[NSNumber numberWithInt:((RdioTrack*)track).duration]];
+		[player setRatingNumber:@0];
 	}
 	player.currentTrack = theTrack;
 	[scriptObject setValue:theTrack forKey:@"theTrack"];
