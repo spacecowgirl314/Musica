@@ -11,6 +11,8 @@
 @implementation Bowtie
 @synthesize window;
 
+#pragma mark Dragging Window Bridge
+
 // from http://stackoverflow.com/a/4564630/1000339
 - (void)mouseDownWithX:(NSNumber*)x andY:(NSNumber*)y
 {
@@ -57,6 +59,13 @@
 	}
 }
 
+#pragma mark - Bowtie object API
+
+- (void)log:(NSString*)string
+{
+	NSLog(@"%@", string);
+}
+
 + (NSString *)webScriptNameForSelector:(SEL)sel
 {
 	NSString *name = nil;
@@ -66,6 +75,8 @@
 		name = @"mouseMovedWithPoint";
 	if (sel == @selector(mouseUp))
 		name = @"mouseUp";
+	if (sel == @selector(log:))
+		name = @"log";
 	
     return name;
 }
@@ -75,6 +86,7 @@
     if (aSelector == @selector(mouseDownWithX:andY:)) return NO;
 	if (aSelector == @selector(mouseMovedWithX:andY:)) return NO;
 	if (aSelector == @selector(mouseUp)) return NO;
+	if (aSelector == @selector(log:)) return NO;
     return YES;
 }
 
