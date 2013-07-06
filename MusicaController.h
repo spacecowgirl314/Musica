@@ -12,6 +12,7 @@
 #import <EyeTunes/EyeTunes.h>
 #import <Carbon/Carbon.h>
 #import <WebKit/WebKit.h>
+#import <Scribbler/Scribbler.h>
 #import "PreferencesController.h"
 #import "TrayMenu.h"
 #import "iTunes.h"
@@ -74,6 +75,7 @@
     TrayMenu *menu;
 	Player *player;
 	Bowtie *bowtie;
+	LFWebService *lfmWebService;
 	
 	// controllers
 	PreferencesController *preferencesController;

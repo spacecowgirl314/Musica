@@ -917,6 +917,15 @@
 	return WebDragSourceActionNone;
 }
 
+#pragma mark - Last.fm Stuff
+
+- (void)loginLFM
+{
+	lfmWebService = [[LFWebService alloc] init];
+	[lfmWebService setAPIKey:@"eaefece415e6baf1679168618691879d"];
+	[lfmWebService setSharedSecret:@"0b7caa8184e2230a85a203e4fed75b24"];
+}
+
 #pragma mark -
 #pragma mark IBActions
 

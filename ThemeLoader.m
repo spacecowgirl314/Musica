@@ -46,6 +46,9 @@
 			[themes addObject:theme];
 		}
 	}
+	[themes sortUsingComparator:^NSComparisonResult(Theme *theme1, Theme *theme2) {
+		return [theme1.name compare:theme2.name];
+	}];
 }
 
 + (NSURL*)appliedThemeURL
