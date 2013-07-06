@@ -65,6 +65,7 @@
 	NSMutableArray *musicaServices;
 	NSTrackingArea *myTrackingArea;
 	NSDictionary *themeDictionary;
+	NSMutableDictionary *themeStore;
 	//iTunesApplication *iTunes;
     RdioApplication *Rdio;
     SpotifyApplication *Spotify;

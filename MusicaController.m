@@ -10,6 +10,7 @@
 #import "Track.h"
 #import "NSImage+Resize.h"
 #import "ThemeLoader.h"
+#import "NSFileManager+DirectoryLocations.h"
 
 @implementation MusicaController
 
@@ -98,17 +99,18 @@
     }
 }
 
--(void)applicationWillTerminate:(id)sender {
+-(void)applicationWillTerminate:(id)sender
+{
 	NSLog(@"MusicaController Quitting now");
-	NSRect windowFrame = [[self window] frame];
-	[[NSUserDefaults standardUserDefaults] setObject:NSStringFromRect(windowFrame) forKey:@"musicaWindowFrame"];
+	[self storeWindowPosition];
 	//NSRectFromString();
 }
 
 #pragma mark -
 #pragma mark Prepare Application
 
--(void)awakeFromNib {
+-(void)awakeFromNib
+{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadTheme) name:@"loadTheme" object:nil];
 	
 	// Give us features we need that EyeTunes doesn't
@@ -147,6 +149,8 @@
 	//[window setAlphaValue:0.0];
 	// Fade In timer also loads the welcome screen after its done fading in.
 	//fadeInTimer = [[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(fadeIn:) userInfo:nil repeats:YES] retain];
+	// Load the theme store with all of the theme positions
+	[self loadThemeStore];
 	// Load window position from memory.
 	[self restoreWindowPosition];
 	// Monitor application quit
@@ -165,15 +169,39 @@
 	[self loadTheme];
 }
 
--(void)restoreWindowPosition {
-	if ([[NSUserDefaults standardUserDefaults] stringForKey:@"musicaWindowFrame"]!=nil) {
-		NSRect windowFrame = NSRectFromString([[NSUserDefaults standardUserDefaults] stringForKey:@"musicaWindowFrame"]);
-		[[self window] setFrame:windowFrame display:YES animate:YES];
+- (void)storeWindowPosition
+{
+	NSPoint windowOrigin = self.window.frame.origin;
+	//[[NSUserDefaults standardUserDefaults] setObject:NSStringFromRect(windowFrame) forKey:@"musicaWindowFrame"];
+	NSString *themeStoreFile = [[NSString alloc] initWithFormat:@"%@/TDStore.plist", [[NSFileManager defaultManager] applicationSupportDirectory]];
+	if ([themeStore objectForKey:themeDictionary[@"BTThemeIdentifier"]]!=nil) {
+		// update sub-dictionary, there has to be a less convoluted to manipulate this
+		NSMutableDictionary *individualStore = [NSMutableDictionary dictionaryWithDictionary:[themeStore objectForKey:themeDictionary[@"BTThemeIdentifier"]]];
+		[individualStore setObject:NSStringFromPoint(windowOrigin) forKey:@"BTWindowOrigin"];
+		[themeStore setObject:individualStore forKey:themeDictionary[@"BTThemeIdentifier"]];
 	}
 	else {
+		NSMutableDictionary *individualStore = [[NSMutableDictionary alloc] init];
+		[individualStore setObject:NSStringFromPoint(windowOrigin) forKey:@"BTWindowOrigin"];
+		[themeStore setObject:individualStore forKey:themeDictionary[@"BTThemeIdentifier"]];
+	}
+	[themeStore writeToFile:themeStoreFile atomically:YES];
+}
+
+-(void)restoreWindowPosition
+{
+	if ([themeStore objectForKey:themeDictionary[@"BTThemeIdentifier"]]!=nil) {
+		// update sub-dictionary, there has to be a less convoluted to manipulate this
+		NSMutableDictionary *individualStore = [NSMutableDictionary dictionaryWithDictionary:[themeStore objectForKey:themeDictionary[@"BTThemeIdentifier"]]];
+		NSPoint windowOrigin = NSPointFromString([individualStore objectForKey:@"BTWindowOrigin"]);
+		// only modify the origin
+		NSRect windowFrame = NSMakeRect(windowOrigin.x, windowOrigin.y, self.window.frame.size.width, self.window.frame.size.height);
+		[[self window] setFrame:windowFrame display:YES animate:NO];
+	}
+	else {
+		[window center];
 		NSLog(@"MusicaController No position to restore from.");
 	}
-	
 }
 
 - (void)fadeIn:(NSTimer *)theTimer
@@ -749,6 +777,10 @@
 
 - (void)loadTheme
 {
+	// save current theme position if we just switched themes
+	if (themeDictionary!=nil) {
+		[self storeWindowPosition];
+	}
 	NSURL *themeURL = [ThemeLoader appliedThemeURL];
 	// TODO:We shouldn't be checking for nil here because there should always be a default theme, even on app first run.
 	if (themeURL!=nil) {
@@ -772,6 +804,16 @@
 		/*themeDictionary = [NSDictionary dictionaryWithContentsOfURL:[[panel URL] URLByAppendingPathComponent:@"Info.plist"]];
 		NSURL *indexFile = [[panel URL] URLByAppendingPathComponent:themeDictionary[@"BTMainFile"]];
 		[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];*/
+	}
+}
+
+// load the theme positions, also can contain specific theme preferences, hence the name store
+- (void)loadThemeStore
+{
+	NSString *themeStoreFile = [[NSString alloc] initWithFormat:@"%@/TDStore.plist", [[NSFileManager defaultManager] applicationSupportDirectory]];
+	themeStore = [NSMutableDictionary dictionaryWithContentsOfFile:themeStoreFile];
+	if (themeStore==nil) {
+		themeStore = [[NSMutableDictionary alloc] init];
 	}
 }
 
@@ -829,7 +871,7 @@
 	//NSRect frame = NSMakeRect(webView.frame.origin.x, webView.frame.origin.y, width, height);
 	NSRect windowFrame = NSMakeRect(self.window.frame.origin.x, self.window.frame.origin.y, width, height);
 	[window setFrame:windowFrame display:YES];
-	[window center];
+	[self restoreWindowPosition];
 	
 	// register bridge values
 	[[webView windowScriptObject] setValue:player forKey:@"Player"];
