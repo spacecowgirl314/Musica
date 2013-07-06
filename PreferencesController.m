@@ -156,6 +156,7 @@
         prefsView = generalView;
     }else if([sender isEqualToString:@"Themes"]){
 		[themeLoader reload];
+		[oMyTableView reloadData];
         //assign the temp pointer to the appearanceView we set up in IB.
         prefsView = themesView;
     }

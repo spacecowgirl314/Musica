@@ -7,6 +7,8 @@
 //
 
 #import "TransparentWindow.h"
+#import "ThemeLoader.h"
+#import "Theme.h"
 
 #define WINDOW_DOCKING_DISTANCE 	12	//Distance in pixels before the window is snapped to an edge
 
@@ -29,7 +31,8 @@
 		// Pinned
 		//[self setLevel:kCGDesktopWindowLevel];
 		// Floating or NSFloatingWindowLevel
-		switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"musicaWindowMode"]) {
+		[self updateWindowMode];
+		/*switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"musicaWindowMode"]) {
 			case 0:
 				// Always on Top
 				[self setLevel:kCGFloatingWindowLevel];
@@ -46,7 +49,7 @@
 				// Use default
 				[self setLevel:kCGFloatingWindowLevel];
 				break;
-		}
+		}*/
         // Turn off opacity so that the parts of the window that are not drawn into are transparent.
         [self setOpaque:NO];
 		//[self setBackgroundColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.0]];  //Tells the window to use a transparent colour.
@@ -68,15 +71,34 @@
             break;
         case 1:
             // Pinned to Desktop
-            [self setLevel:kCGDesktopWindowLevel];
+            [self setLevel:kCGDesktopWindowLevel+2];
             break;
         case 2:
             // Normal Window
             [self setLevel:NSNormalWindowLevel];
             break;
+		case 3: {
+			// Theme controlled
+			ThemeWindowMode windowMode = [[ThemeLoader currentTheme] windowMode];
+			switch(windowMode) {
+				case ThemeWindowModeDesktop:
+					// Pinned to Desktop
+					[self setLevel:kCGDesktopWindowLevel+2];
+					break;
+				case ThemeWindowModeNormal:
+					// Normal Window
+					[self setLevel:NSNormalWindowLevel];
+					break;
+				case ThemeWindowModeTop:
+					// Always on Top
+					[self setLevel:kCGFloatingWindowLevel];
+					break;
+			}
+			break;
+		}
         default:
             // Use default
-            [self setLevel:kCGFloatingWindowLevel];
+            [self setLevel:NSNormalWindowLevel];
             break;
     }
 }

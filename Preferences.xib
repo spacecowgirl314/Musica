@@ -117,7 +117,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Apply" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MmE-Da-o2w">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="controlContent"/>
+                        <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                 </button>
             </subviews>
@@ -129,14 +129,17 @@
                 <popUpButton verticalHuggingPriority="750" id="384">
                     <rect key="frame" x="145" y="179" width="156" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="always on top" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="389" id="385">
+                    <popUpButtonCell key="cell" type="push" title="normal window" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="387" id="385">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="386">
                             <items>
-                                <menuItem title="always on top" state="on" id="389"/>
+                                <menuItem title="always on top" id="389"/>
                                 <menuItem title="desktop-level" id="388"/>
-                                <menuItem title="normal window" id="387"/>
+                                <menuItem title="normal window" state="on" id="387"/>
+                                <menuItem title="theme controlled" id="ojh-v4-W9O">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
@@ -261,9 +264,40 @@
                 <outlet property="tableView" destination="277" id="or1-yV-Oqg"/>
             </connections>
         </customObject>
+        <menuItem title="normal window" state="on" id="6D2-d6-txK"/>
     </objects>
     <resources>
         <image name="Bag" width="32" height="32"/>
         <image name="Settings" width="32" height="32"/>
     </resources>
+    <classes>
+        <class className="PreferencesController" superclassName="NSWindowController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PreferencesController.h"/>
+            <relationships>
+                <relationship kind="action" name="gotoPluginWebpage:"/>
+                <relationship kind="action" name="relaunch:"/>
+                <relationship kind="action" name="segmentAction:"/>
+                <relationship kind="action" name="selectedWindowMode:"/>
+                <relationship kind="action" name="switchViews:" candidateClass="NSToolbarItem"/>
+                <relationship kind="action" name="toggleDockArt:"/>
+                <relationship kind="action" name="toggleLoginItem:"/>
+                <relationship kind="action" name="toggleShowingMusica:"/>
+                <relationship kind="outlet" name="defaultItem" candidateClass="NSToolbarItem"/>
+                <relationship kind="outlet" name="generalView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="loginSwitch" candidateClass="NSSegmentedControl"/>
+                <relationship kind="outlet" name="musicaWindowButton" candidateClass="NSPopUpButton"/>
+                <relationship kind="outlet" name="oMyTableView" candidateClass="NSTableView"/>
+                <relationship kind="outlet" name="pluginsView" candidateClass="NSScrollView"/>
+                <relationship kind="outlet" name="themesView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="NSToolbar"/>
+            </relationships>
+        </class>
+        <class className="ThemeLoader" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ThemeLoader.h"/>
+            <relationships>
+                <relationship kind="action" name="applySelectedTheme:"/>
+                <relationship kind="outlet" name="tableView" candidateClass="NSTableView"/>
+            </relationships>
+        </class>
+    </classes>
 </document>

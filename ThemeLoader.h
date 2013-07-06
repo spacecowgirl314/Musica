@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Theme.h"
 
 @interface ThemeLoader : NSObject
 {
@@ -17,5 +18,6 @@
 - (void)reload;
 + (NSURL*)appliedThemeURL;
 + (void)installTheme:(NSURL*)source;
++ (Theme*)currentTheme;
 
 @end

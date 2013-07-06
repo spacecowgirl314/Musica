@@ -7,7 +7,6 @@
 //
 
 #import "ThemeLoader.h"
-#import "Theme.h"
 #import "NSFileManager+DirectoryLocations.h"
 
 @implementation ThemeLoader
@@ -42,12 +41,7 @@
 	while ((file = [enm nextObject])) {
 		if ([[file pathExtension] isEqualToString:@"bowtie"]) {
 			NSString *themePath = [[NSString alloc] initWithFormat:@"%@/%@", dir, file];
-			NSString *infoPlistPath = [[NSString alloc] initWithFormat:@"%@/Info.plist", themePath];
-			NSDictionary *themeDictionary = [NSDictionary dictionaryWithContentsOfFile:infoPlistPath];
-			Theme *theme = [[Theme alloc] init];
-			[theme setArtist:themeDictionary[@"BTThemeArtist"]];
-			[theme setName:themeDictionary[@"BTThemeName"]];
-			[theme setURL:[NSURL fileURLWithPath:themePath]];
+			Theme *theme = [[Theme alloc] initWithURL:[NSURL fileURLWithPath:themePath]];
 			NSLog(@"Loading bowtie theme: %@ at path %@", [theme name], themePath);
 			[themes addObject:theme];
 		}
@@ -66,6 +60,12 @@
 	}
 }
 
++ (Theme*)currentTheme
+{
+	Theme *theme = [[Theme alloc] initWithURL:[self appliedThemeURL]];
+	return theme;
+}
+
 + (void)installTheme:(NSURL*)source
 {
 	//copy file to application support
@@ -77,7 +77,7 @@
 	// put a confirmation dialog here just make sure to follow semantics from Safari/Dashboard plugin installation.
 	NSError *error;
 	//[[NSFileManager defaultManager] copyItemAtPath:source toPath:destination error:&error];
-	[[NSFileManager defaultManager] copyItemAtURL:source toURL:[[NSURL fileURLWithPath:destination] URLByAppendingPathComponent:[source lastPathComponent]] error:&error];
+	[[NSFileManager defaultManager] copyItemAtURL:source toURL:[[NSURL fileURLWithPath:destination] URLByAppendingPathComponent:[[NSString alloc] initWithFormat:@"%@.bowtie", [[NSUUID UUID] UUIDString]]] error:&error];// [source lastPathComponent]
 	if (error!=nil)
 	{
 		NSLog(@"error description:%@", [error description]);

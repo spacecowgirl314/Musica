@@ -14,10 +14,33 @@
 @synthesize artist;
 @synthesize URL;
 
+- (id)initWithURL:(NSURL*)url
+{
+	NSURL *infoPlistURL = [url URLByAppendingPathComponent:@"Info.plist"];
+	[self constructWithDictionary:[NSDictionary dictionaryWithContentsOfURL:infoPlistURL] andSourceURL:url];
+	return self;
+}
+
 - (void)applyTheme
 {
 	[[NSUserDefaults standardUserDefaults] setObject:[URL lastPathComponent] forKey:@"musicaTheme"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"loadTheme" object:nil];
+}
+
+- (void)constructWithDictionary:(NSDictionary*)themeDictionary andSourceURL:(NSURL*)url
+{
+	[self setArtist:themeDictionary[@"BTThemeArtist"]];
+	[self setName:themeDictionary[@"BTThemeName"]];
+	[self setURL:url];
+	if (themeDictionary[@"BTWindowMode"]==nil) {
+		[self setWindowMode:ThemeWindowModeNormal];
+	} else if([themeDictionary[@"BTWindowMode"] isEqualToString:@"desktop"]) {
+		[self setWindowMode:ThemeWindowModeDesktop];
+	} else if([themeDictionary[@"BTWindowMode"] isEqualToString:@"normal"]) {
+		[self setWindowMode:ThemeWindowModeNormal];
+	} else if([themeDictionary[@"BTWindowMode"] isEqualToString:@"top"]) {
+		[self setWindowMode:ThemeWindowModeTop];
+	}
 }
 
 @end
