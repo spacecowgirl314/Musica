@@ -12,9 +12,11 @@
                 <action selector="selectedWindowMode:" destination="384" id="405"/>
                 <action selector="switchViews:" destination="357" id="364"/>
                 <action selector="switchViews:" destination="428" id="429"/>
+                <action selector="switchViews:" destination="nMh-52-CMQ" id="5NW-C7-2E0"/>
                 <action selector="toggleShowingMusica:" destination="418" id="434"/>
                 <outlet property="defaultItem" destination="357" id="416"/>
                 <outlet property="generalView" destination="369" id="415"/>
+                <outlet property="lastFMView" destination="GWp-xB-OmY" id="JYc-y5-QR6"/>
                 <outlet property="musicaWindowButton" destination="384" id="417"/>
                 <outlet property="oMyTableView" destination="277" id="290"/>
                 <outlet property="pluginsView" destination="274" id="283"/>
@@ -39,10 +41,12 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="58826B11-83E5-48FF-B780-A671708E1DC0" explicitItemIdentifier="generalPreferences" label="General" paletteLabel="General" tag="-1" image="Settings" selectable="YES" id="357"/>
                     <toolbarItem implicitItemIdentifier="92743A7D-02CB-4365-B136-A3659911D40B" explicitItemIdentifier="themePreferences" label="Themes" paletteLabel="Themes" tag="-1" image="Bag" selectable="YES" id="428"/>
+                    <toolbarItem implicitItemIdentifier="3E9FCE68-1074-455E-81BB-83ACFE393FEE" label="Last.fm" paletteLabel="Last.fm" tag="-1" image="lastfmPrefs" selectable="YES" id="nMh-52-CMQ"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="357"/>
                     <toolbarItem reference="428"/>
+                    <toolbarItem reference="nMh-52-CMQ"/>
                 </defaultToolbarItems>
             </toolbar>
         </window>
@@ -265,10 +269,43 @@
             </connections>
         </customObject>
         <menuItem title="normal window" state="on" id="6D2-d6-txK"/>
+        <view id="GWp-xB-OmY">
+            <rect key="frame" x="0.0" y="0.0" width="422" height="209"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="k6q-RC-T59">
+                    <rect key="frame" x="119" y="132" width="96" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="14L-VZ-Q1B">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="Cl1-Gh-i3W">
+                    <rect key="frame" x="119" y="93" width="96" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="QlU-Ez-5V3">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" id="TSj-zq-wAf">
+                    <rect key="frame" x="292" y="11" width="122" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Round Rect Button" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dBr-jm-Lqf">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="controlContent"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+        </view>
     </objects>
     <resources>
         <image name="Bag" width="32" height="32"/>
         <image name="Settings" width="32" height="32"/>
+        <image name="lastfmPrefs" width="32" height="32"/>
     </resources>
     <classes>
         <class className="PreferencesController" superclassName="NSWindowController">
@@ -284,6 +321,7 @@
                 <relationship kind="action" name="toggleShowingMusica:"/>
                 <relationship kind="outlet" name="defaultItem" candidateClass="NSToolbarItem"/>
                 <relationship kind="outlet" name="generalView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="lastFMView" candidateClass="NSView"/>
                 <relationship kind="outlet" name="loginSwitch" candidateClass="NSSegmentedControl"/>
                 <relationship kind="outlet" name="musicaWindowButton" candidateClass="NSPopUpButton"/>
                 <relationship kind="outlet" name="oMyTableView" candidateClass="NSTableView"/>

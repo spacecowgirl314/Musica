@@ -159,7 +159,9 @@
 		[oMyTableView reloadData];
         //assign the temp pointer to the appearanceView we set up in IB.
         prefsView = themesView;
-    }
+    }else if([sender isEqualToString:@"Last.fm"]){
+		prefsView = lastFMView;
+	}
     
     //to stop flicker, we make a temp blank view.
     NSView *tempView = [[NSView alloc] initWithFrame:[[[self window] contentView] frame]];

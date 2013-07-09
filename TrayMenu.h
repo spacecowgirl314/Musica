@@ -15,7 +15,8 @@
 	NSStatusItem *_statusItem;
 }
 
--(NSMenu *)createMenu;
+- (NSMenu *)createMenu;
+- (void)removeStatusItem;
 
 @property (strong, nonatomic) PreferencesController *preferencesController;
 

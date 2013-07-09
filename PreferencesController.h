@@ -17,6 +17,7 @@
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSView *generalView;
     IBOutlet NSView *themesView;
+	IBOutlet NSView *lastFMView;
     IBOutlet NSToolbarItem *defaultItem;
     IBOutlet NSSegmentedControl *loginSwitch;
 	ThemeLoader *themeLoader;

@@ -12,21 +12,25 @@
 
 @synthesize preferencesController;
 
-/*- (void) openWebsite:(id)sender {
+/*- (void) openWebsite:(id)sender 
+ {
 	NSURL *url = [NSURL URLWithString:@"http://th30z.netsons.org"];
 	[[NSWorkspace sharedWorkspace] openURL:url];
 	[url release];
 }
 
-- (void) openFinder:(id)sender {
+- (void) openFinder:(id)sender 
+ {
 	[[NSWorkspace sharedWorkspace] launchApplication:@"Finder"];
 }*/
 
-- (void)actionQuit:(id)sender {
+- (void)actionQuit:(id)sender
+{
 	[NSApp terminate:sender];
 }
 
-- (void)openPreferences:(id)sender {
+- (void)openPreferences:(id)sender
+{
 	// lazy load the PreferencesController
 	if (!self.preferencesController) {
 		PreferencesController *pC = [[PreferencesController alloc] init];
@@ -36,11 +40,13 @@
 	[self.preferencesController showWindow:self];
 }
 
-- (void)showAboutWindow:(id)sender {
+- (void)showAboutWindow:(id)sender
+{
 	[[NSApplication sharedApplication] orderFrontStandardAboutPanel:sender];
 }
 
-- (NSMenu *) createMenu {
+- (NSMenu*)createMenu
+{
 	NSZone *menuZone = [NSMenu menuZone];
 	NSMenu *menu = [[NSMenu allocWithZone:menuZone] init];
 	NSMenuItem *menuItem;
@@ -72,8 +78,9 @@
 	return menu;
 }
 
-- (void) applicationDidFinishLaunching:(NSNotification *)notification {
-	NSMenu *menu = [self createMenu];
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+	/*NSMenu *menu = [self createMenu];
 	[menu setDelegate:self];
 	
 	_statusItem = [[NSStatusBar systemStatusBar]
@@ -81,9 +88,13 @@
 	[_statusItem setMenu:menu];
 	[_statusItem setHighlightMode:YES];
 	[_statusItem setToolTip:@"Musica"];
-	[_statusItem setImage:[NSImage imageNamed:@"trayIcon.png"]];
+	[_statusItem setImage:[NSImage imageNamed:@"trayIcon.png"]];*/
 	//[_statusItem setAlternateImage:[NSImage imageNamed:@"pressedTrayIcon.png"]];
-	
+}
+
+- (void)removeStatusItem
+{
+	[[NSStatusBar systemStatusBar] removeStatusItem: _statusItem];
 }
 
 @end

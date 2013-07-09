@@ -57,6 +57,7 @@
             menu = [[TrayMenu alloc] init];
 			
 			[theItem setImage:[NSImage imageNamed:@"trayIcon"]];
+			[theItem setAlternateImage:[NSImage imageNamed:@"trayIconPressed"]];
 			[theItem setHighlightMode:YES];
 			[theItem setMenu:[menu createMenu]];
 		}
@@ -103,7 +104,9 @@
 {
 	NSLog(@"MusicaController Quitting now");
 	[self storeWindowPosition];
-	//NSRectFromString();
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaMenuBar"]) {
+		[[NSStatusBar systemStatusBar] removeStatusItem: theItem];
+	}
 }
 
 #pragma mark -
