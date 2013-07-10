@@ -449,7 +449,9 @@
                 NSUserNotification *notification = [[NSUserNotification alloc] init];
                 [notification setTitle:[track name]];
 				[notification setSubtitle:[track artist]];
-				[notification setContentImage:previousTrackArtwork];
+				if ([notification respondsToSelector:@selector(setContentImage:)]) {
+					[notification setContentImage:previousTrackArtwork];
+				}
 				[notification setInformativeText:[track album]];
                 NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
                 [center scheduleNotification:notification];
@@ -552,7 +554,9 @@
                 NSUserNotification *notification = [[NSUserNotification alloc] init];
                 [notification setTitle:[track name]];
 				[notification setSubtitle:[track artist]];
-				[notification setContentImage:previousTrackArtwork];
+				if ([notification respondsToSelector:@selector(setContentImage:)]) {
+					[notification setContentImage:previousTrackArtwork];
+				}
 				[notification setInformativeText:[track album]];
                 NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
                 [center scheduleNotification:notification];
