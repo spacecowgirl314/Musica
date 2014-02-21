@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>Default Theme</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1">
+    <style type="text/css">
+		* {
+		padding:0;
+		margin:0;
+		/*border: 1px solid red;*/
+	}
+
+	body {
+	padding: 0;
+	margin: 0;
+	-webkit-user-select: none;
+	overflow: hidden;
+	cursor: default;
+	}
+	
+    div#spinwrap {
+    	position: relative;
+    	width: 160px;
+    	height: 160px;
+    	margin: 2em auto;
+    	-webkit-perspective: 1000;
+   	}
+    div#spinwrap div {
+    	position: absolute;
+    	width: 100%;
+    	height: 140px;
+		width: 140px;
+    	-webkit-transition-duration: .5s;
+    	-webkit-backface-visibility: hidden;
+    	text-align: center;
+    }
+    div#spinwrap div.sidea {
+    }
+    div#spinwrap.flip div.sidea {
+    	-webkit-transform: rotateY(-180deg);
+    }
+    div#spinwrap div.sideb {
+		-webkit-border-radius: 6px;
+    	-webkit-transform: rotateY(-180deg);
+    }
+    div#spinwrap.flip div.sideb {
+    	-webkit-transform: rotateY(-360deg);
+    }
+
+	#songname {
+		color: #fff;
+		font-family: "Lucida Grande";
+		font-size: 12px;
+		font-weight: bold;
+		text-align: center;
+		white-space:nowrap;
+		overflow:hidden;
+		text-overflow: ellipsis;
+		top: 20px;
+		text-shadow: 0px 1px 1px black;
+	}
+
+	#artist {
+		color: #fff;
+		font-family: "Lucida Grande";
+		font-size: 10px;
+		font-weight: normal;
+		text-align: center;
+		white-space:nowrap;
+		overflow:hidden;
+		text-overflow: ellipsis;
+		top: 40px;
+		text-shadow: 0px 1px 1px black;
+	}
+
+	#album {
+		color: #fff;
+		font-family: "Lucida Grande";
+		font-size: 10px;
+		font-weight: normal;
+		text-align: center;
+		white-space:nowrap;
+		overflow:hidden;
+		text-overflow: ellipsis;
+		top: 60px;
+		text-shadow: 0px 1px 1px black;
+	}
+
+	#rating {
+		top: 85px;
+	}
+
+	#rating a {
+		color: #fff;
+		font-family: "Lucida Grande";
+		font-size: 12px;
+		font-weight: bold;
+		text-shadow: 0px 1px 1px black;
+		margin-top: 10px;
+		padding: 12px 2px;
+		text-decoration: none;
+		width: 10px;
+	}
+
+	a.removeRating {
+		color: #000;
+		font-family: "Lucida Grande";
+		font-size: 16px;
+		font-weight: bold;
+		margin-top: 10px;
+		padding: 12px 2px;
+		text-decoration: none;
+	}
+	
+	#controller {
+		top:120px;
+	}
+	
+	#controller a{
+		padding: 0px 5px;
+	}
+	
+	#artHolder {
+		-webkit-border-radius: 6px;
+		-webkit-box-shadow: 0px 1px 5px #000;
+		width: 160px;
+		height: 160px;
+	}
+	
+	#controls {
+		-webkit-border-radius: 6px;
+		-webkit-box-shadow: 0px 1px 5px #000;
+		width: 140px;
+		height: 140px;
+		background: transparent url(img/background.png) top left no-repeat;
+		-webkit-box-shadow: 0px 1px 5px #000;
+		padding:10px;
+	}
+    </style>
+    <script type="text/javascript">
+    function toggleSpinwrap () {
+    	var spinwrap = document.getElementById ('spinwrap');
+    	spinwrap.className = spinwrap.className ? '' : 'flip';
+    	return false;
+    }
+    </script>
+	<script type="text/javascript">
+	oldPlayState = 0;
+	function $(el) { return document.getElementById(el); }
+	
+	function artworkUpdate(artURL)
+	{
+		if (artURL == "")
+			// use "no art" image
+			$('artHolder').src = "img/noartwork.png";
+		else
+			// use artURL
+			$('artHolder').src = artURL;
+	}
+	
+	function playStateUpdate(newPlayState)
+	{
+		if (newPlayState != oldPlayState)
+		{
+			if (newPlayState == 0 || newPlayState == 2)
+				$('playLink').innerHTML = '<img src="img/play.png">';
+			else
+				$('playLink').innerHTML = '<img src="img/pause.png">';
+			
+			oldPlayState = newPlayState;
+		}
+	}
+	
+	function trackUpdate(track)
+	{
+		var name = track.title;
+		var artist = track.artist;
+		var album = track.album;
+		
+		$('songname').innerHTML = (typeof(name) != 'undefined') ? name : "Nothing Playing";
+		$('artist').innerHTML = (typeof(artist) != 'undefined') ? artist : "";
+		$('album').innerHTML = (typeof(album) != 'undefined') ? album : "";
+		
+		updateRatingUI(Player.rating());
+	}
+	
+	function playPause()
+	{
+		Player.playPause();
+	}
+	
+	function setRating(rating)
+	{
+		updateRatingUI(rating);
+		Player.setRating(rating);
+	}
+
+	function updateRatingUI(rating)
+	{
+		if(rating > 0){
+			$('star1').innerHTML = "★";
+		} else {
+			// $('star1').innerHTML = "☆";
+			$('star1').innerHTML = "☆";
+		}
+
+		if(rating > 20){
+			$('star2').innerHTML = "★";
+		} else {
+			$('star2').innerHTML = "☆";
+		}
+
+		if(rating > 40){
+			$('star3').innerHTML = "★";
+		} else {
+			$('star3').innerHTML = "☆";
+		}
+
+		if(rating > 60){
+			$('star4').innerHTML = "★";
+		} else {
+			$('star4').innerHTML = "☆";
+		}
+
+		if(rating > 80){
+			$('star5').innerHTML = "★";
+		} else {
+			$('star5').innerHTML = "☆";
+		}
+	}
+	</script>
+ </head>
+<body>
+<div id="spinwrap">
+<div class="sidea" ondblclick="return toggleSpinwrap()">
+	<img id="artHolder" src="img/noartwork.png" />
+	<img src="img/gloss.png" style="position: absolute; top:0px; left:0px;"/>
+</div>
+<div class="sideb" ondblclick="return toggleSpinwrap()">
+	<div id="controls">
+		<div id="songname">Loading...</div>
+		<div id="artist">Loading...</div>
+		<div id="album">Loading...</div>
+		<div id="rating">
+			<!-- <a class="removeRating" href="#" onClick="setRating(0);return false;">■</a> -->
+			<a id="star1" href="#" onClick="setRating(20);return false;">☆</a>
+			<a id="star2" href="#" onClick="setRating(40);return false;">☆</a>
+			<a id="star3" href="#" onClick="setRating(60);return false;">☆</a>
+			<a id="star4" href="#" onClick="setRating(80);return false;">☆</a>
+			<a id="star5" href="#" onClick="setRating(100);return false;">☆</a>
+		</div>
+		<div id="controller">
+			<a href="#" onClick="Player.previousTrack();return false;"><img src="img/back.png"></a>
+			<a href="#" onClick="playPause();return false;" id="playLink"><img src="img/play.png"></a>
+			<a href="#" onClick="Player.nextTrack();return false;"><img src="img/next.png"></a>
+		</div>
+	</div>
+</div>
+</div>
+</body>
+</html>

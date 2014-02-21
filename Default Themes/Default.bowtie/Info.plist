@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BTMainFile</key>
+	<string>flip.html</string>
+	<key>BTMainFile[10.5]</key>
+	<string>flip-leopard.html</string>
+	<key>BTArtworkHeight</key>
+	<integer>160</integer>
+	<key>BTArtworkWidth</key>
+	<integer>160</integer>
+	<key>BTArtworkBackgroundFill</key>
+	<string>#000</string>
+	<key>BTWindowWidth</key>
+	<integer>210</integer>
+	<key>BTWindowHeight</key>
+	<integer>250</integer>
+	<key>BTWindowMode</key>
+	<string>top</string>
+	<key>BTThemeName</key>
+	<string>Default</string>
+	<key>BTThemeIdentifier</key>
+	<string>com.lbaumann.Default</string>
+	<key>BTThemeArtist</key>
+	<string>Laurent Baumann</string>
+	<key>BTThemePreviewImage</key>
+	<string>preview.png</string>
+	<key>BTTrackFunction</key>
+	<string>trackUpdate</string>
+	<key>BTArtworkFunction</key>
+	<string>artworkUpdate</string>
+	<key>BTPlayStateFunction</key>
+	<string>playStateUpdate</string>
+	<key>BTArtistURL</key>
+	<string>http://lbaumann.com</string>
+	<key>BTThemeVersion</key>
+	<string>1.2</string>
+</dict>
+</plist>

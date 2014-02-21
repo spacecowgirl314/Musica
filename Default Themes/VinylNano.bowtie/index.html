@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Vinyl Nano Popup</title>
+	<style type="text/css">
+	body {
+		margin: 0;
+		padding: 0;
+		-webkit-user-select: none;
+		font-family: 'Lucida Grande';
+		color: #fff;
+		text-shadow: #000 0px 1px 3px;
+		text-align: center;
+		font-weight: bold;
+		font-size: 6.5pt;
+		overflow: hidden;
+/*		background: #666;*/
+	}
+	
+	a {
+		cursor: default;
+	}
+	
+	#container {
+		position: absolute;
+		top: 115px;
+		left: 0px;
+		width: 250px;
+		height: 160px;
+	}
+	
+	#controler {
+		opacity: 0.2;
+	}
+	
+	#artBox {
+		width: 131px;
+		height: 106px;
+		position: absolute;
+		top: 0px;
+		left: 40px;
+/*		border: 1px solid red;*/
+	}
+	#art {
+		position: absolute;
+/*		background: #f90;*/
+		left: 9px;
+		top: 1px;
+		height: 100px;
+		width: 100px;
+	}
+	#jewel {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 131px;
+		height: 106px;
+	}
+	
+	#album, #album2 {
+		white-space:nowrap;
+		overflow:hidden;
+		text-overflow: ellipsis;
+		font-family: "Helvetica Neue";
+		font-weight: light;
+		font-size: 7pt;
+	}
+	
+	#artist, #artist2 {
+		white-space:nowrap;
+		overflow:hidden;
+		text-overflow: ellipsis;
+		font-family: "Helvetica Neue";
+		font-weight: bold;
+		font-size: 7pt;
+	}
+	
+	#albumArtist {
+		white-space:nowrap;
+		overflow:hidden;
+		text-overflow: ellipsis;
+	}
+
+	#title, #title2 {
+		white-space:nowrap;
+		overflow:hidden;
+		text-overflow: ellipsis;
+		font-family: "Helvetica Neue";
+		font-weight: bold;
+		font-size: 9pt;
+	}
+	
+.bubbleInfo {
+    position: relative;
+	padding-top: 20px;
+}
+
+#popupInfos {
+    position: absolute;
+	top: 41px;
+	left: 14px;
+	background: transparent url(popup.png) top left no-repeat;
+	width: 142px;
+	height: 55px;
+/*	display: none;*/
+	opacity: 0;
+	font-size: 8pt;
+	padding: 12px 15px;
+/*	border: 1px solid red;*/
+}
+
+#popupControls {
+    position: absolute;
+	top: 41px;
+	left: 14px;
+	background: transparent url(popup.png) top left no-repeat;
+	width: 142px;
+	height: 55px;
+/*	display: none;*/
+	opacity: 0;
+	font-size: 8pt;
+	padding: 12px 15px;
+/*	border: 1px solid red;*/
+}
+
+#rating {
+	padding: 5px 0px 0px 0px;
+}
+	#rating a {
+		font-size: 8pt;
+		color: #fff;
+		text-decoration: none;
+		text-shadow: 0px 1px 3px black;
+	}
+
+	#controls {
+		font-family: Webdings;
+	}
+		#controls a {
+			color: #fff;
+			text-decoration: none;
+			font-size: 16px;
+			text-shadow: 0px 1px 2px #111;
+		}
+		
+#textOverlay {
+	position: absolute;
+	top: 42px;
+	left: 27px;
+	width: 80px;
+	z-index: 999;
+	color: #452400;
+	text-shadow: 0px 0px 1px #c60;
+/*	letter-spacing: 1px;*/
+	line-height: 11px;
+	text-transform: uppercase;
+	-webkit-transform: rotate(270deg);
+	transform: rotate(270deg);
+/*	border: 1px solid red;*/
+	text-align: left;
+}
+
+#album2 {
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	font-family: "Helvetica Neue";
+	font-weight: light;
+	font-size: 5pt;
+}
+
+#artist2 {
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	font-family: "Helvetica Neue";
+	font-weight: bold;
+	font-size: 8pt;
+}
+
+	</style>
+	<script src="animator.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	oldPlayState = 0;
+	function $(id) { return document.getElementById(id); }
+	function trackUpdate(track)
+	{
+		var title = track.title;
+		var artist = track.artist;
+		var album = track.album;
+		
+		title = (typeof(title) != 'undefined') ? title : "";
+		artist = (typeof(artist) != 'undefined') ? artist : "";
+		album = (typeof(album) != 'undefined') ? album : "";
+		
+		updateRatingUI(Player.rating());
+		
+		// hide the controller if nothing is playing
+		if (title != "") {
+			containerVisibility.seekTo(1);
+			// if controller is visible, display the tooltip
+			if($('popupControls').style.opacity == 0) {
+				infosPopup.seekTo(1);
+				setTimeout("infosPopup.seekTo(0);", 3000);
+			}
+			$('title').innerHTML = title;
+			$('title2').innerHTML = title;
+			$('artist').innerHTML = artist;
+			$('artist2').innerHTML = artist;
+			$('album').innerHTML = album;
+			$('album2').innerHTML = album;
+		} else {
+			// else, hide the controller
+			containerVisibility.seekTo(0);
+			$('title').innerHTML = "Nothing is playing";
+			$('title2').innerHTML = "Nothing is playing";
+			$('artist').innerHTML = artist;
+			$('artist2').innerHTML = "Nothing";
+			$('album').innerHTML = album;
+			$('album2').innerHTML = "is playing";
+		}
+	}
+	function artworkUpdate(artURL)
+	{
+		if (artURL == "")
+		{
+			$('art').src = "noartwork.png";
+			$('textOverlay').style.display = '';
+		}
+		else
+		{
+			$('art').src = artURL;
+			$('artBox').src = 'case.png';
+			$('textOverlay').style.display = 'none';
+		}
+	}
+	
+	function playStateChanged(pState)
+	{
+		if (pState != oldPlayState)
+		{
+			if (pState == 0 || pState == 2)
+				$('playLink').innerHTML = '';
+			else
+				$('playLink').innerHTML = '';
+			
+			oldPlayState = pState;
+		}
+	}
+	
+	function playPause()
+	{
+		Player.playPause();
+		playerUpdate();
+	}
+	
+	function setRating(rating)
+	{
+		updateRatingUI(rating);
+		Player.setRating(rating);
+	}
+	
+	function updateRatingUI(rating)
+	{
+		if(rating > 0){
+			$('star1').innerHTML = "★";
+		} else {
+			$('star1').innerHTML = "☆";
+		}
+
+		if(rating > 20){
+			$('star2').innerHTML = "★";
+		} else {
+			$('star2').innerHTML = "☆";
+		}
+
+		if(rating > 40){
+			$('star3').innerHTML = "★";
+		} else {
+			$('star3').innerHTML = "☆";
+		}
+
+		if(rating > 60){
+			$('star4').innerHTML = "★";
+		} else {
+			$('star4').innerHTML = "☆";
+		}
+
+		if(rating > 80){
+			$('star5').innerHTML = "★";
+		} else {
+			$('star5').innerHTML = "☆";
+		}
+	}
+	
+	function init() {
+		controlPopup = new Animator({
+			transition: Animator.makeEaseOut(2),
+			duration: 500});
+		controlPopup.addSubject(new NumericalStyleSubject(
+			$("popupControls"), 'top', 40, 50));
+		controlPopup.addSubject(new NumericalStyleSubject(
+			$("popupControls"), 'opacity', 0, 1));
+		controlPopup.addSubject(new NumericalStyleSubject(
+			$("popupControls"), 'display', 'none', 'block'));
+		
+		infosPopup = new Animator({
+			transition: Animator.makeEaseOut(2),
+			duration: 500});
+		infosPopup.addSubject(new NumericalStyleSubject(
+			$("popupInfos"), 'top', 40, 50));
+		infosPopup.addSubject(new NumericalStyleSubject(
+			$("popupInfos"), 'opacity', 0, 1));
+		infosPopup.addSubject(new NumericalStyleSubject(
+			$("popupInfos"), 'display', 'none', 'block'));
+		
+		containerVisibility = new Animator({
+			transition: Animator.makeEaseOut(2),
+			duration: 500});
+		containerVisibility.addSubject(new NumericalStyleSubject(
+			$("controler"), 'opacity', 0.2, 1));
+	}
+		
+	var timerRunning = false; // boolean flag
+	var myTimer = null;
+		
+	function startTimer() {
+	    myTimer = setTimeout('controlPopup.seekTo(0);', 3000); // myTimer holds the id of the timer
+	    // timerRunning = true; // whenever you start a timer set the timerRunning flag to true 
+	}
+
+	function stopTimer() {
+		clearTimeout(myTimer); 
+//	    if (timerRunning) {
+//	        clearTimeout(myTimer); 
+//		}
+//		timerRunning = false;
+	}
+	</script>
+</head>
+<body onLoad="init();">
+	<div id="controler">
+		<div ondblclick="controlPopup.seekTo(0); infosPopup.seekTo(0);" onclick="controlPopup.seekTo(1); infosPopup.seekTo(0); stopTimer(); startTimer();" id="container">
+			<div id="artBox" class="bubbleInfo">
+				<img src="" id="art" alt="artwork" />
+				<img src="case.png" id="jewel" alt="Jewel" />
+			</div>
+			<div id="textOverlay">
+				<div id="artist2">Nothing</div>
+				<div id="album2">is playing</div>
+			</div>
+		</div>
+		<div id="popupInfos">
+			<div id="title">Nothing is playing</div>
+			<div id="artist"></div>
+			<div id="album"></div>
+		</div>
+		<div id="popupControls">
+			<div id="title2">Nothing is playing</div>
+			<!--><div id="albumArtist"><span id="artist2"></span> - <span id="album2"></span></div>-->
+			<div id="rating">
+				<span id="controls">
+					<a href="#" onClick="Player.previousTrack(); stopTimer(); startTimer();return false;"></a><a href="#" onClick="playPause(); stopTimer(); startTimer();return false;" id="playLink"></a><a href="#" onClick="Player.nextTrack(); stopTimer(); startTimer(); return false;"></a>
+				</span>
+				<a id="star1" href="#" onClick="setRating(20);stopTimer(); startTimer();return false;">☆</a>
+				<a id="star2" href="#" onClick="setRating(40);stopTimer(); startTimer();return false;">☆</a>
+				<a id="star3" href="#" onClick="setRating(60);stopTimer(); startTimer();return false;">☆</a>
+				<a id="star4" href="#" onClick="setRating(80);stopTimer(); startTimer();return false;">☆</a>
+				<a id="star5" href="#" onClick="setRating(100);stopTimer(); startTimer();return false;">☆</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

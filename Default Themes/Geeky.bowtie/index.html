@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Modern Case</title>
+	<style type="text/css">
+	body {
+		margin: 0;
+		padding: 4px;
+		-webkit-user-select: none;
+		font-family: 'Lucida Grande';
+		color: #fff;
+		text-shadow: #000 0px 0px 3px;
+		text-align: left;
+		font-weight: bold;
+		font-size: 9pt;
+		line-height: 24px;
+		overflow: hidden;
+		cursor: default;
+		// background: #666;
+	}
+	
+	#container {
+		// background: #444;
+		padding: 8px 10px;
+		// -webkit-border-radius: 5px;
+		opacity: .5;
+	}
+	
+	#rating {
+		font-size: 13px;
+	}
+	
+	#controls {
+		font-family: Webdings;
+	}
+		#controls a {
+			color: #fff;
+			text-decoration: none;
+			font-size: 16px;
+		}
+	
+	a {
+		color:#fff;
+		text-decoration: none;
+		cursor: default;
+	}
+	
+	b {
+		color: #aaa;
+	}
+	
+	</style>
+	<script type="text/javascript">
+	var oldPlayState=0;
+	function $(el) { return document.getElementById(el); }
+	
+	function trackUpdate(track)
+	{
+		updateRatingUI(Player.rating());
+		
+		var name = track.title;
+		var artist = track.artist;
+		var album = track.album;
+		
+		$('title').innerHTML = (typeof(name) != 'undefined') ? name : "Nothing Playing";
+		$('artist').innerHTML = (typeof(artist) != 'undefined') ? artist : "";
+		$('album').innerHTML = (typeof(album) != 'undefined') ? album : "";
+	}
+	
+	function setRating(rating)
+	{
+		updateRatingUI(rating);
+		Player.setRating(rating);
+	}
+	
+	function playStateChanged(pState)
+	{
+		if (pState != oldPlayState)
+		{
+			if (pState == 0 || pState == 2)
+				$('playLink').innerHTML = '';
+			else
+				$('playLink').innerHTML = '';
+			
+			oldPlayState = pState;
+		}
+	}
+	
+	function playPause()
+	{
+		Player.playPause();
+		playerUpdate();
+	}
+
+	function updateRatingUI(rating)
+	{
+		if(rating > 0){
+			$('star1').innerHTML = "★";
+		} else {
+			$('star1').innerHTML = "☆";
+		}
+
+		if(rating > 20){
+			$('star2').innerHTML = "★";
+		} else {
+			$('star2').innerHTML = "☆";
+		}
+
+		if(rating > 40){
+			$('star3').innerHTML = "★";
+		} else {
+			$('star3').innerHTML = "☆";
+		}
+
+		if(rating > 60){
+			$('star4').innerHTML = "★";
+		} else {
+			$('star4').innerHTML = "☆";
+		}
+
+		if(rating > 80){
+			$('star5').innerHTML = "★";
+		} else {
+			$('star5').innerHTML = "☆";
+		}
+	}
+	</script>
+</head>
+<body id="simpleBar">
+	<div id="container">
+		♫ <span id="title">Loading...</span>
+		<div id="artist">#artist</div>
+		<div id="album">#album</div>
+		<div id="rating"><!--<a id="removeRating" href="#" onClick="setRating(0);return false;">◦</a>-->
+			<a id="star1" href="#" onClick="setRating(20);return false;">☆</a>
+			<a id="star2" href="#" onClick="setRating(40);return false;">☆</a>
+			<a id="star3" href="#" onClick="setRating(60);return false;">☆</a>
+			<a id="star4" href="#" onClick="setRating(80);return false;">☆</a>
+			<a id="star5" href="#" onClick="setRating(100);return false;">☆</a>
+		</div>
+		<div id="controls">
+			<a href="#" onClick="Player.previousTrack();return false;"></a><a href="#" onClick="playPause(); return false;" id="playLink"></a><a href="#" onClick="Player.nextTrack(); return false;"></a>
+		</div>
+	</div>
+</body>
+</html>

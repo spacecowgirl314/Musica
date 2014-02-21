@@ -71,7 +71,7 @@
             break;
         case 1:
             // Pinned to Desktop
-            [self setLevel:kCGDesktopWindowLevel+2];
+            [self setLevel:kCGDesktopWindowLevel];
             break;
         case 2:
             // Normal Window
@@ -83,7 +83,7 @@
 			switch(windowMode) {
 				case ThemeWindowModeDesktop:
 					// Pinned to Desktop
-					[self setLevel:kCGDesktopWindowLevel+2];
+					[self setLevel:kCGDesktopWindowLevel];
 					break;
 				case ThemeWindowModeNormal:
 					// Normal Window

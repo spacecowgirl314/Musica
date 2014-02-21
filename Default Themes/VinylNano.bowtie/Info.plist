@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BTMainFile</key>
+	<string>index.html</string>
+	<key>BTWindowWidth</key>
+	<integer>250</integer>
+	<key>BTWindowHeight</key>
+	<integer>260</integer>
+	<key>BTWindowMode</key>
+	<string>desktop</string>
+	<key>BTThemeName</key>
+	<string>Vinyl Nano 2.0</string>
+	<key>BTThemeIdentifier</key>
+	<string>com.lbaumann.Vinyl Nano 2</string>
+	<key>BTThemeVersion</key>
+	<string>2.1</string>
+	<key>BTThemeArtist</key>
+	<string>Laurent Baumann</string>
+	<key>BTArtistURL</key>
+	<string>http://lbaumann.com</string>
+	<key>BTThemePreviewImage</key>
+	<string>preview.png</string>
+	<key>BTTrackFunction</key>
+	<string>trackUpdate</string>
+	<key>BTArtworkFunction</key>
+	<string>artworkUpdate</string>
+	<key>BTPlayStateFunction</key>
+	<string>playStateChanged</string>
+	<key>BTArtworkWidth</key>
+	<integer>100</integer>
+	<key>BTArtworkHeight</key>
+	<integer>100</integer>
+	<key>BTArtworkBackgroundFill</key>
+	<string>#444</string>
+</dict>
+</plist>
