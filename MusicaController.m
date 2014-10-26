@@ -56,7 +56,10 @@
 			//TrayMenu *menu = [[TrayMenu alloc] init];
             menu = [[TrayMenu alloc] init];
 			
-			[theItem setImage:[NSImage imageNamed:@"trayIcon"]];
+            NSImage *menuImage = [NSImage imageNamed:@"trayIcon"];
+            [menuImage setTemplate:YES];
+            
+			[theItem setImage:menuImage];
 			[theItem setAlternateImage:[NSImage imageNamed:@"trayIconPressed"]];
 			[theItem setHighlightMode:YES];
 			[theItem setMenu:[menu createMenu]];
@@ -135,6 +138,8 @@
 		}
 	}*/
 	
+	webView.wantsLayer = YES;
+	webView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
 	[[[webView mainFrame] frameView] setAllowsScrolling:NO];
 	[webView setDrawsBackground:NO];
 	[webView setFrameLoadDelegate:self];
