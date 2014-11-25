@@ -60,7 +60,7 @@
             [menuImage setTemplate:YES];
             
 			[theItem setImage:menuImage];
-			[theItem setAlternateImage:[NSImage imageNamed:@"trayIconPressed"]];
+			//[theItem setAlternateImage:[NSImage imageNamed:@"trayIconPressed"]];
 			[theItem setHighlightMode:YES];
 			[theItem setMenu:[menu createMenu]];
 		}
@@ -1018,7 +1018,7 @@
 
 // Installing a theme
 - (BOOL) application:(NSApplication *)sender openFile:(NSString *)source {
-	[ThemeLoader installTheme:source];
+    [ThemeLoader installTheme:[NSURL URLWithString:source]];
     
 	return YES;
 }

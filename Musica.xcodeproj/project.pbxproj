@@ -40,8 +40,6 @@
 		377571B517853893009F0C7F /* NSImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 377571B417853893009F0C7F /* NSImage+Resize.m */; };
 		377AA0D6148809590063F928 /* QuickClickImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 377AA0D5148809590063F928 /* QuickClickImage.m */; };
 		37893F74124D8AAE0032BA6E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37893F73124D8AAE0032BA6E /* Security.framework */; };
-		378BBCCA178C055A008527C9 /* trayIconPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378BBCC8178C055A008527C9 /* trayIconPressed@2x.png */; };
-		378BBCD2178C0571008527C9 /* trayIconPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 378BBCD1178C0571008527C9 /* trayIconPressed.png */; };
 		378DF48D15C22C5A00AFD110 /* trayIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378DF48C15C22C5A00AFD110 /* trayIcon@2x.png */; };
 		379A8BC61785511F00137EA7 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A8BC51785511F00137EA7 /* Theme.m */; };
 		379A8BCC1785552600137EA7 /* ThemeLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A8BCB1785552600137EA7 /* ThemeLoader.m */; };
@@ -173,8 +171,6 @@
 		377AA0D4148809590063F928 /* QuickClickImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickClickImage.h; sourceTree = "<group>"; };
 		377AA0D5148809590063F928 /* QuickClickImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickClickImage.m; sourceTree = "<group>"; };
 		37893F73124D8AAE0032BA6E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		378BBCC8178C055A008527C9 /* trayIconPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trayIconPressed@2x.png"; sourceTree = "<group>"; };
-		378BBCD1178C0571008527C9 /* trayIconPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trayIconPressed.png; sourceTree = "<group>"; };
 		378DF48C15C22C5A00AFD110 /* trayIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trayIcon@2x.png"; sourceTree = "<group>"; };
 		379A8BC41785511F00137EA7 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		379A8BC51785511F00137EA7 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
@@ -368,8 +364,6 @@
 			children = (
 				3724084B12D9582600E11843 /* trayIcon.png */,
 				378DF48C15C22C5A00AFD110 /* trayIcon@2x.png */,
-				378BBCD1178C0571008527C9 /* trayIconPressed.png */,
-				378BBCC8178C055A008527C9 /* trayIconPressed@2x.png */,
 			);
 			name = "Menu bar";
 			sourceTree = "<group>";
@@ -569,8 +563,6 @@
 				3724084C12D9582600E11843 /* trayIcon.png in Resources */,
 				378DF48D15C22C5A00AFD110 /* trayIcon@2x.png in Resources */,
 				376BD453145BBE9D00A678C7 /* Cover-Overlay@2x.png in Resources */,
-				378BBCD2178C0571008527C9 /* trayIconPressed.png in Resources */,
-				378BBCCA178C055A008527C9 /* trayIconPressed@2x.png in Resources */,
 				376BD455145BC3C400A678C7 /* Bottom-bar@2x.png in Resources */,
 				376BD45A145BC45C00A678C7 /* Pause-Pressed@2x.png in Resources */,
 				376BD45B145BC45C00A678C7 /* Pause@2x.png in Resources */,
