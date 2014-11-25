@@ -130,7 +130,7 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
     Theme *theme = [themes objectAtIndex:[tableView selectedRow]] ;
-    [previewImageView setImage:[[NSImage alloc] initByReferencingURL:[[theme URL] URLByAppendingPathComponent:[theme preview]]]];
+    [previewImageView setImage:[[NSImage alloc] initRetinaImageWithContentsOfURL:[[theme URL] URLByAppendingPathComponent:[theme preview]]]];
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row

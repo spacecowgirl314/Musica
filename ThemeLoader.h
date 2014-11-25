@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Theme.h"
+#import "NSImage+Retina.h"
 
 @interface ThemeLoader : NSObject
 {
