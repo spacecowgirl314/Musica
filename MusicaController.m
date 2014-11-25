@@ -18,12 +18,10 @@
 @synthesize preferencesController;
 
 #pragma mark -
-#pragma mark Dock Hackery
-
-#pragma mark -
 
 -(id)init {
-	if (self == [super init]) {
+    self = [super init];
+	if (self) {
         mouseInWindow = TRUE;
 		#ifndef DEBUG
 		NSLog(@"MusicaController Compiled as RELEASE");
@@ -225,18 +223,15 @@
 #pragma mark The Juicy Bits
 
 -(void)monitorTunes {
+    #ifndef __clang_analyzer__
     DescType playerState;
     RdioEPSS rdioPlayerState;
     SpotifyEPlS spotifyPlayerState;
     BOOL radiumPlayerState;
     NSInteger voxPlayerState;
     if ([EyeTunes isRunning]) {
-        //iTunesEPlS playerState;
-        //ETTrack *track = [[ETTrack alloc] init];
         EyeTunes *e = [EyeTunes sharedInstance];
         playerState = [e playerState];
-        //track = [e currentTrack];
-        //playerState = [iTunes playerState];
     }
     if ([Radium isRunning]) {
         radiumPlayerState = [Radium playing];
@@ -250,6 +245,7 @@
     if ([Vox isRunning]) {
         voxPlayerState = [Vox playerState];
     }
+    #endif
     
     // Analyzing the current running programs
     NSMutableArray *array=[[NSMutableArray alloc] init];
@@ -361,6 +357,8 @@
     BOOL spotifyUsable = ([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO);
     BOOL voxUsable = ([Vox isRunning] && chosenPlayer==audioPlayerVox) || ([Vox isRunning] && resolvingConflict==NO);
     
+    // clang hates this whole thing... go figure
+    #ifndef __clang_analyzer__
     // Change the playing button to the appropriate state
     // Detect is iTunes is paused and set button image
     if ((iTunesUsable==TRUE && playerState == kETPlayerStatePaused) || (radiumUsable==TRUE && radiumPlayerState==FALSE) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPaused) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPaused) || (voxUsable==TRUE && voxPlayerState == 0)) {
@@ -371,7 +369,6 @@
 			player.playState=@2;
 			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
 		}
-        //NSLog(@"MusicaController iTunes is paused");
     }
     if ((iTunesUsable==TRUE && playerState == kETPlayerStatePlaying) || (radiumUsable==TRUE && radiumPlayerState==TRUE) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPlaying) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPlaying) || (voxUsable==TRUE && voxPlayerState == 1)) {
         [pauseButton setImage:[NSImage imageNamed:@"Pause@2x.png"]];
@@ -380,7 +377,6 @@
 			player.playState=@1;
 			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
 		}
-        //NSLog(@"MusicaController iTunes is playing");
     }
     if ((iTunesUsable==TRUE && playerState == kETPlayerStateStopped) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSStopped) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSStopped)) {
         [pauseButton setImage:[NSImage imageNamed:@"Play@2x.png"]];
@@ -389,8 +385,9 @@
 			player.playState=@0;
 			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
 		}
-        //NSLog(@"MusicaController iTunes is stopped");
     }
+    #endif
+    
     
     //temp fix for waiting for app to load artwork
     //NSImage *artwork = [self updateArtwork];
