@@ -12,8 +12,7 @@
 
 @interface PreferencesController : NSWindowController {
 	IBOutlet NSPopUpButton *musicaWindowButton;
-	IBOutlet NSScrollView *pluginsView;
-	IBOutlet NSTableView *oMyTableView;
+	IBOutlet NSTableView *themeTableView;
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSView *generalView;
     IBOutlet NSView *themesView;

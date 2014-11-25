@@ -19,6 +19,7 @@ typedef enum  {
 
 @property NSString *name;
 @property NSString *artist;
+@property NSString *preview;
 @property NSURL *URL;
 @property ThemeWindowMode windowMode;
 

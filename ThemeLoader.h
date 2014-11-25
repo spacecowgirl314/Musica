@@ -13,6 +13,7 @@
 {
 	NSMutableArray *themes;
 	IBOutlet NSTableView *tableView;
+    IBOutlet NSImageView *previewImageView;
 }
 
 - (void)reload;

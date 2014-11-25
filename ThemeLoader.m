@@ -126,6 +126,12 @@
 	return cell;
 }
 
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
+{
+    Theme *theme = [themes objectAtIndex:[tableView selectedRow]] ;
+    [previewImageView setImage:[[NSImage alloc] initByReferencingURL:[[theme URL] URLByAppendingPathComponent:[theme preview]]]];
+}
+
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
 {
 	return 20;

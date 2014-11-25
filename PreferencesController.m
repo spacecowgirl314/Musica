@@ -155,8 +155,9 @@
         //assign the temp pointer to the generalView we set up in IB.
         prefsView = generalView;
     }else if([sender isEqualToString:@"Themes"]){
+        [themeTableView setBackgroundColor:[NSColor clearColor]];
 		[themeLoader reload];
-		[oMyTableView reloadData];
+		[themeTableView reloadData];
         //assign the temp pointer to the appearanceView we set up in IB.
         prefsView = themesView;
     }else if([sender isEqualToString:@"Last.fm"]){

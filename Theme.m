@@ -12,6 +12,7 @@
 
 @synthesize name;
 @synthesize artist;
+@synthesize preview;
 @synthesize URL;
 
 - (id)initWithURL:(NSURL*)url
@@ -36,6 +37,7 @@
 {
 	[self setArtist:themeDictionary[@"BTThemeArtist"]];
 	[self setName:themeDictionary[@"BTThemeName"]];
+    [self setPreview:themeDictionary[@"BTThemePreviewImage"]];
 	[self setURL:url];
 	if (themeDictionary[@"BTWindowMode"]==nil) {
 		[self setWindowMode:ThemeWindowModeNormal];
