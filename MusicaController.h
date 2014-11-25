@@ -19,7 +19,7 @@
 #import "Rdio.h"
 #import "Spotify.h"
 #import "Radium.h"
-#import "AWRippler.h"
+#import "Vox.h"
 #import "QuickClickImage.h"
 #import "Player.h"
 #import "Bowtie.h"
@@ -71,6 +71,7 @@
     RdioApplication *Rdio;
     SpotifyApplication *Spotify;
     RadiumApplication *Radium;
+    VoxApplication *Vox;
 	BOOL mouseInWindow;
     TrayMenu *menu;
 	Player *player;
@@ -92,19 +93,11 @@
 -(void)monitorTunes;
 -(NSImage*)updateArtwork;
 -(void)restoreWindowPosition;
--(void)updateTrackingArea;
-
--(NSString*)currentTrack;
 
 @property IBOutlet NSWindow *window; //unsafe_unretained
 @property (strong, nonatomic) PreferencesController *preferencesController;
 
-- (IBAction) prev:(id)sender;
-- (IBAction) next:(id)sender;
-- (IBAction) playPause:(id)sender;
-- (IBAction) openPreferences:(id)sender;
-- (IBAction) openArtistInfo:(id)sender;
-- (IBAction) resizeWindow:(id)sender;
+- (IBAction)openPreferences:(id)sender;
 - (IBAction)loadThemeFromFile:(id)sender;
 
 @end

@@ -12,7 +12,6 @@
 		0854A3F11A2487B3008A8BD6 /* VinylNano.bowtie in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0854A3EA1A24874D008A8BD6 /* VinylNano.bowtie */; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* MusicaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* MusicaAppDelegate.m */; };
-		3714A89913163A4E007E1145 /* AWRippler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3714A89813163A4E007E1145 /* AWRippler.m */; };
 		3724084C12D9582600E11843 /* trayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3724084B12D9582600E11843 /* trayIcon.png */; };
 		372A63821233431B003723AE /* MusicaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 372A63811233431B003723AE /* MusicaController.m */; };
 		372A644A1233528D003723AE /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 372A64491233528D003723AE /* TransparentWindow.m */; };
@@ -128,6 +127,7 @@
 		0854A3E91A24874D008A8BD6 /* Geeky.bowtie */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Geeky.bowtie; sourceTree = "<group>"; };
 		0854A3EA1A24874D008A8BD6 /* VinylNano.bowtie */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = VinylNano.bowtie; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		08DB4DC71A24C25900A7B96F /* Vox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vox.h; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -137,8 +137,6 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		3714A89713163A4E007E1145 /* AWRippler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWRippler.h; sourceTree = "<group>"; };
-		3714A89813163A4E007E1145 /* AWRippler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWRippler.m; sourceTree = "<group>"; };
 		3724084B12D9582600E11843 /* trayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trayIcon.png; sourceTree = "<group>"; };
 		372A63801233431B003723AE /* MusicaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicaController.h; sourceTree = "<group>"; };
 		372A63811233431B003723AE /* MusicaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicaController.m; sourceTree = "<group>"; };
@@ -335,6 +333,7 @@
 				376BD465145BD6E100A678C7 /* Radium.h */,
 				376BD466145BD6E100A678C7 /* Rdio.h */,
 				376BD467145BD6E100A678C7 /* Spotify.h */,
+				08DB4DC71A24C25900A7B96F /* Vox.h */,
 			);
 			name = "Scripting Bridges";
 			sourceTree = "<group>";
@@ -342,8 +341,6 @@
 		373878EA15C1F732004D410D /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				3714A89713163A4E007E1145 /* AWRippler.h */,
-				3714A89813163A4E007E1145 /* AWRippler.m */,
 				377571B317853893009F0C7F /* NSImage+Resize.h */,
 				377571B417853893009F0C7F /* NSImage+Resize.m */,
 				3746B47D131CD433000B1890 /* NSString+URLEncoding.h */,
@@ -460,7 +457,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Ozipto;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
@@ -590,7 +587,6 @@
 				37679FCB123B101B00D02483 /* PreferencesController.m in Sources */,
 				379ACCF8177CC3B300C06BAC /* Player.m in Sources */,
 				372B7B8B123C91040064EBBE /* TrayMenu.m in Sources */,
-				3714A89913163A4E007E1145 /* AWRippler.m in Sources */,
 				377571B217850811009F0C7F /* Bowtie.m in Sources */,
 				3746B47F131CD433000B1890 /* NSString+URLEncoding.m in Sources */,
 				37E6ABDD17854EE500F52805 /* NSFileManager+DirectoryLocations.m in Sources */,
@@ -625,7 +621,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Musica.entitlements;
 				CODE_SIGN_IDENTITY = "";
@@ -649,7 +644,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Musica.entitlements;
 				CODE_SIGN_IDENTITY = "";
@@ -670,7 +664,6 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Chloe Stars";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = unsupported;
@@ -679,7 +672,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -687,7 +680,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Chloe Stars";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = unsupported;

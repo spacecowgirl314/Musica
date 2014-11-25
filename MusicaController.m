@@ -121,9 +121,10 @@
 	
 	// Give us features we need that EyeTunes doesn't
 	//iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+    Radium = [SBApplication applicationWithBundleIdentifier:@"com.catpigstudios.Radium3"];
     Rdio = [SBApplication applicationWithBundleIdentifier:@"com.rdio.desktop"];
     Spotify = [SBApplication applicationWithBundleIdentifier:@"com.spotify.client"];
-    Radium = [SBApplication applicationWithBundleIdentifier:@"com.catpigstudios.Radium3"];
+    Vox = [SBApplication applicationWithBundleIdentifier:@"com.coppertino.Vox"];
 	
 	bowtie = [[Bowtie alloc] init];
 	[bowtie setWindow:window];
@@ -232,32 +233,6 @@
 }
 
 #pragma mark -
-#pragma mark NSTrackingArea
-
-- (void)mouseEntered:(NSEvent *)theEvent {
-    NSLog(@"MusicaController <%p>%s:", self, __PRETTY_FUNCTION__);
-	// Only show all the controls if we arne't showing an ad.
-	//[self showControls];
-	/*[window makeKeyAndOrderFront:self];
-	[window setOrderedIndex:0];*/
-	// Worst solution. Brings it to front.
-	//[NSApp activateIgnoringOtherApps:YES];
-	// Best and perfect solution. Makes the window accept mouse events without it being forefront.
-	[[self window] becomeKeyWindow];
-	mouseInWindow = TRUE;
-}
-
-- (void)mouseExited:(NSEvent *)theEvent {
-    NSLog(@"MusicaController <%p>%s:", self, __PRETTY_FUNCTION__);
-	//[self hideControls];
-	//mouseInWindow = FALSE;
-}
-
-- (void)mouseMoved:(NSEvent *)theEvent {
-    //NSLog(@"<%p>%s:", self, __PRETTY_FUNCTION__);
-}
-
-#pragma mark -
 #pragma mark The Juicy Bits
 
 -(void)monitorTunes {
@@ -265,6 +240,7 @@
     RdioEPSS rdioPlayerState;
     SpotifyEPlS spotifyPlayerState;
     BOOL radiumPlayerState;
+    NSInteger *voxPlayerState;
     if ([EyeTunes isRunning]) {
         //iTunesEPlS playerState;
         //ETTrack *track = [[ETTrack alloc] init];
@@ -273,15 +249,17 @@
         //track = [e currentTrack];
         //playerState = [iTunes playerState];
     }
+    if ([Radium isRunning]) {
+        radiumPlayerState = [Radium playing];
+    }
     if ([Rdio isRunning]) {
         rdioPlayerState = [Rdio playerState];
-        NSLog(@"MusicaController Playing: %@", [[Rdio currentTrack] name]);
     }
     if ([Spotify isRunning]) {
         spotifyPlayerState = [Spotify playerState];
     }
-    if ([Radium isRunning]) {
-        radiumPlayerState = [Radium playing];
+    if ([Vox isRunning]) {
+        voxPlayerState = [Vox playerState];
     }
     
     // Analyzing the current running programs
@@ -289,14 +267,17 @@
     if ([EyeTunes isRunning]) {
         [array addObject:@"iTunes"];
     }
+    if ([Radium isRunning]) {
+        [array addObject:@"Radium"];
+    }
     if ([Rdio isRunning]) {
         [array addObject:@"Rdio"];
     }
     if ([Spotify isRunning]) {
         [array addObject:@"Spotify"];
     }
-    if ([Radium isRunning]) {
-        [array addObject:@"Radium"];
+    if ([Vox isRunning]) {
+        [array addObject:@"Vox"];
     }
     // No players have opened or closed
     if ([audioPlayers isEqualToArray:array]) {
@@ -329,14 +310,17 @@
             if ([chosenString isEqualToString:@"iTunes"]) {
                 chosenPlayer=audioPlayeriTunes;
             }
+            if ([chosenString isEqualToString:@"Radium"]) {
+                chosenPlayer=audioPlayerRadium;
+            }
             if ([chosenString isEqualToString:@"Rdio"]) {
                 chosenPlayer=audioPlayerRdio;
             }
             if ([chosenString isEqualToString:@"Spotify"]) {
                 chosenPlayer=audioPlayerSpotify;
             }
-            if ([chosenString isEqualToString:@"Radium"]) {
-                chosenPlayer=audioPlayerRadium;
+            if ([chosenString isEqualToString:@"Vox"]) {
+                chosenPlayer=audioPlayerVox;
             }
         }
         // only one program is loaded
@@ -361,18 +345,20 @@
     // Preset conditionals to simplify the way the code looks and make it easier to read
     BOOL iTunesUsable = ([EyeTunes isRunning] && chosenPlayer==audioPlayeriTunes) || ([EyeTunes isRunning] && resolvingConflict==NO);
     BOOL rdioUsable = ([Rdio isRunning] && chosenPlayer==audioPlayerRdio) || ([Rdio isRunning] && resolvingConflict==NO);
-    BOOL spotifyUsable = ([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO);
     BOOL radiumUsable = ([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO);
+    BOOL spotifyUsable = ([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO);
+    BOOL voxUsable = ([Vox isRunning] && chosenPlayer==audioPlayerVox) || ([Vox isRunning] && resolvingConflict==NO);
     
     // REALLY NEED TO CLEAN THIS UP. UNECESSARY CONDITIONALS
     if (iTunesUsable) [glossOverlay setAudioPlayer: audioPlayeriTunes];
+    if (radiumUsable) [glossOverlay setAudioPlayer: audioPlayerRadium];
     if (rdioUsable) [glossOverlay setAudioPlayer: audioPlayerRdio];
     if (spotifyUsable) [glossOverlay setAudioPlayer: audioPlayerSpotify];
-    if (radiumUsable) [glossOverlay setAudioPlayer: audioPlayerRadium];
+    if (voxUsable) [glossOverlay setAudioPlayer: audioPlayerVox];
     
     // Change the playing button to the appropriate state
     // Detect is iTunes is paused and set button image
-    if ((iTunesUsable==TRUE && playerState == kETPlayerStatePaused) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPaused) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPaused) || (radiumUsable==TRUE && radiumPlayerState==FALSE)) {
+    if ((iTunesUsable==TRUE && playerState == kETPlayerStatePaused) || (radiumUsable==TRUE && radiumPlayerState==FALSE) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPaused) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPaused) || (voxUsable==TRUE && voxPlayerState == 0)) {
         [pauseButton setImage:[NSImage imageNamed:@"Play@2x.png"]];
         [pauseButton setAlternateImage:[NSImage imageNamed:@"Play-Pressed@2x.png"]];
 		// update theme playState variable
@@ -382,7 +368,7 @@
 		}
         //NSLog(@"MusicaController iTunes is paused");
     }
-    if ((iTunesUsable==TRUE && playerState == kETPlayerStatePlaying) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPlaying) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPlaying) || (radiumUsable==TRUE && radiumPlayerState==TRUE)) {
+    if ((iTunesUsable==TRUE && playerState == kETPlayerStatePlaying) || (radiumUsable==TRUE && radiumPlayerState==TRUE) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPlaying) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPlaying) || (voxUsable==TRUE && voxPlayerState == 1)) {
         [pauseButton setImage:[NSImage imageNamed:@"Pause@2x.png"]];
         [pauseButton setAlternateImage:[NSImage imageNamed:@"Pause-Pressed@2x.png"]];
 		if (![player.playState isEqual:@1]) {
@@ -433,13 +419,6 @@
             NSLog(@"MusicaController Did we get called after animation has started");
         }
         if (![[track album] isEqualToString:previousAlbum] && [track album] != NULL) {
-            // Bounce the window when the album changes.
-            // http://www.allocinit.net/blog/2005/12/06/ripplin/
-            //[self updateArtwork];
-            //AWRippler *rippler;
-            //rippler = [[AWRippler alloc] init];
-            //[rippler rippleWindow:window];
-            
             NSLog(@"MusicaController Did we get called after animation has started");
             previousAlbum = [track album];
 			[self trackChanged:track];
@@ -461,6 +440,42 @@
                 NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
                 [center scheduleNotification:notification];
             }
+        }
+    }
+    if (radiumUsable) {
+        //RadiumRplayer *track = [Radium player];
+        // register variables and callbacks with the theme
+        __weak typeof(Radium) weakRadium = Radium;
+        [player setPlayCallback:^(){
+            [weakRadium play];
+        }];
+        [player setPlayPauseCallback:^(){
+            [weakRadium playpause];
+        }];
+        [player setPauseCallback:^(){
+            [weakRadium pause];
+        }];
+        // Not applicable. Stations are streams not tracks.
+        [player setPreviousTrackCallback:^(){
+        }];
+        [player setNextTrackCallback:^(){
+        }];
+        if ([Radium trackName]==NULL) {
+            NSLog(@"MusicaController No music is playing");
+            //[self updateArtwork];
+            // Reset these values because nothing is playing
+            previousAlbum = nil;
+            previousTrack = nil;
+            NSLog(@"MusicaController Did we get called after animation has started");
+        }
+        if (![[Radium trackName] isEqualToString:previousTrack] && [Radium trackName] != NULL) {
+            if ([Radium trackArtwork]!=nil) {
+                [self updateArtwork];
+            }
+            NSLog(@"MusicaController Track changed to: %@", [Radium trackName]);
+            previousTrack = [Radium trackName];
+            [self trackChanged:Radium];
+            [self updateArtwork];
         }
     }
     if (rdioUsable) {
@@ -492,13 +507,6 @@
             NSLog(@"MusicaController Did we get called after animation has started");
         }
         if (![[track album] isEqualToString:previousAlbum] && [track album] != NULL) {
-            // Bounce the window when the album changes.
-            // http://www.allocinit.net/blog/2005/12/06/ripplin/
-            //[self updateArtwork];
-            //AWRippler *rippler;
-            //rippler = [[AWRippler alloc] init];
-            //[rippler rippleWindow:window];
-            
             NSLog(@"MusicaController Did we get called after animation has started");
             previousAlbum = [track album];
 			[self updateArtwork];
@@ -539,13 +547,6 @@
             NSLog(@"MusicaController Did we get called after animation has started");
         }
         if (![[track album] isEqualToString:previousAlbum] && [track album] != NULL) {
-            // Bounce the window when the album changes.
-            // http://www.allocinit.net/blog/2005/12/06/ripplin/
-            //[self updateArtwork];
-            //AWRippler *rippler;
-            //rippler = [[AWRippler alloc] init];
-            //[rippler rippleWindow:window];
-            
             NSLog(@"MusicaController Did we get called after animation has started");
             previousAlbum = [track album];
 			[self updateArtwork];
@@ -568,25 +569,27 @@
             }
         }
     }
-    if (radiumUsable) {
-        //RadiumRplayer *track = [Radium player];
-		// register variables and callbacks with the theme
-		__weak typeof(Radium) weakRadium = Radium;
-		[player setPlayCallback:^(){
-			[weakRadium play];
-		}];
-		[player setPlayPauseCallback:^(){
-			[weakRadium playpause];
-		}];
-		[player setPauseCallback:^(){
-			[weakRadium pause];
-		}];
-		// Not applicable. Stations are streams not tracks.
-		[player setPreviousTrackCallback:^(){
-		}];
-		[player setNextTrackCallback:^(){
-		}];
-        if ([Radium trackName]==NULL) {
+    if (voxUsable) {
+        // register variables and callbacks with the theme
+        __weak typeof(Vox) weakVox = Vox;
+        player.playerPosition = [NSNumber numberWithInt:[Vox currentTime]];
+        [player setPlayCallback:^(){
+            [weakVox play];
+        }];
+        [player setPlayPauseCallback:^(){
+            [weakVox playpause];
+        }];
+        [player setPauseCallback:^(){
+            [weakVox pause];
+        }];
+        // Not applicable. Stations are streams not tracks.
+        [player setPreviousTrackCallback:^(){
+            [weakVox previous];
+        }];
+        [player setNextTrackCallback:^(){
+            [weakVox next];
+        }];
+        if ([Vox track]==NULL) {
             NSLog(@"MusicaController No music is playing");
             //[self updateArtwork];
             // Reset these values because nothing is playing
@@ -594,19 +597,16 @@
             previousTrack = nil;
             NSLog(@"MusicaController Did we get called after animation has started");
         }
-        if (![[Radium trackName] isEqualToString:previousTrack] && [Radium trackName] != NULL) {
-            if ([Radium trackArtwork]!=nil) {
-                // Bounce the window when the album changes.
-                // http://www.allocinit.net/blog/2005/12/06/ripplin/
-                [self updateArtwork];
-                //AWRippler *rippler;
-                //rippler = [[AWRippler alloc] init];
-                //[rippler rippleWindow:window];
-            }
-            NSLog(@"MusicaController Track changed to: %@", [Radium trackName]);
-            previousTrack = [Radium trackName];
-			[self trackChanged:Radium];
-			[self updateArtwork];
+        if (![[Vox album] isEqualToString:previousAlbum] && [Vox album] != NULL) {
+            NSLog(@"MusicaController Did we get called after animation has started");
+            previousAlbum = [Vox album];
+            [self updateArtwork];
+        }
+        if (![[Vox track] isEqualToString:previousTrack] && [Vox track] != NULL) {
+            NSLog(@"MusicaController Track changed to: %@", [Vox track]);
+            previousTrack = [Vox track];
+            [self trackChanged:Vox];
+            [self updateArtwork];
         }
     }
 	// update theme status
@@ -618,7 +618,7 @@
     NSData *data1 = [image1 TIFFRepresentation];
     NSData *data2 = [image2 TIFFRepresentation];
 	
-    return [data1 isEqual:data2];
+    return [data1 isEqualToData:data2];
 }
 
 -(NSImage*)updateArtwork {
@@ -642,7 +642,7 @@
 			if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
 				albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
 			}
-			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
+			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn]]];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
 				// Overlay icon over album art
 				/*NSImage *resultImage = [albumImage copy];
@@ -671,7 +671,7 @@
 			if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
 				albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
 			}
-			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
+			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn]]];
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
 				//[NSApp setApplicationIconImage: albumImage];
 				[NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
@@ -679,21 +679,51 @@
 			return albumImage;
 		}
 	}
-    if (([Rdio isRunning] && chosenPlayer==audioPlayerRdio) || ([Rdio isRunning] && resolvingConflict==NO)) {
-        //NSLog(@"RDIO IMAGE DATA!!!");
-        //NSData *data = [[Rdio currentTrack] artwork];
-        //NSLog(@"data: %@", data);
-		if ([self image:previousTrackArtwork isEqualTo:[[Rdio currentTrack] artwork]])
-		{
-			return previousTrackArtwork;
-		}
-        NSImage *albumImage = [[Rdio currentTrack] artwork]; //[[NSImage alloc] initWithData:data];
-		previousTrackArtwork = albumImage;
+    if (([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO)) {
+        //NSLog(@"Radium awesomeness");
+        if ([self image:previousTrackArtwork isEqualTo:[Radium trackArtwork]])
+        {
+            return previousTrackArtwork;
+        }
+        NSImage *albumImage = [Radium trackArtwork];
+        previousTrackArtwork = albumImage;
         albumData = [albumImage TIFFRepresentation];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
         }
-        if ([[Rdio currentTrack] artwork]==nil) {
+        if (albumImage==nil) {
+            NSLog(@"MusicaController No artwork found");
+            if ([self image:previousTrackArtwork isEqualTo:[NSImage imageNamed:@"MissingArtwork.png"]])
+            {
+                return previousTrackArtwork;
+            }
+            NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
+            previousTrackArtwork = albumImage;
+            albumData = [albumImage TIFFRepresentation];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
+                //[NSApp setApplicationIconImage: albumImage];
+                [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
+            }
+        }
+        // check for specified artwork dimensions
+        if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
+            albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
+        }
+        [webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn]]];
+        return albumImage;
+    }
+    if (([Rdio isRunning] && chosenPlayer==audioPlayerRdio) || ([Rdio isRunning] && resolvingConflict==NO)) {
+        // BAD Rdio! sdf ouput reports NSData type but it's actually NSImage
+        NSImage *albumImage = [[Rdio currentTrack] artwork];
+		if ([self image:previousTrackArtwork isEqualTo:albumImage])
+		{
+			return previousTrackArtwork;
+		}
+		previousTrackArtwork = albumImage;
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
+            [NSApp setApplicationIconImage: albumImage];
+        }
+        if (albumImage==nil) {
             NSLog(@"MusicaController No artwork found");
             // ignore the warning here. it makes no sense the type returned is actually NSImage
             if ([self image:previousTrackArtwork isEqualTo:[NSImage imageNamed:@"MissingArtwork.png"]])
@@ -712,11 +742,10 @@
 		if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
 			albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
 		}
-		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
+		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn]]];
 		return albumImage;
     }
     if (([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO)) {
-        //NSLog(@"SPOTIFY IMAGE DATA!!!");
 		if ([self image:previousTrackArtwork isEqualTo:[[Spotify currentTrack] artwork]])
 		{
 			return previousTrackArtwork;
@@ -727,7 +756,7 @@
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
         }
-        if ([[Spotify currentTrack] artwork]==nil) {
+        if (albumImage==nil) {
             NSLog(@"MusicaController No artwork found");
             if ([self image:previousTrackArtwork isEqualTo:[NSImage imageNamed:@"MissingArtwork.png"]])
 			{
@@ -745,41 +774,40 @@
 		if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
 			albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
 		}
-		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
+		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn]]];
 		return albumImage;
     }
-    if (([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO)) {
-        //NSLog(@"Radium awesomeness");
-		if ([self image:previousTrackArtwork isEqualTo:[Radium trackArtwork]])
-		{
-			return previousTrackArtwork;
-		}
-        NSImage *albumImage = [Radium trackArtwork];
-		previousTrackArtwork = albumImage;
-        albumData = [albumImage TIFFRepresentation];
+    if (([Vox isRunning] && chosenPlayer==audioPlayerVox) || ([Vox isRunning] && resolvingConflict==NO)) {
+        if ([self image:previousTrackArtwork isEqualTo:[Vox artworkImage]])
+        {
+            return previousTrackArtwork;
+        }
+        NSImage *albumImage = [Vox artworkImage];
+        previousTrackArtwork = albumImage;
+        albumData = [Vox tiffArtworkData];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
         }
-        if ([Radium trackArtwork]==nil) {
+        if (albumImage==nil) {
             NSLog(@"MusicaController No artwork found");
             if ([self image:previousTrackArtwork isEqualTo:[NSImage imageNamed:@"MissingArtwork.png"]])
-			{
-				return previousTrackArtwork;
-			}
-			NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
-			previousTrackArtwork = albumImage;
+            {
+                return previousTrackArtwork;
+            }
+            NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
+            previousTrackArtwork = albumImage;
             albumData = [albumImage TIFFRepresentation];
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
                 //[NSApp setApplicationIconImage: albumImage];
                 [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
             }
         }
-		// check for specified artwork dimensions
-		if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
-			albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
-		}
-		[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64Encoding]]];
-		return albumImage;
+        // check for specified artwork dimensions
+        if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
+            albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
+        }
+        [webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn]]];
+        return albumImage;
     }
 	return nil;
 }
@@ -839,16 +867,7 @@
 		[theTrack setLength:[NSNumber numberWithInt:((ETTrack*)track).duration]];
 		[player setRatingNumber:[NSNumber numberWithInt:((ETTrack*)track).rating]];
 	}
-	if ([[track className] isEqualToString:@"SpotifyTrack"])
-	{
-		[theTrack setTitle:((SpotifyTrack*)track).name];
-		[theTrack setAlbum:((SpotifyTrack*)track).album];
-		[theTrack setArtist:((SpotifyTrack*)track).artist];
-		[theTrack setGenre:@""];
-		[theTrack setLength:[NSNumber numberWithInt:((SpotifyTrack*)track).duration]];
-		[player setRatingNumber:[NSNumber numberWithInteger:((SpotifyTrack*)track).popularity]];
-	}
-	if ([[track className] isEqualToString:@"Radium"])
+	if ([[track className] isEqualToString:@"RadiumApplication"])
 	{
 		[theTrack setTitle:[Radium trackName]];
 		[theTrack setAlbum:@""];
@@ -866,6 +885,25 @@
 		[theTrack setLength:[NSNumber numberWithInt:((RdioTrack*)track).duration]];
 		[player setRatingNumber:@0];
 	}
+    if ([[track className] isEqualToString:@"SpotifyTrack"])
+    {
+        [theTrack setTitle:((SpotifyTrack*)track).name];
+        [theTrack setAlbum:((SpotifyTrack*)track).album];
+        [theTrack setArtist:((SpotifyTrack*)track).artist];
+        [theTrack setGenre:@""];
+        [theTrack setLength:[NSNumber numberWithInt:((SpotifyTrack*)track).duration]];
+        [player setRatingNumber:[NSNumber numberWithInteger:((SpotifyTrack*)track).popularity]];
+    }
+    if ([[track className] isEqualToString:@"VOXApplication"])
+    {
+        [theTrack setTitle:[Vox track]];
+        [theTrack setAlbum:[Vox album]];
+        [theTrack setArtist:[Vox artist]];
+        [theTrack setGenre:@""];
+        [theTrack setLength:[NSNumber numberWithDouble:[Vox totalTime]]];
+        [player setRatingNumber:@0];
+    }
+    NSLog(@"class name:%@", [track className]);
 	player.currentTrack = theTrack;
 	[scriptObject setValue:theTrack forKey:@"theTrack"];
 	NSString *trackScript = [[NSString alloc] initWithFormat:@"%@(window.theTrack);",themeDictionary[@"BTTrackFunction"]];
@@ -939,48 +977,6 @@
 #pragma mark -
 #pragma mark IBActions
 
-- (IBAction) prev:(id)sender
-{
-	if (([EyeTunes isRunning] && chosenPlayer==audioPlayeriTunes) || ([EyeTunes isRunning] && resolvingConflict==NO)) {
-		[[EyeTunes sharedInstance] previousTrack];
-	}
-    if (([Rdio isRunning] && chosenPlayer==audioPlayerRdio) || ([Rdio isRunning] && resolvingConflict==NO)) {
-        [Rdio previousTrack];
-    }
-    if (([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO)) {
-        [Spotify previousTrack];
-    }
-}
-
-- (IBAction) next:(id)sender
-{
-	if (([EyeTunes isRunning] && chosenPlayer==audioPlayeriTunes) || ([EyeTunes isRunning] && resolvingConflict==NO)) {
-		[[EyeTunes sharedInstance] nextTrack];
-	}
-    if (([Rdio isRunning] && chosenPlayer==audioPlayerRdio) || ([Rdio isRunning] && resolvingConflict==NO)) {
-        [Rdio nextTrack];
-    }
-    if (([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO)) {
-        [Spotify nextTrack];
-    }
-}
-
-- (IBAction) playPause:(id)sender
-{
-	if (([EyeTunes isRunning] && chosenPlayer==audioPlayeriTunes) || ([EyeTunes isRunning] && resolvingConflict==NO)) {
-        [[EyeTunes sharedInstance] playPause];
-    }
-    if (([Rdio isRunning] && chosenPlayer==audioPlayerRdio) || ([Rdio isRunning] && resolvingConflict==NO)) {
-        [Rdio playpause];
-    }
-    if (([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO)) {
-        [Spotify playpause];
-    }
-    if (([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO)) {
-        [Radium playpause];
-    }
-}
-
 - (IBAction)openPreferences:(id)sender {
 	// lazy load the PreferencesController
 	if (!self.preferencesController) {
@@ -989,27 +985,6 @@
 	}
 	
 	[self.preferencesController showWindow:self];
-}
-
-- (IBAction)resizeWindow:(id)sender {
-	NSLog(@"MusicaController Resizing window");
-	NSRect windowFrame = [[self window] frame];
-	if (windowFrame.size.width < 170*4) {
-		windowFrame.size.width = windowFrame.size.width*2;
-		windowFrame.size.height = windowFrame.size.height*2;
-		[[self window] setFrame:windowFrame display:YES animate:YES];
-	}
-	else {
-		windowFrame.size.width = 170;
-		windowFrame.size.height = 170;
-		[[self window] setFrame:windowFrame display:YES animate:YES];
-		// Window will never detect mouse leave because the window resizes to a smaller size
-		// So hide the controls
-		// Putting it here and not the when getting bigger makes more sense
-		// People are less likely to move the mouse cursor out really fast
-	}
-	// Might have to remove previous tracking area by setting it as a instance variable
-	[self updateTrackingArea];
 }
 
 #pragma mark -

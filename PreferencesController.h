@@ -25,7 +25,6 @@
 @property (strong, nonatomic) IBOutlet NSPopUpButton *musicaWindowButton;
 
 -(IBAction)relaunch:(id)sender;
--(IBAction)toggleLoginItem:(id)sender;
 -(IBAction)toggleDockArt:(id)sender;
 -(IBAction)toggleShowingMusica:(id)sender;
 -(IBAction)selectedWindowMode:(id)sender;

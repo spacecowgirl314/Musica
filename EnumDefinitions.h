@@ -10,7 +10,8 @@ typedef enum {
     audioPlayeriTunes = 'iTunes',
     audioPlayerSpotify = 'Spotify',
     audioPlayerRdio = 'Rdio',
-    audioPlayerRadium = 'Radium'
+    audioPlayerRadium = 'Radium',
+    audioPlayerVox = 'Vox'
 } audioPlayer;
 
 @interface Declarations : NSObject

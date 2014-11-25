@@ -6,7 +6,7 @@
 #import <ScriptingBridge/ScriptingBridge.h>
 
 
-@class RadiumApplication, RadiumApplication;
+@class RadiumApplication;
 
 
 
