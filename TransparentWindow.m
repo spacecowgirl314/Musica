@@ -28,28 +28,10 @@
     if (self != nil) {
         // Start with no transparency for all drawing into the window
         [self setAlphaValue:1.0];
-		// Pinned
-		//[self setLevel:kCGDesktopWindowLevel];
-		// Floating or NSFloatingWindowLevel
+        // Show in all spaces... this also might not be desired. Consider turning this into a preference.
+        // [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+        // Set the window mode
 		[self updateWindowMode];
-		/*switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"musicaWindowMode"]) {
-			case 0:
-				// Always on Top
-				[self setLevel:kCGFloatingWindowLevel];
-				break;
-			case 1:
-				// Pinned to Desktop
-				[self setLevel:CGWindowLevelForKey(kCGDesktopIconWindowLevelKey) + 1];
-				break;
-			case 2:
-				// Normal Window
-				[self setLevel:NSNormalWindowLevel];
-				break;
-			default:
-				// Use default
-				[self setLevel:kCGFloatingWindowLevel];
-				break;
-		}*/
         // Turn off opacity so that the parts of the window that are not drawn into are transparent.
         [self setOpaque:NO];
 		//[self setBackgroundColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.0]];  //Tells the window to use a transparent colour.
@@ -71,7 +53,7 @@
             break;
         case 1:
             // Pinned to Desktop
-            [self setLevel:kCGDesktopWindowLevel];
+            [self setLevel:kCGDesktopIconWindowLevel];
             break;
         case 2:
             // Normal Window
@@ -83,7 +65,7 @@
 			switch(windowMode) {
 				case ThemeWindowModeDesktop:
 					// Pinned to Desktop
-					[self setLevel:kCGDesktopWindowLevel];
+					[self setLevel:kCGDesktopIconWindowLevel];
 					break;
 				case ThemeWindowModeNormal:
 					// Normal Window
