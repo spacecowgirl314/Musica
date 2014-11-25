@@ -20,17 +20,6 @@
 #pragma mark -
 #pragma mark Dock Hackery
 
-/* Hide in Dock hackery
- We use this method of not changing the plist because
- Apple requires us to sign our code.
- That wouldn't work right if we modified our own code.
- */
-
--(void)setFront; {
-	ProcessSerialNumber psn = { 0, kCurrentProcess };
-	SetFrontProcess(&psn);
-}
-
 #pragma mark -
 
 -(id)init {
@@ -240,7 +229,7 @@
     RdioEPSS rdioPlayerState;
     SpotifyEPlS spotifyPlayerState;
     BOOL radiumPlayerState;
-    NSInteger *voxPlayerState;
+    NSInteger voxPlayerState;
     if ([EyeTunes isRunning]) {
         //iTunesEPlS playerState;
         //ETTrack *track = [[ETTrack alloc] init];
@@ -296,15 +285,38 @@
             NSLog(@"MusicaController more than program is open");
             //ask dialog
             resolvingConflict=YES;
-            NSInteger response = NSRunAlertPanel(@"Please resolve conflict", @"You have multiple sources open please choose one:", [array objectAtIndex:0], [array objectAtIndex:1], nil);
-            // for some reason the answers are reversed
-            if (response==1) {
-                response=0;
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert setMessageText:@"Please resolve conflict"];
+            [alert setInformativeText:@"You have multiple sources open please choose one:"];
+            int count = 0;
+            for (NSString *application in array)
+            {
+                count += 1;
+                if (count < 4)
+                {
+                    [alert addButtonWithTitle:application];
+                }
             }
-            else {
-                response=1;
+            NSModalResponse response = [alert runModal];
+            int index = 0;
+            
+            switch (response) {
+                case NSAlertFirstButtonReturn:
+                    index = 0;
+                    break;
+                case NSAlertSecondButtonReturn:
+                    index = 1;
+                    break;
+                case NSAlertThirdButtonReturn:
+                    index = 2;
+                    break;
+                    
+                default:
+                    index = 0;
+                    break;
             }
-            NSString *chosenString = [array objectAtIndex:response];
+
+            NSString *chosenString = [array objectAtIndex:index];
             NSLog(@"MusicaController response:%ld string:%@", response, chosenString);
             // decode choice and choose it
             if ([chosenString isEqualToString:@"iTunes"]) {
@@ -348,13 +360,6 @@
     BOOL radiumUsable = ([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO);
     BOOL spotifyUsable = ([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO);
     BOOL voxUsable = ([Vox isRunning] && chosenPlayer==audioPlayerVox) || ([Vox isRunning] && resolvingConflict==NO);
-    
-    // REALLY NEED TO CLEAN THIS UP. UNECESSARY CONDITIONALS
-    if (iTunesUsable) [glossOverlay setAudioPlayer: audioPlayeriTunes];
-    if (radiumUsable) [glossOverlay setAudioPlayer: audioPlayerRadium];
-    if (rdioUsable) [glossOverlay setAudioPlayer: audioPlayerRdio];
-    if (spotifyUsable) [glossOverlay setAudioPlayer: audioPlayerSpotify];
-    if (voxUsable) [glossOverlay setAudioPlayer: audioPlayerVox];
     
     // Change the playing button to the appropriate state
     // Detect is iTunes is paused and set button image
@@ -784,7 +789,7 @@
         }
         NSImage *albumImage = [Vox artworkImage];
         previousTrackArtwork = albumImage;
-        albumData = [Vox tiffArtworkData];
+        albumData = [albumImage TIFFRepresentation];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
             [NSApp setApplicationIconImage: albumImage];
         }
@@ -903,7 +908,6 @@
         [theTrack setLength:[NSNumber numberWithDouble:[Vox totalTime]]];
         [player setRatingNumber:@0];
     }
-    NSLog(@"class name:%@", [track className]);
 	player.currentTrack = theTrack;
 	[scriptObject setValue:theTrack forKey:@"theTrack"];
 	NSString *trackScript = [[NSString alloc] initWithFormat:@"%@(window.theTrack);",themeDictionary[@"BTTrackFunction"]];

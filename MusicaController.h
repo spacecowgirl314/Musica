@@ -7,20 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
+#import <Carbon/Carbon.h>
 #import <ScriptingBridge/ScriptingBridge.h>
 #import <EyeTunes/EyeTunes.h>
-#import <Carbon/Carbon.h>
 #import <WebKit/WebKit.h>
 #import <Scribbler/Scribbler.h>
 #import "PreferencesController.h"
 #import "TrayMenu.h"
 #import "iTunes.h"
+#import "Instacast.h"
 #import "Rdio.h"
 #import "Spotify.h"
 #import "Radium.h"
 #import "Vox.h"
-#import "QuickClickImage.h"
 #import "Player.h"
 #import "Bowtie.h"
 #import "EnumDefinitions.h"
@@ -44,7 +43,7 @@
     audioPlayerRadium = 'Radium'
 } audioPlayer;*/
 
-@interface MusicaController : NSObject <NSNetServiceDelegate, NSNetServiceBrowserDelegate, NSConnectionDelegate, NSApplicationDelegate> {
+@interface MusicaController : NSObject <NSApplicationDelegate> {
     IBOutlet NSImageView *buttonBar;
 	IBOutlet NSButton *pauseButton;
 	IBOutlet NSButton *previousButton;
@@ -52,7 +51,6 @@
 	IBOutlet NSButton *resizeButton;
     IBOutlet NSButton *infoButton;
 	IBOutlet NSWindow *window;
-    IBOutlet QuickClickImage *glossOverlay;
 	IBOutlet WebView *webView;
 	NSString *previousTrack;
 	NSString *previousAlbum;

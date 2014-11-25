@@ -17,27 +17,11 @@
 
 -(id)init
 {
+    self = [super init];
 	if (![super initWithWindowNibName:@"Preferences"]) {
 		return nil;
 	}
 	return self;
-}
-
-- (void)setStartAtLogin:(NSURL *)bundleURL enabled:(BOOL)enabled {
-	// Creating helper app complete URL
-	NSURL *url = [bundleURL URLByAppendingPathComponent:
-                  @"Contents/Library/LoginItems/MusicaHelper.app"];
-    
-	// Registering helper app
-	if (LSRegisterURL((__bridge_retained CFURLRef)url, true) != noErr) {
-		NSLog(@"PreferencesController LSRegisterURL failed!");
-	}
-    
-	// Setting login
-	if (!SMLoginItemSetEnabled((CFStringRef)@"me.chloestars.MusicaHelper",
-                               enabled)) {
-		NSLog(@"PreferencesController SMLoginItemSetEnabled failed!");
-	}
 }
 
 -(void)awakeFromNib {
@@ -49,10 +33,10 @@
     [toolbar setSelectedItemIdentifier:@"generalPreferences"];
     //mojo to get the right frame for the new window.
     NSRect newFrame = [[self window] frame];
-    float vdiff = ([generalView frame].size.height - [[[self window] contentView] frame].size.height) * [[self window] userSpaceScaleFactor];
+    float vdiff = ([generalView frame].size.height - [[[self window] contentView] frame].size.height) * [[self window] backingScaleFactor];
     newFrame.origin.y -= vdiff;
     newFrame.size.height += vdiff;
-    float hdiff = ([generalView frame].size.width - [[[self window] contentView] frame].size.width) * [[self window] userSpaceScaleFactor];
+    float hdiff = ([generalView frame].size.width - [[[self window] contentView] frame].size.width) * [[self window] backingScaleFactor];
     newFrame.size.width += hdiff;
     
     //set the frame to newFrame and animate it. (change animate:YES to animate:NO if you don't want this)
@@ -79,14 +63,6 @@
     [standardUserDefaults synchronize];
     // and update login item
     NSLog(@"PreferencesController Action for the segment");
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicaAutostart"]) {
-        NSLog(@"PreferencesController Being set to login");
-        NSLog(@"PreferencesController Path thingy: %@", [[NSBundle mainBundle] bundlePath]);
-        [self setStartAtLogin:[[NSBundle mainBundle] bundleURL] enabled:YES];
-	} else {
-        NSLog(@"PreferencesController Being remove from login");
-        [self setStartAtLogin:[[NSBundle mainBundle] bundleURL] enabled:NO];
-	}
 }
 
 -(IBAction)relaunch:(id)sender {
