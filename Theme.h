@@ -24,5 +24,6 @@ typedef enum  {
 
 - (id)initWithURL:(NSURL*)url;
 - (void)applyTheme;
+- (void)removeTheme;
 
 @end

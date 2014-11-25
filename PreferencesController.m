@@ -34,7 +34,7 @@
 	}
     
 	// Setting login
-	if (!SMLoginItemSetEnabled((CFStringRef)@"com.ozipto.MusicaHelper",
+	if (!SMLoginItemSetEnabled((CFStringRef)@"me.chloestars.MusicaHelper",
                                enabled)) {
 		NSLog(@"PreferencesController SMLoginItemSetEnabled failed!");
 	}
@@ -127,7 +127,7 @@
 }
 
 -(IBAction)gotoPluginWebpage:(id)sender {
-	NSURL *url = [ [ NSURL alloc ] initWithString: @"http://ozipto.com/?page_id=347" ];
+	NSURL *url = [[NSURL alloc] initWithString: @"http://catalog.13bold.com" ];
 	[[NSWorkspace sharedWorkspace] openURL:url];
 }
 

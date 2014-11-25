@@ -28,24 +28,32 @@
 	[self loadThemes];
 }
 
+- (void)loadThemesWithPath:(NSString*)path
+{
+    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
+    NSEnumerator *enm = [contents objectEnumerator];
+    NSString *file;
+    while ((file = [enm nextObject])) {
+        if ([[file pathExtension] isEqualToString:@"bowtie"]) {
+            NSString *themePath = [[NSString alloc] initWithFormat:@"%@/%@", path, file];
+            Theme *theme = [[Theme alloc] initWithURL:[NSURL fileURLWithPath:themePath]];
+            NSLog(@"Loading bowtie theme: %@ at path %@", [theme name], themePath);
+            [themes addObject:theme];
+        }
+    }
+}
+
 - (void)loadThemes
 {
 	// Load plugins
 	// Much more customization needed like the ability to disable plugins.
-	NSString *dir = [[NSFileManager defaultManager] applicationSupportDirectory];
-	dir = [[NSString alloc] initWithFormat:@"%@", dir];
+	NSString *path = [[NSFileManager defaultManager] applicationSupportDirectory];
+	path = [[NSString alloc] initWithFormat:@"%@", path];
+    [self loadThemesWithPath:path];
+    
+    path = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Themes"];
+    [self loadThemesWithPath:path];
 	
-	NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dir error:NULL];
-	NSEnumerator *enm = [contents objectEnumerator];
-	NSString *file;
-	while ((file = [enm nextObject])) {
-		if ([[file pathExtension] isEqualToString:@"bowtie"]) {
-			NSString *themePath = [[NSString alloc] initWithFormat:@"%@/%@", dir, file];
-			Theme *theme = [[Theme alloc] initWithURL:[NSURL fileURLWithPath:themePath]];
-			NSLog(@"Loading bowtie theme: %@ at path %@", [theme name], themePath);
-			[themes addObject:theme];
-		}
-	}
 	[themes sortUsingComparator:^NSComparisonResult(Theme *theme1, Theme *theme2) {
 		return [theme1.name compare:theme2.name];
 	}];
@@ -53,20 +61,25 @@
 
 + (NSURL*)appliedThemeURL
 {
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"musicaTheme"]!=nil) {
-		NSString *destination = [[NSFileManager defaultManager] applicationSupportDirectory];
-		NSURL *themeURL = [[NSURL fileURLWithPath:destination] URLByAppendingPathComponent:[[NSUserDefaults standardUserDefaults] objectForKey:@"musicaTheme"]];
-		return themeURL;
-	}
-	else {
-		return nil;
-	}
+    NSString *themePath = [[NSUserDefaults standardUserDefaults] objectForKey:@"musicaTheme"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:themePath])
+    {
+        return [NSURL fileURLWithPath:themePath];
+    }
+	else
+    {
+        return [self defaultThemeURL];
+    }
+}
+
++ (NSURL*)defaultThemeURL
+{
+    return [NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Themes/Default.bowtie"]];
 }
 
 + (Theme*)currentTheme
 {
-	Theme *theme = [[Theme alloc] initWithURL:[self appliedThemeURL]];
-	return theme;
+    return [[Theme alloc] initWithURL:[self appliedThemeURL]];
 }
 
 + (void)installTheme:(NSURL*)source
@@ -90,6 +103,13 @@
 - (IBAction)applySelectedTheme:(id)sender
 {
 	[[themes objectAtIndex:[tableView selectedRow]] applyTheme];
+}
+
+- (IBAction)removeSelectedTheme:(id)sender
+{
+    [[themes objectAtIndex:[tableView selectedRow]] removeTheme];
+    [themes removeObjectAtIndex:[tableView selectedRow]];
+    [tableView reloadData];
 }
 
 #pragma mark -

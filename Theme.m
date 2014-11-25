@@ -23,8 +23,13 @@
 
 - (void)applyTheme
 {
-	[[NSUserDefaults standardUserDefaults] setObject:[URL lastPathComponent] forKey:@"musicaTheme"];
+	[[NSUserDefaults standardUserDefaults] setObject:[URL relativePath] forKey:@"musicaTheme"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"loadTheme" object:nil];
+}
+
+- (void)removeTheme
+{
+    [[NSFileManager defaultManager] removeItemAtURL:URL error:nil];
 }
 
 - (void)constructWithDictionary:(NSDictionary*)themeDictionary andSourceURL:(NSURL*)url

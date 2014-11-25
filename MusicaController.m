@@ -794,12 +794,10 @@
 		[self storeWindowPosition];
 	}
 	NSURL *themeURL = [ThemeLoader appliedThemeURL];
-	// TODO:We shouldn't be checking for nil here because there should always be a default theme, even on app first run.
-	if (themeURL!=nil) {
-		themeDictionary = [NSDictionary dictionaryWithContentsOfURL:[themeURL URLByAppendingPathComponent:@"Info.plist"]];
-		NSURL *indexFile = [[ThemeLoader appliedThemeURL] URLByAppendingPathComponent:themeDictionary[@"BTMainFile"]];
-		[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];
-	}
+    NSURL *plistURL = [themeURL URLByAppendingPathComponent:@"Info.plist"];
+	themeDictionary = [NSDictionary dictionaryWithContentsOfURL:plistURL];
+    NSURL *indexFile = [[ThemeLoader appliedThemeURL] URLByAppendingPathComponent:themeDictionary[@"BTMainFile"]];
+    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:indexFile]];
 }
 
 - (IBAction)loadThemeFromFile:(id)sender
