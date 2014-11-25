@@ -1,6 +1,6 @@
-[submodule "Externals/EyeTunes"]
-	path = Externals/EyeTunes
-	url = https://github.com/kgn/EyeTunes.git
 [submodule "Externals/Scribbler"]
 	path = Externals/Scribbler
-	url = https://github.com/13bold/Scribbler.git
+url=https://github.com/hachidorii/Scribbler.git
+[submodule "Externals/EyeTunes"]
+	path = Externals/EyeTunes
+	url = https://github.com/i386/EyeTunes.git
