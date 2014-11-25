@@ -23,14 +23,6 @@
 		3746B47F131CD433000B1890 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3746B47E131CD433000B1890 /* NSString+URLEncoding.m */; };
 		37482F081788262D0083928D /* lastfmPrefs.tif in Resources */ = {isa = PBXBuildFile; fileRef = 37482F071788262D0083928D /* lastfmPrefs.tif */; };
 		37679FCB123B101B00D02483 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37679FCA123B101B00D02483 /* PreferencesController.m */; };
-		376BD453145BBE9D00A678C7 /* Cover-Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD452145BBE9D00A678C7 /* Cover-Overlay@2x.png */; };
-		376BD455145BC3C400A678C7 /* Bottom-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD454145BC3C400A678C7 /* Bottom-bar@2x.png */; };
-		376BD45A145BC45C00A678C7 /* Pause-Pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD456145BC45C00A678C7 /* Pause-Pressed@2x.png */; };
-		376BD45B145BC45C00A678C7 /* Pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD457145BC45C00A678C7 /* Pause@2x.png */; };
-		376BD45C145BC45C00A678C7 /* Play-Pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD458145BC45C00A678C7 /* Play-Pressed@2x.png */; };
-		376BD45D145BC45C00A678C7 /* Play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD459145BC45C00A678C7 /* Play@2x.png */; };
-		376BD460145BC49600A678C7 /* Next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD45E145BC49600A678C7 /* Next@2x.png */; };
-		376BD461145BC49600A678C7 /* Previous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376BD45F145BC49600A678C7 /* Previous@2x.png */; };
 		376BE89D1318BB3300E894F6 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376BE89C1318BB3300E894F6 /* ScriptingBridge.framework */; };
 		376E119F177A903100C9D2ED /* EyeTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376E119A177A900E00C9D2ED /* EyeTunes.framework */; };
 		376E11A0177A904C00C9D2ED /* EyeTunes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 376E119A177A900E00C9D2ED /* EyeTunes.framework */; };
@@ -148,14 +140,6 @@
 		37646FBA1488553600EEFF51 /* EnumDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumDefinitions.h; sourceTree = "<group>"; };
 		37679FC9123B101B00D02483 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		37679FCA123B101B00D02483 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
-		376BD452145BBE9D00A678C7 /* Cover-Overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Cover-Overlay@2x.png"; path = "../Music Swipe/Music Swipe/Images/Cover-Overlay@2x.png"; sourceTree = "<group>"; };
-		376BD454145BC3C400A678C7 /* Bottom-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Bottom-bar@2x.png"; path = "../Music Swipe/Music Swipe/Images/Bottom-bar@2x.png"; sourceTree = "<group>"; };
-		376BD456145BC45C00A678C7 /* Pause-Pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pause-Pressed@2x.png"; path = "../Music Swipe/Music Swipe/Images/Pause-Pressed@2x.png"; sourceTree = "<group>"; };
-		376BD457145BC45C00A678C7 /* Pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pause@2x.png"; path = "../Music Swipe/Music Swipe/Images/Pause@2x.png"; sourceTree = "<group>"; };
-		376BD458145BC45C00A678C7 /* Play-Pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Play-Pressed@2x.png"; path = "../Music Swipe/Music Swipe/Images/Play-Pressed@2x.png"; sourceTree = "<group>"; };
-		376BD459145BC45C00A678C7 /* Play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Play@2x.png"; path = "../Music Swipe/Music Swipe/Images/Play@2x.png"; sourceTree = "<group>"; };
-		376BD45E145BC49600A678C7 /* Next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Next@2x.png"; path = "../Music Swipe/Music Swipe/Images/Next@2x.png"; sourceTree = "<group>"; };
-		376BD45F145BC49600A678C7 /* Previous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Previous@2x.png"; path = "../Music Swipe/Music Swipe/Images/Previous@2x.png"; sourceTree = "<group>"; };
 		376BD465145BD6E100A678C7 /* Radium.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radium.h; sourceTree = "<group>"; };
 		376BD466145BD6E100A678C7 /* Rdio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rdio.h; sourceTree = "<group>"; };
 		376BD467145BD6E100A678C7 /* Spotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
@@ -346,14 +330,6 @@
 			children = (
 				373878ED15C1FC49004D410D /* Menu bar */,
 				373878EE15C1FC58004D410D /* Preferences */,
-				376BD452145BBE9D00A678C7 /* Cover-Overlay@2x.png */,
-				376BD456145BC45C00A678C7 /* Pause-Pressed@2x.png */,
-				376BD457145BC45C00A678C7 /* Pause@2x.png */,
-				376BD458145BC45C00A678C7 /* Play-Pressed@2x.png */,
-				376BD459145BC45C00A678C7 /* Play@2x.png */,
-				376BD454145BC3C400A678C7 /* Bottom-bar@2x.png */,
-				376BD45E145BC49600A678C7 /* Next@2x.png */,
-				376BD45F145BC49600A678C7 /* Previous@2x.png */,
 				372A68E11235B47B003723AE /* MissingArtwork.png */,
 			);
 			name = Images;
@@ -562,14 +538,6 @@
 				372B7D67123CBFF70064EBBE /* Credits.rtf in Resources */,
 				3724084C12D9582600E11843 /* trayIcon.png in Resources */,
 				378DF48D15C22C5A00AFD110 /* trayIcon@2x.png in Resources */,
-				376BD453145BBE9D00A678C7 /* Cover-Overlay@2x.png in Resources */,
-				376BD455145BC3C400A678C7 /* Bottom-bar@2x.png in Resources */,
-				376BD45A145BC45C00A678C7 /* Pause-Pressed@2x.png in Resources */,
-				376BD45B145BC45C00A678C7 /* Pause@2x.png in Resources */,
-				376BD45C145BC45C00A678C7 /* Play-Pressed@2x.png in Resources */,
-				376BD45D145BC45C00A678C7 /* Play@2x.png in Resources */,
-				376BD460145BC49600A678C7 /* Next@2x.png in Resources */,
-				376BD461145BC49600A678C7 /* Previous@2x.png in Resources */,
 				37C7593E1468D71000033145 /* Settings.png in Resources */,
 				37C759401468D74500033145 /* Bag.png in Resources */,
 			);
