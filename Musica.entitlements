@@ -5,6 +5,7 @@
 	<key>com.apple.security.temporary-exception.apple-events</key>
 	<array>
 		<string>com.apple.itunes</string>
+		<string>com.vemedio.osx.Instacast</string>
 		<string>com.rdio.desktop</string>
 		<string>com.spotify.client</string>
 		<string>com.catpigstudios.Radium3</string>

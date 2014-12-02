@@ -23,10 +23,25 @@
 	return self;
 }
 
+- (void)selectCurrentTheme
+{
+    NSUInteger i = 0;
+    for (Theme *theme in themes)
+    {
+        if ([[theme URL] isEqualTo:[ThemeLoader appliedThemeURL]])
+        {
+            [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:i] byExtendingSelection:NO];
+            return;
+        }
+        i++;
+    }
+}
+
 - (void)reload
 {
 	[themes removeAllObjects];
 	[self loadThemes];
+    [self selectCurrentTheme];
 }
 
 - (void)loadThemesWithPath:(NSString*)path
@@ -38,7 +53,6 @@
         if ([[file pathExtension] isEqualToString:@"bowtie"]) {
             NSString *themePath = [[NSString alloc] initWithFormat:@"%@/%@", path, file];
             Theme *theme = [[Theme alloc] initWithURL:[NSURL fileURLWithPath:themePath]];
-            NSLog(@"Loading bowtie theme: %@ at path %@", [theme name], themePath);
             [themes addObject:theme];
         }
     }
@@ -129,7 +143,9 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-    Theme *theme = [themes objectAtIndex:[tableView selectedRow]] ;
+    Theme *theme = [themes objectAtIndex:[tableView selectedRow]];
+    [selectedThemeTextField setStringValue:[theme name]];
+    NSLog(@"URL of selected theme: %@", [theme URL]);
     [previewImageView setImage:[[NSImage alloc] initRetinaImageWithContentsOfURL:[[theme URL] URLByAppendingPathComponent:[theme preview]]]];
 }
 

@@ -22,16 +22,15 @@
 -(id)init {
     self = [super init];
 	if (self) {
-        mouseInWindow = TRUE;
 		#ifndef DEBUG
-		NSLog(@"MusicaController Compiled as RELEASE");
+		NSLog(@"MusicaController compiled as RELEASE");
 		// First run code. Set default settings here
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"musicaFirstRun"]) {
 			[[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicaEnableNotifications"];
 			[[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicaFirstRun"];
 		}
 		#else
-		NSLog(@"MusicaController Not compiled as RELEASE");
+		NSLog(@"MusicaController compiled as DEBUG");
 		#endif
 		// Load in menu bar mode if that's what we chose
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaMenuBar"]) {
@@ -108,6 +107,7 @@
 	
 	// Give us features we need that EyeTunes doesn't
 	//iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+    Instacast = [SBApplication applicationWithBundleIdentifier:@"com.vemedio.osx.Instacast"];
     Radium = [SBApplication applicationWithBundleIdentifier:@"com.catpigstudios.Radium3"];
     Rdio = [SBApplication applicationWithBundleIdentifier:@"com.rdio.desktop"];
     Spotify = [SBApplication applicationWithBundleIdentifier:@"com.spotify.client"];
@@ -229,9 +229,13 @@
     SpotifyEPlS spotifyPlayerState;
     BOOL radiumPlayerState;
     NSInteger voxPlayerState;
+    BOOL instacastPlayerState;
     if ([EyeTunes isRunning]) {
         EyeTunes *e = [EyeTunes sharedInstance];
         playerState = [e playerState];
+    }
+    if ([Instacast isRunning]) {
+        instacastPlayerState = [Instacast playing];
     }
     if ([Radium isRunning]) {
         radiumPlayerState = [Radium playing];
@@ -251,6 +255,9 @@
     NSMutableArray *array=[[NSMutableArray alloc] init];
     if ([EyeTunes isRunning]) {
         [array addObject:@"iTunes"];
+    }
+    if ([Instacast isRunning]) {
+        [array addObject:@"Instacast"];
     }
     if ([Radium isRunning]) {
         [array addObject:@"Radium"];
@@ -318,6 +325,9 @@
             if ([chosenString isEqualToString:@"iTunes"]) {
                 chosenPlayer=audioPlayeriTunes;
             }
+            if ([chosenString isEqualToString:@"Instacast"]) {
+                chosenPlayer=audioPlayerInstacast;
+            }
             if ([chosenString isEqualToString:@"Radium"]) {
                 chosenPlayer=audioPlayerRadium;
             }
@@ -352,6 +362,7 @@
     
     // Preset conditionals to simplify the way the code looks and make it easier to read
     BOOL iTunesUsable = ([EyeTunes isRunning] && chosenPlayer==audioPlayeriTunes) || ([EyeTunes isRunning] && resolvingConflict==NO);
+    BOOL instacastUsable = ([Instacast isRunning] && chosenPlayer==audioPlayerInstacast) || ([Instacast isRunning] && resolvingConflict==NO);
     BOOL rdioUsable = ([Rdio isRunning] && chosenPlayer==audioPlayerRdio) || ([Rdio isRunning] && resolvingConflict==NO);
     BOOL radiumUsable = ([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO);
     BOOL spotifyUsable = ([Spotify isRunning] && chosenPlayer==audioPlayerSpotify) || ([Spotify isRunning] && resolvingConflict==NO);
@@ -361,26 +372,20 @@
     #ifndef __clang_analyzer__
     // Change the playing button to the appropriate state
     // Detect is iTunes is paused and set button image
-    if ((iTunesUsable==TRUE && playerState == kETPlayerStatePaused) || (radiumUsable==TRUE && radiumPlayerState==FALSE) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPaused) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPaused) || (voxUsable==TRUE && voxPlayerState == 0)) {
-        [pauseButton setImage:[NSImage imageNamed:@"Play@2x.png"]];
-        [pauseButton setAlternateImage:[NSImage imageNamed:@"Play-Pressed@2x.png"]];
+    if ((iTunesUsable==TRUE && playerState == kETPlayerStatePaused) || (instacastUsable==TRUE && instacastPlayerState == FALSE) || (radiumUsable==TRUE && radiumPlayerState==FALSE) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPaused) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPaused) || (voxUsable==TRUE && voxPlayerState == 0)) {
 		// update theme playState variable
 		if (![player.playState isEqual:@2]) {
 			player.playState=@2;
 			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
 		}
     }
-    if ((iTunesUsable==TRUE && playerState == kETPlayerStatePlaying) || (radiumUsable==TRUE && radiumPlayerState==TRUE) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPlaying) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPlaying) || (voxUsable==TRUE && voxPlayerState == 1)) {
-        [pauseButton setImage:[NSImage imageNamed:@"Pause@2x.png"]];
-        [pauseButton setAlternateImage:[NSImage imageNamed:@"Pause-Pressed@2x.png"]];
+    if ((iTunesUsable==TRUE && playerState == kETPlayerStatePlaying) || (instacastUsable==TRUE && instacastPlayerState == TRUE) || (radiumUsable==TRUE && radiumPlayerState==TRUE) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSPlaying) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSPlaying) || (voxUsable==TRUE && voxPlayerState == 1)) {
 		if (![player.playState isEqual:@1]) {
 			player.playState=@1;
 			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
 		}
     }
     if ((iTunesUsable==TRUE && playerState == kETPlayerStateStopped) || (rdioUsable==TRUE && rdioPlayerState == RdioEPSSStopped) || (spotifyUsable==TRUE && spotifyPlayerState == SpotifyEPlSStopped)) {
-        [pauseButton setImage:[NSImage imageNamed:@"Play@2x.png"]];
-        [pauseButton setAlternateImage:[NSImage imageNamed:@"Play-Pressed@2x.png"]];
 		if (![player.playState isEqual:@0]) {
 			player.playState=@0;
 			[webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@(%@)",themeDictionary[@"BTPlayStateFunction"], player.playState]];
@@ -444,6 +449,49 @@
             }
         }
     }
+    if (instacastUsable) {
+        // register variables and callbacks with the theme
+        __weak typeof(Instacast) weakInstacast = Instacast;
+        player.playerPosition = [NSNumber numberWithDouble:[Instacast playerTime]];
+        [player setPlayerPositionCallback:^(double position){
+            [weakInstacast setPlayerTime:position];
+        }];
+        [player setPlayCallback:^(){
+            [weakInstacast play];
+        }];
+        [player setPlayPauseCallback:^(){
+            [weakInstacast playpause];
+        }];
+        [player setPauseCallback:^(){
+            [weakInstacast pause];
+        }];
+        // Not applicable. Stations are streams not tracks.
+        [player setPreviousTrackCallback:^(){
+            [weakInstacast skipBackward];
+        }];
+        [player setNextTrackCallback:^(){
+            [weakInstacast skipForward];
+        }];
+        if ([[Instacast currentEpisode] title]==NULL) {
+            NSLog(@"MusicaController No music is playing");
+            //[self updateArtwork];
+            // Reset these values because nothing is playing
+            previousAlbum = nil;
+            previousTrack = nil;
+            NSLog(@"MusicaController Did we get called after animation has started");
+        }
+        if (![[[[Instacast currentEpisode] podcast] title] isEqualToString:previousAlbum] && [[[Instacast currentEpisode] podcast] title] != NULL) {
+            NSLog(@"MusicaController Did we get called after animation has started");
+            previousAlbum = [[[Instacast currentEpisode] podcast] title];
+            [self updateArtwork];
+        }
+        if (![[[Instacast currentEpisode] title] isEqualToString:previousTrack] && [[Instacast currentEpisode] title] != NULL) {
+            NSLog(@"MusicaController Track changed to: %@", [[Instacast currentEpisode] title]);
+            previousTrack = [[Instacast currentEpisode] title];
+            [self trackChanged:[Instacast currentEpisode]];
+            [self updateArtwork];
+        }
+    }
     if (radiumUsable) {
         //RadiumRplayer *track = [Radium player];
         // register variables and callbacks with the theme
@@ -485,6 +533,9 @@
 		// register variables and callbacks with the theme
 		player.playerPosition = [NSNumber numberWithDouble:[Rdio playerPosition]];
 		__weak typeof(Rdio) weakRdio = Rdio;
+        [player setPlayerPositionCallback:^(double position){
+            [weakRdio setPlayerPosition:(NSInteger)position];
+        }];
 		[player setPlayCallback:^(){
 			[weakRdio playSource:@""];
 		}];
@@ -525,6 +576,9 @@
 		// register variables and callbacks with the theme
 		player.playerPosition = [NSNumber numberWithDouble:[Spotify playerPosition]];
 		__weak typeof(Spotify) weakSpotify = Spotify;
+        [player setPlayerPositionCallback:^(double position){
+            [weakSpotify setPlayerPosition:position];
+        }];
 		[player setPlayCallback:^(){
 			[weakSpotify play];
 		}];
@@ -574,7 +628,10 @@
     if (voxUsable) {
         // register variables and callbacks with the theme
         __weak typeof(Vox) weakVox = Vox;
-        player.playerPosition = [NSNumber numberWithInt:[Vox currentTime]];
+        player.playerPosition = [NSNumber numberWithDouble:[Vox currentTime]];
+        [player setPlayerPositionCallback:^(double position){
+            [weakVox setCurrentTime:position];
+        }];
         [player setPlayCallback:^(){
             [weakVox play];
         }];
@@ -681,6 +738,44 @@
 			return albumImage;
 		}
 	}
+    if (([Instacast isRunning] && chosenPlayer==audioPlayerInstacast) || ([Instacast isRunning] && resolvingConflict==NO)) {
+//        albumData = [NSData new];
+        InstacastEpisode *episode= [Instacast currentEpisode];
+        //NSLog(@"image:%@", episode);
+        NSImage *albumImage = nil;
+        //NSImage *albumImage = [[NSImage alloc] initWithData:[episode artwork]];
+//        NSImage *albumImage = [[NSImage alloc] initWithData:albumData];
+        
+        if ([self image:previousTrackArtwork isEqualTo:albumImage])
+        {
+            return previousTrackArtwork;
+        }
+        previousTrackArtwork = albumImage;
+        albumData = [albumImage TIFFRepresentation];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
+            [NSApp setApplicationIconImage: albumImage];
+        }
+        if (albumImage==nil) {
+            NSLog(@"MusicaController No artwork found");
+            if ([self image:previousTrackArtwork isEqualTo:[NSImage imageNamed:@"MissingArtwork.png"]])
+            {
+                return previousTrackArtwork;
+            }
+            NSImage *albumImage = [NSImage imageNamed:@"MissingArtwork.png"];
+            previousTrackArtwork = albumImage;
+            albumData = [albumImage TIFFRepresentation];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicaEnableDockArt"]) {
+                //[NSApp setApplicationIconImage: albumImage];
+                [NSApp setApplicationIconImage:[NSImage imageNamed:@"NSImageNameApplicationIcon"]];
+            }
+        }
+        // check for specified artwork dimensions
+        if (themeDictionary[@"BTArtworkHeight"]!=nil && themeDictionary[@"BTArtworkWidth"]!=nil) {
+            albumData = [albumImage dataOfResizeForWidth:[themeDictionary[@"BTArtworkWidth"] floatValue] andHeight:[themeDictionary[@"BTArtworkHeight"] floatValue]];
+        }
+        [webView stringByEvaluatingJavaScriptFromString:[[NSString alloc] initWithFormat:@"%@('data:image/tiff;base64,%@')", themeDictionary[@"BTArtworkFunction"], [albumData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn]]];
+        return albumImage;
+    }
     if (([Radium isRunning] && chosenPlayer==audioPlayerRadium) || ([Radium isRunning] && resolvingConflict==NO)) {
         //NSLog(@"Radium awesomeness");
         if ([self image:previousTrackArtwork isEqualTo:[Radium trackArtwork]])
@@ -869,6 +964,14 @@
 		[theTrack setLength:[NSNumber numberWithInt:((ETTrack*)track).duration]];
 		[player setRatingNumber:[NSNumber numberWithInt:((ETTrack*)track).rating]];
 	}
+    if ([[track className] isEqualToString:@"InstacastEpisode"]) {
+        [theTrack setTitle:((InstacastEpisode*)track).title];
+        [theTrack setAlbum:((InstacastEpisode*)track).podcast.title];
+        [theTrack setArtist:((InstacastEpisode*)track).podcast.author];
+        [theTrack setGenre:@""];
+        [theTrack setLength:[NSNumber numberWithDouble:[Instacast playableDuration]]];
+        [player setRatingNumber:@0];
+    }
 	if ([[track className] isEqualToString:@"RadiumApplication"])
 	{
 		[theTrack setTitle:[Radium trackName]];

@@ -8,6 +8,7 @@
 
 typedef enum {
     audioPlayeriTunes,
+    audioPlayerInstacast,
     audioPlayerSpotify,
     audioPlayerRdio,
     audioPlayerRadium,

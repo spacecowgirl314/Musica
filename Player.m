@@ -19,6 +19,7 @@
 @synthesize pauseCallback;
 @synthesize previousTrackCallback;
 @synthesize nextTrackCallback;
+@synthesize playerPositionCallback;
 
 - (id)init
 {
@@ -75,6 +76,16 @@
     }
 }
 
+- (void)setPlayerPositionBridge:(NSNumber*)position
+{
+    NSLog(@"new position %f", [position doubleValue]);
+    if (playerPositionCallback!=nil)
+    {
+        // may also need to update this object to reflect changes
+        playerPositionCallback([position doubleValue]);
+    }
+}
+
 // Returns a number 0-100. Every 20 units reprents a star.
 - (NSNumber*)rating
 {
@@ -86,6 +97,8 @@
     NSString *name = nil;
     if (sel == @selector(playerPosition))
 		name = @"playerPosition";
+    if (sel == @selector(setPlayerPositionBridge:))
+        name = @"setPlayerPosition";
 	if (sel == @selector(playState))
 		name = @"playState";
 	if (sel == @selector(currentTrack))
@@ -109,6 +122,7 @@
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector
 {
     if (aSelector == @selector(playerPosition)) return NO;
+    if (aSelector == @selector(setPlayerPositionBridge:)) return NO;
 	if (aSelector == @selector(playState)) return NO;
 	if (aSelector == @selector(currentTrack)) return NO;
 	if (aSelector == @selector(play)) return NO;

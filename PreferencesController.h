@@ -19,7 +19,7 @@
 	IBOutlet NSView *lastFMView;
     IBOutlet NSToolbarItem *defaultItem;
     IBOutlet NSSegmentedControl *loginSwitch;
-	ThemeLoader *themeLoader;
+	IBOutlet ThemeLoader *themeLoader;
 }
 
 @property (strong, nonatomic) IBOutlet NSPopUpButton *musicaWindowButton;

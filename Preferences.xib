@@ -10,7 +10,7 @@
                 <outlet property="generalView" destination="369" id="415"/>
                 <outlet property="lastFMView" destination="GWp-xB-OmY" id="JYc-y5-QR6"/>
                 <outlet property="musicaWindowButton" destination="384" id="417"/>
-                <outlet property="oMyTableView" destination="277" id="290"/>
+                <outlet property="themeLoader" destination="wIq-Gt-Nea" id="RyL-iA-LIa"/>
                 <outlet property="themeTableView" destination="277" id="AHH-fU-bDR"/>
                 <outlet property="themesView" destination="337" id="435"/>
                 <outlet property="toolbar" destination="349" id="360"/>
@@ -148,7 +148,7 @@
                     <font key="titleFont" metaFont="system"/>
                 </box>
                 <textField verticalHuggingPriority="750" id="254">
-                    <rect key="frame" x="5" y="306" width="57" height="17"/>
+                    <rect key="frame" x="5" y="306" width="325" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Themes" id="255">
                         <font key="font" metaFont="systemBold"/>
@@ -314,6 +314,7 @@
         <customObject id="wIq-Gt-Nea" customClass="ThemeLoader">
             <connections>
                 <outlet property="previewImageView" destination="C8o-rZ-LLU" id="ziR-ZB-OGP"/>
+                <outlet property="selectedThemeTextField" destination="254" id="BQa-rg-N8o"/>
                 <outlet property="tableView" destination="277" id="or1-yV-Oqg"/>
             </connections>
         </customObject>

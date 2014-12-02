@@ -12,6 +12,7 @@
 @interface Player : NSObject
 
 typedef void (^voidBlock)();
+typedef void (^voidBlockWithInt)(double position);
 
 - (void)playPause;
 - (void)play;
@@ -25,6 +26,7 @@ typedef void (^voidBlock)();
 @property (copy) voidBlock pauseCallback;
 @property (copy) voidBlock previousTrackCallback;
 @property (copy) voidBlock nextTrackCallback;
+@property (copy) voidBlockWithInt playerPositionCallback;
 @property Track *currentTrack;
 @property NSNumber *playerPosition;
 @property NSNumber *playState;

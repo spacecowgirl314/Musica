@@ -15,6 +15,7 @@
 	NSMutableArray *themes;
 	IBOutlet NSTableView *tableView;
     IBOutlet NSImageView *previewImageView;
+    IBOutlet NSTextField *selectedThemeTextField;
 }
 
 - (void)reload;

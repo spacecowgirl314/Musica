@@ -44,12 +44,6 @@
 } audioPlayer;*/
 
 @interface MusicaController : NSObject <NSApplicationDelegate> {
-    IBOutlet NSImageView *buttonBar;
-	IBOutlet NSButton *pauseButton;
-	IBOutlet NSButton *previousButton;
-	IBOutlet NSButton *nextButton;
-	IBOutlet NSButton *resizeButton;
-    IBOutlet NSButton *infoButton;
 	IBOutlet NSWindow *window;
 	IBOutlet WebView *webView;
 	NSString *previousTrack;
@@ -59,28 +53,26 @@
 	NSStatusItem *theItem;
 	NSTimer *fadeInTimer;
     NSTimer *fadeOutTimer;
-	NSMutableArray *pluginInstances;
-	NSManagedObjectContext *remoteMusicaContext;
 	NSMutableArray *musicaServices;
-	NSTrackingArea *myTrackingArea;
 	NSDictionary *themeDictionary;
 	NSMutableDictionary *themeStore;
+    
+    // Bridges
 	//iTunesApplication *iTunes;
+    InstacastApplication *Instacast;
     RdioApplication *Rdio;
     SpotifyApplication *Spotify;
     RadiumApplication *Radium;
     VoxApplication *Vox;
-	BOOL mouseInWindow;
+
     TrayMenu *menu;
 	Player *player;
 	Bowtie *bowtie;
 	LFWebService *lfmWebService;
 	
-	// controllers
+	// Controllers
 	PreferencesController *preferencesController;
     
-    //title bar
-    NSButton *closeButton;
     NSMutableArray *audioPlayers;
     BOOL resolvingConflict;
     audioPlayer chosenPlayer;
