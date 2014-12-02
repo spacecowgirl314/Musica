@@ -32,31 +32,47 @@
 - (void)play
 {
 	NSLog(@"play");
-	playCallback();
+    if (playCallback!=nil)
+    {
+        playCallback();
+    }
 }
 
 - (void)playPause
 {
 	NSLog(@"playPause");
-	playPauseCallback();
+    if (playPauseCallback!=nil)
+    {
+        playPauseCallback();
+    }
 }
 
 - (void)pause
 {
 	NSLog(@"pause");
-	pauseCallback();
+    if (pauseCallback!=nil)
+    {
+        pauseCallback();
+    }
 }
 
 - (void)previousTrack
 {
 	NSLog(@"previousTrack");
-	previousTrackCallback();
+    if (previousTrackCallback!=nil)
+    {
+        previousTrackCallback();
+    }
+	
 }
 
 - (void)nextTrack
 {
 	NSLog(@"nextTrack");
-	nextTrackCallback();
+    if (nextTrackCallback!=nil)
+    {
+        nextTrackCallback();
+    }
 }
 
 // Returns a number 0-100. Every 20 units reprents a star.
