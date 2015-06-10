@@ -963,6 +963,10 @@
 		[theTrack setGenre:((ETTrack*)track).genre];
 		[theTrack setLength:[NSNumber numberWithInt:((ETTrack*)track).duration]];
 		[player setRatingNumber:[NSNumber numberWithInt:((ETTrack*)track).rating]];
+        
+        if ([[track albumArtist] isEqualToString:@""]) {
+            [theTrack setArtist:((ETTrack*)track).artist];
+        }
 	}
     if ([[track className] isEqualToString:@"InstacastEpisode"]) {
         [theTrack setTitle:((InstacastEpisode*)track).title];
